@@ -14,7 +14,7 @@ interface Contract {
     interface IPresenter<T: Contract.IView>{
         fun attachView(v: T)
         fun detachView()
-        fun setModel(m: Contract.IModel)
+        fun attachModel(m: Contract.IModel)
         fun signIn()
     }
 }
@@ -31,7 +31,7 @@ abstract class Presenter<T: Contract.IView>: Contract.IPresenter<T>{
         view = null
     }
 
-    override fun setModel(m: Contract.IModel) {
+    override fun attachModel(m: Contract.IModel) {
         model = m
     }
 
