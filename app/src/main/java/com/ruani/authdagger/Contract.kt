@@ -38,9 +38,10 @@ abstract class Presenter<T: Contract.IView>: Contract.IPresenter<T>{
     fun getView(): T? = view
 
     override fun signIn() {
-        val signComplete = model?.signIn() ?: false
-        if (signComplete)
-            view?.accessed()
+        model?.let{ model_ ->
+            if (model_.signIn())
+                view?.accessed()
+        }
     }
 
 }
