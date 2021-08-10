@@ -32,7 +32,7 @@ abstract class Presenter<T: Contract.IView>: Contract.IPresenter<T>{
     }
 
     override fun setModel(m: Contract.IModel) {
-        this.model = m
+        model = m
     }
 
     fun getView()  = view
