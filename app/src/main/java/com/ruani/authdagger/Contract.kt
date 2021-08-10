@@ -2,7 +2,7 @@ package com.ruani.authdagger
 
 interface Contract {
     interface IView {
-        fun proceed()
+        fun accessed()
     }
 
     interface IModel{
@@ -40,7 +40,7 @@ abstract class Presenter<T: Contract.IView>: Contract.IPresenter<T>{
     override fun signIn() {
         val signComplete = model?.signIn() ?: false
         if (signComplete)
-            view?.proceed()
+            view?.accessed()
     }
 
 }
