@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), Contract.IView {
     companion object{
         private fun setNightMode() {
             AppCompatDelegate.setDefaultNightMode(
@@ -17,5 +17,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
         setNightMode()
+    }
+
+    override fun accessed() {
+        TODO("Not yet implemented")
     }
 }

@@ -35,7 +35,9 @@ abstract class Presenter<T: Contract.IView>: Contract.IPresenter<T>{
         this.model = m
     }
 
-    fun getView(): T? = view
+    fun getView()  = view
+
+    fun getModel() = model
 
     override fun signIn() {
         model?.let{ model_ ->
