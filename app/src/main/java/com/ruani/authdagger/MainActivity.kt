@@ -3,6 +3,8 @@ package com.ruani.authdagger
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
+import com.ruani.authdagger.abstractData.AuthData
+import com.ruani.authdagger.abstractData.Contract
 
 class MainActivity : AppCompatActivity(), Contract.IView {
     companion object{
