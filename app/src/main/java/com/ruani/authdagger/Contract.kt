@@ -4,8 +4,10 @@ import android.view.View
 
 interface Contract {
     interface IView {
-        fun accessed()
-        fun showError(error: AuthData.AuthValue)
+        fun onSignin()
+        fun onRegistered()
+        fun onRestored()
+        fun onError(error: AuthData.AuthValue)
     }
 
     interface IModel{
@@ -47,15 +49,16 @@ abstract class Presenter<T: Contract.IView>: Contract.IPresenter<T>{
         model?.let {model_ ->
             when (val result = model_.viewOnClick(v)) {
                 AuthData.AuthValue.COMPLETE_SIGN ->
-                    view?.accessed()
-                AuthData.AuthValue.COMPLETE_REGISTER -> {
+                    view?.onSignin()
 
-                }
-                AuthData.AuthValue.COMPLETE_RESTORE -> {
+                AuthData.AuthValue.COMPLETE_REGISTER ->
+                    view?.onRegistered()
 
-                }
+                AuthData.AuthValue.COMPLETE_RESTORE ->
+                    view?.onRestored()
+
                 else ->
-                    view?.showError(result)
+                    view?.onError(result)
             }
         }
     }

@@ -19,11 +19,19 @@ class MainActivity : AppCompatActivity(), Contract.IView {
         setNightMode()
     }
 
-    override fun accessed() {
+    override fun onSignin() {
         TODO("Not yet implemented")
     }
 
-    override fun showError(error: AuthData.AuthValue) {
+    override fun onError(error: AuthData.AuthValue) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onRegistered() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onRestored() {
         TODO("Not yet implemented")
     }
 }
