@@ -1,5 +1,7 @@
 package com.ruani.authdagger
 
+import android.view.View
+
 interface Contract {
     interface IView {
         fun accessed()
