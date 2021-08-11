@@ -9,8 +9,9 @@ interface Contract {
 
     interface IModel{
         fun putPassword(password: String)
+        fun getEmail(): String
         fun putEmail(email: String)
-        fun viewOnClick(v: View)
+        fun viewOnClick(v: View): AuthData.AuthValue
         fun signIn(): Boolean
     }
 
@@ -50,7 +51,12 @@ abstract class Presenter<T: Contract.IView>: Contract.IPresenter<T>{
     }
 
     fun onClick(v: View) {
-        model?.viewOnClick(v)
+        model?.let {model_ ->
+            when (model_.viewOnClick(v)) {
+                AuthData.AuthValue.COMPLETE_SIGN ->
+                    view?.accessed()
+            }
+        }
     }
 
 }
