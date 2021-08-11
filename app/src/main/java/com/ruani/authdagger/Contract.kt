@@ -5,6 +5,7 @@ import android.view.View
 interface Contract {
     interface IView {
         fun accessed()
+        fun showError(error: AuthData.AuthValue)
     }
 
     interface IModel{
@@ -19,7 +20,6 @@ interface Contract {
         fun attachView(v: T)
         fun detachView()
         fun attachModel(m: Contract.IModel)
-        fun signIn()
     }
 }
 
@@ -43,18 +43,19 @@ abstract class Presenter<T: Contract.IView>: Contract.IPresenter<T>{
 
     fun getModel() = model
 
-    override fun signIn() {
-        model?.let{ model_ ->
-            if (model_.signIn())
-                view?.accessed()
-        }
-    }
-
     fun onClick(v: View) {
         model?.let {model_ ->
-            when (model_.viewOnClick(v)) {
+            when (val result = model_.viewOnClick(v)) {
                 AuthData.AuthValue.COMPLETE_SIGN ->
                     view?.accessed()
+                AuthData.AuthValue.COMPLETE_REGISTER -> {
+
+                }
+                AuthData.AuthValue.COMPLETE_RESTORE -> {
+
+                }
+                else ->
+                    view?.showError(result)
             }
         }
     }

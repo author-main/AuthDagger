@@ -22,4 +22,8 @@ class MainActivity : AppCompatActivity(), Contract.IView {
     override fun accessed() {
         TODO("Not yet implemented")
     }
+
+    override fun showError(error: AuthData.AuthValue) {
+        TODO("Not yet implemented")
+    }
 }
