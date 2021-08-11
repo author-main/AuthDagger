@@ -8,6 +8,7 @@ interface Contract {
     interface IModel{
         fun putPassword(password: String)
         fun putEmail(email: String)
+        fun viewOnClick(v: View)
         fun signIn(): Boolean
     }
 
@@ -44,6 +45,10 @@ abstract class Presenter<T: Contract.IView>: Contract.IPresenter<T>{
             if (model_.signIn())
                 view?.accessed()
         }
+    }
+
+    fun onClick(v: View) {
+        model?.viewOnClick(v)
     }
 
 }
