@@ -6,9 +6,10 @@ interface MpvView {
     fun onSignin()
 }
 
-interface MvpPresenter<T: MpvView>{
+interface MvpPresenter<T: MpvView, M: MvpModel>{
     fun attachView(v: T)
     fun detachView()
+    fun attachModel(m: M)
 }
 
 interface MvpModel{
@@ -28,7 +29,7 @@ interface Contract {
         fun viewOnClick(v: View): AuthData.AuthValue
     }
 
-    interface IPresenter<T: Contract.IView>: MvpPresenter<T>{
+    interface IPresenter<T: Contract.IView, M: IModel>: MvpPresenter<T, M>{
         fun signin()
         fun restore()
         fun register()
@@ -36,9 +37,9 @@ interface Contract {
     }
 }
 
-abstract class Presenter<T: Contract.IView>: Contract.IPresenter<T>{
+abstract class Presenter<T: Contract.IView, M: Contract.IModel>: Contract.IPresenter<T, M>{
     private var view: T? = null
-    private var model: Contract.IModel? = null
+    private var model: M? = null
 
     override fun attachView(v: T) {
         view = v
@@ -84,5 +85,9 @@ abstract class Presenter<T: Contract.IView>: Contract.IPresenter<T>{
 
     override fun error(error: AuthData.AuthValue) {
         view?.onError(error)
+    }
+
+    override fun attachModel(m: M) {
+        model = m
     }
 }
