@@ -9,6 +9,10 @@ class Model: Contract.IModel {
         TODO("Not yet implemented")
     }
 
+    private fun getPassword(): String{
+        TODO("Not yet implemented")
+    }
+
     override fun getEmail(): String {
         TODO("Not yet implemented")
     }
