@@ -1,7 +1,5 @@
 package com.ruani.authdagger.mvp
 
-import android.view.View
-import com.ruani.authdagger.abstractData.AuthData
 import com.ruani.authdagger.abstractData.Contract
 import com.ruani.authdagger.abstractData.TPresenter
 
