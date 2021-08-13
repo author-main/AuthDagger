@@ -9,7 +9,7 @@ import com.ruani.authdagger.mvp.Model
 import com.ruani.authdagger.mvp.Presenter
 
 class MainActivity : AppCompatActivity(), Contract.IView {
-    private lateinit var presenter: Presenter<Contract.IView, Contract.IModel>
+    private lateinit var presenter: Presenter<Contract.IView>
     companion object{
         private fun setNightMode() {
             AppCompatDelegate.setDefaultNightMode(
@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity(), Contract.IView {
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
         setNightMode()
-        presenter = Presenter(this, Model())
+        presenter = Presenter(this)
     }
 
     override fun onSignin() {
