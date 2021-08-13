@@ -4,9 +4,9 @@ import android.view.View
 import com.ruani.authdagger.abstractData.AuthData
 import com.ruani.authdagger.abstractData.Contract
 
-class Presenter<T: Contract.IView, M: Contract.IModel>: Contract.IPresenter<T, M>{
-    private var view: T? = null
-    private var model: M? = null
+class Presenter<T: Contract.IView, M: Contract.IModel>(v: T, m: M): Contract.IPresenter<T, M>{
+    private var view:  T?  = v
+    private var model: M   = m
 
     override fun attachView(v: T) {
         view = v
@@ -21,21 +21,19 @@ class Presenter<T: Contract.IView, M: Contract.IModel>: Contract.IPresenter<T, M
     fun getModel() = model
 
     fun onClick(v: View) {
-        model?.let {model_ ->
-            when (val result = model_.viewOnClick(v)) {
-                AuthData.AuthValue.COMPLETE_SIGN ->
-                    signin()
+        when (val result = model.viewOnClick(v)) {
+            AuthData.AuthValue.COMPLETE_SIGN ->
+                signin()
 
-                AuthData.AuthValue.COMPLETE_REGISTER ->
-                    register()
+            AuthData.AuthValue.COMPLETE_REGISTER ->
+                register()
 
-                AuthData.AuthValue.COMPLETE_RESTORE ->
-                    restore()
+            AuthData.AuthValue.COMPLETE_RESTORE ->
+                restore()
 
-                else ->
-                    error(result)
-            }
-        }
+            else ->
+                error(result)
+       }
     }
 
     override fun signin() {
@@ -54,7 +52,7 @@ class Presenter<T: Contract.IView, M: Contract.IModel>: Contract.IPresenter<T, M
         view?.onError(error)
     }
 
-    override fun attachModel(m: M) {
+    /*override fun attachModel(m: M) {
         model = m
-    }
+    }*/
 }

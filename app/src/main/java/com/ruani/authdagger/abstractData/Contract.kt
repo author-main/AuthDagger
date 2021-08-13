@@ -9,7 +9,7 @@ interface MpvView {
 interface MvpPresenter<T: MpvView, M: MvpModel>{
     fun attachView(v: T)
     fun detachView()
-    fun attachModel(m: M)
+    //fun attachModel(m: M)
 }
 
 interface MvpModel{

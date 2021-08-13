@@ -5,8 +5,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import com.ruani.authdagger.abstractData.AuthData
 import com.ruani.authdagger.abstractData.Contract
+import com.ruani.authdagger.mvp.Model
+import com.ruani.authdagger.mvp.Presenter
 
 class MainActivity : AppCompatActivity(), Contract.IView {
+    private lateinit var presenter: Presenter<Contract.IView, Contract.IModel>
     companion object{
         private fun setNightMode() {
             AppCompatDelegate.setDefaultNightMode(
@@ -19,6 +22,7 @@ class MainActivity : AppCompatActivity(), Contract.IView {
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
         setNightMode()
+        presenter = Presenter(this, Model())
     }
 
     override fun onSignin() {
