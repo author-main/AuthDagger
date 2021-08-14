@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import com.ruani.authdagger.abstractData.AuthData
 import com.ruani.authdagger.abstractData.Contract
-import com.ruani.authdagger.mvp.Model
 import com.ruani.authdagger.mvp.Presenter
 
 class MainActivity : AppCompatActivity(), Contract.IView {
