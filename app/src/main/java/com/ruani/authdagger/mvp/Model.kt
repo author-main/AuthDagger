@@ -7,8 +7,6 @@ import com.ruani.authdagger.getAppContext
 import com.ruani.authdagger.mvp.model_classes.UserDataStorage
 
 class Model: Contract.IModel {
-    private val providerKeyStore: String = "AndroidKeyStore"
-    private val alias = getAppContext().packageName
     private val userDataStorage = UserDataStorage()
     override fun putPassword(password: String) {
         userDataStorage.putPassword(password)
@@ -25,4 +23,5 @@ class Model: Contract.IModel {
     override fun viewOnClick(v: View): AuthData.AuthValue {
         TODO("Not yet implemented")
     }
+
 }
