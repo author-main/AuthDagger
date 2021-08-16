@@ -3,22 +3,20 @@ package com.ruani.authdagger.mvp
 import android.view.View
 import com.ruani.authdagger.abstractData.AuthData
 import com.ruani.authdagger.abstractData.Contract
+import com.ruani.authdagger.mvp.model_classes.UserDataStorage
 
 class Model: Contract.IModel {
+    private val userDataStorage = UserDataStorage()
     override fun putPassword(password: String) {
-        TODO("Not yet implemented")
+        userDataStorage.putPassword(password)
     }
 
-    private fun getPassword(): String{
-        TODO("Not yet implemented")
-    }
+    private fun getPassword() = userDataStorage.getPassword()
 
-    override fun getEmail(): String {
-        TODO("Not yet implemented")
-    }
+    override fun getEmail() = userDataStorage.getEmail()
 
     override fun putEmail(email: String) {
-        TODO("Not yet implemented")
+        userDataStorage.putEmail(email)
     }
 
     override fun viewOnClick(v: View): AuthData.AuthValue {
