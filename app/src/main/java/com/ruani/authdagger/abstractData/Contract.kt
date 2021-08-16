@@ -13,7 +13,7 @@ interface MvpPresenter<T: MpvView, M: MvpModel>{
 
 interface MvpModel{
     fun putPassword(password: String)
-    fun getEmail(): String
+    fun getEmail(): String?
     fun putEmail(email: String)
 }
 
