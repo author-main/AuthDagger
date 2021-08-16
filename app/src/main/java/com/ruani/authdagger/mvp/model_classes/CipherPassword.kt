@@ -7,11 +7,11 @@ class CipherPassword: IOCipherPassword {
     private val providerKeyStore: String = "AndroidKeyStore"
     private val alias = getAppContext().packageName
 
-    override fun getPassword(): String? {
+    override fun decryptPassword(): String? {
         TODO("Not yet implemented")
     }
 
-    override fun setPassword(password: String) {
+    override fun encryptPassword(password: String) {
         TODO("Not yet implemented")
     }
 
