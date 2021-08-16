@@ -4,6 +4,7 @@ import android.view.View
 import com.ruani.authdagger.abstractData.AuthData
 import com.ruani.authdagger.abstractData.Contract
 import com.ruani.authdagger.getAppContext
+import com.ruani.authdagger.mvp.model_classes.CipherPassword
 import com.ruani.authdagger.mvp.model_classes.UserDataStorage
 
 class Model: Contract.IModel {

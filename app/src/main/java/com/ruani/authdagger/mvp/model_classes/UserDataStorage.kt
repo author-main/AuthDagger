@@ -9,6 +9,7 @@ import com.ruani.authdagger.getAppContext
 import com.ruani.authdagger.interfaces.IOUserDataStorage
 
 class UserDataStorage: IOUserDataStorage {
+    private val cipherData: CipherPassword  = CipherPassword()
     private val preferences: SharedPreferences = getAppContext().getSharedPreferences(
         FILE_PREFERENCES, Context.MODE_PRIVATE)
 
