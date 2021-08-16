@@ -14,10 +14,15 @@ class UserDataStorage: IOUserDataStorage {
         FILE_PREFERENCES, Context.MODE_PRIVATE)
 
     override fun putPassword(password: String) {
-        preferences.edit().putString(KEY_PASSWORD, password).apply()
+        preferences.edit().putString(KEY_PASSWORD, cipherData.encryptPassword(password)).apply()
     }
 
-    override fun getPassword() = preferences.getString(KEY_PASSWORD, null)
+    override fun getPassword(): String? {
+        var password = preferences.getString(KEY_PASSWORD, null)
+        if (!password.isNullOrBlank())
+            password = cipherData.decryptPassword(password)
+        return password
+    }
 
     override fun getEmail() = preferences.getString(KEY_MAIL, null)
 
