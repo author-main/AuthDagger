@@ -30,4 +30,7 @@ class UserDataStorage: IOUserDataStorage {
     override fun putEmail(email: String) {
         preferences.edit().putString(KEY_MAIL, email).apply()
     }
+
+    override fun existPassword() =
+        !preferences.getString(KEY_PASSWORD, null).isNullOrEmpty()
 }

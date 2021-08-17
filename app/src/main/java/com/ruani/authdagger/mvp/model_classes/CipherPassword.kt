@@ -16,10 +16,6 @@ class CipherPassword: IOCipherPassword {
         TODO("Not yet implemented")
     }
 
-    override fun existPassword(): Boolean {
-        TODO("Not yet implemented")
-    }
-
     override fun correctPassword(valie: String): Boolean {
         TODO("Not yet implemented")
     }
