@@ -18,10 +18,11 @@ class UserDataStorage: IOUserDataStorage {
     }
 
     override fun getPassword(): String? {
-        var password = preferences.getString(KEY_PASSWORD, null)
-        if (!password.isNullOrBlank())
-            password = cipherData.decryptPassword(password)
-        return password
+        val password = preferences.getString(KEY_PASSWORD, null)
+        return if (!password.isNullOrBlank())
+            cipherData.decryptPassword(password)
+        else
+            password
     }
 
     override fun getEmail() = preferences.getString(KEY_MAIL, null)
