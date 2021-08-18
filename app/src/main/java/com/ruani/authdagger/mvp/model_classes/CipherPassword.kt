@@ -2,11 +2,19 @@ package com.ruani.authdagger.mvp.model_classes
 
 import com.ruani.authdagger.getAppContext
 import com.ruani.authdagger.interfaces.IOCipherPassword
+import java.security.Key
 import java.security.KeyStore
+import java.security.KeyStoreException
+import java.security.cert.Certificate
 
 class CipherPassword: IOCipherPassword {
     private val providerKeyStore: String = "AndroidKeyStore"
     private val alias = getAppContext().packageName
+    private var keyStore: KeyStore? = getKeyStore()
+
+    init {
+        initKeys()
+    }
 
     override fun decryptPassword(value: String): String {
         TODO("Not yet implemented")
@@ -24,25 +32,21 @@ class CipherPassword: IOCipherPassword {
         TODO("Not yet implemented")
     }
 
-    private fun initKeys(): Boolean{
-        val keyStore = getKeyStore() ?: return false
-        return try {
-            val privateKey = keyStore.getKey(alias, null)
-            val certificate = keyStore.getCertificate(alias)
-            privateKey !=null && certificate?.publicKey != null
-        } catch (e: Exception){
-            false
-        }
-    }
+    private fun initKeys() =
+        !(getPrivateKey() == null || getCertificate() == null)
+
+    private fun getPrivateKey() =
+        keyStore?.getKey(alias, null)
+
+    private fun getCertificate() =
+        keyStore?.getCertificate(alias)
 
     private fun getKeyStore(): KeyStore?{
-        var keyStore: KeyStore? = null
-        return try{
-            keyStore = KeyStore.getInstance(providerKeyStore)
-            keyStore?.load(null)
-            keyStore
-        } catch (e: Exception) {
-            keyStore?.deleteEntry(alias)
+        return try {
+            val keystore = KeyStore.getInstance(providerKeyStore)
+            keystore.load(null)
+            keystore
+        } catch (ex: KeyStoreException){
             null
         }
     }
