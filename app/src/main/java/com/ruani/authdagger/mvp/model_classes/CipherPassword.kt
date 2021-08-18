@@ -1,11 +1,12 @@
 package com.ruani.authdagger.mvp.model_classes
 
+import android.security.keystore.KeyGenParameterSpec
+import android.security.keystore.KeyProperties
 import com.ruani.authdagger.getAppContext
 import com.ruani.authdagger.interfaces.IOCipherPassword
-import java.security.Key
-import java.security.KeyStore
-import java.security.KeyStoreException
+import java.security.*
 import java.security.cert.Certificate
+import java.security.spec.AlgorithmParameterSpec
 
 class CipherPassword: IOCipherPassword {
     private val providerKeyStore: String = "AndroidKeyStore"
@@ -13,7 +14,8 @@ class CipherPassword: IOCipherPassword {
     private var keyStore: KeyStore? = getKeyStore()
 
     init {
-        initKeys()
+        if (!initKeys())
+            generateKeys()
     }
 
     override fun decryptPassword(value: String): String {
@@ -50,4 +52,25 @@ class CipherPassword: IOCipherPassword {
             null
         }
     }
+
+    private fun generateKeys(){
+        if (keyStore == null)
+            return
+        try {
+            val spec: AlgorithmParameterSpec = KeyGenParameterSpec.Builder(
+                alias,
+                KeyProperties.PURPOSE_DECRYPT
+            )
+                .setDigests(KeyProperties.DIGEST_SHA256, KeyProperties.DIGEST_SHA512)
+                .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_RSA_PKCS1)
+                .build()
+            try {
+                val kpGenerator =
+                    KeyPairGenerator.getInstance(KEY_ALGORITHM_RSA, providerKeyStore)
+                kpGenerator.initialize(spec)
+                kpGenerator.generateKeyPair()
+            } catch (ex: NoSuchAlgorithmException){}
+        } catch (e: Exception) {}
+    }
+
 }
