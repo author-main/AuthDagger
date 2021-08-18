@@ -2,6 +2,7 @@ package com.ruani.authdagger.mvp.model_classes
 
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
+import android.security.keystore.KeyProperties.KEY_ALGORITHM_RSA
 import com.ruani.authdagger.getAppContext
 import com.ruani.authdagger.interfaces.IOCipherPassword
 import java.security.*
