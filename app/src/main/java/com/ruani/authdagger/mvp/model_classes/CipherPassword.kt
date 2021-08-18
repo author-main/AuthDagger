@@ -12,7 +12,7 @@ import java.security.spec.AlgorithmParameterSpec
 class CipherPassword: IOCipherPassword {
     private val providerKeyStore: String = "AndroidKeyStore"
     private val alias = getAppContext().packageName
-    private var keyStore: KeyStore? = getKeyStore()
+    private val keyStore: KeyStore? = getKeyStore()
 
     init {
         if (!initKeys())
@@ -55,23 +55,25 @@ class CipherPassword: IOCipherPassword {
     }
 
     private fun generateKeys(){
-        if (keyStore == null)
-            return
-        try {
-            val spec: AlgorithmParameterSpec = KeyGenParameterSpec.Builder(
-                alias,
-                KeyProperties.PURPOSE_DECRYPT
-            )
-                .setDigests(KeyProperties.DIGEST_SHA256, KeyProperties.DIGEST_SHA512)
-                .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_RSA_PKCS1)
-                .build()
+        keyStore?.let {
             try {
-                val kpGenerator =
-                    KeyPairGenerator.getInstance(KEY_ALGORITHM_RSA, providerKeyStore)
-                kpGenerator.initialize(spec)
-                kpGenerator.generateKeyPair()
-            } catch (ex: NoSuchAlgorithmException){}
-        } catch (e: Exception) {}
+                val spec: AlgorithmParameterSpec = KeyGenParameterSpec.Builder(
+                    alias,
+                    KeyProperties.PURPOSE_DECRYPT
+                )
+                    .setDigests(KeyProperties.DIGEST_SHA256, KeyProperties.DIGEST_SHA512)
+                    .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_RSA_PKCS1)
+                    .build()
+                try {
+                    val kpGenerator =
+                        KeyPairGenerator.getInstance(KEY_ALGORITHM_RSA, providerKeyStore)
+                    kpGenerator.initialize(spec)
+                    kpGenerator.generateKeyPair()
+                } catch (ex: NoSuchAlgorithmException) {
+                }
+            } catch (e: Exception) {
+            }
+        }
     }
 
 }
