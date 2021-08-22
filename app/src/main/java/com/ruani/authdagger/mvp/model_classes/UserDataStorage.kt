@@ -14,9 +14,9 @@ class UserDataStorage: IOUserDataStorage {
         FILE_PREFERENCES, Context.MODE_PRIVATE)
 
     override fun putPassword(password: String) {
-        val password = cipherData.encryptPassword(password)
-        if (!password.isNullOrEmpty())
-            preferences.edit().putString(KEY_PASSWORD, password).apply()
+        val value = cipherData.encryptPassword(password)
+        if (!value.isNullOrEmpty())
+            preferences.edit().putString(KEY_PASSWORD, value).apply()
     }
 
     override fun getPassword(): String? {
@@ -35,4 +35,9 @@ class UserDataStorage: IOUserDataStorage {
 
     override fun existPassword() =
         !preferences.getString(KEY_PASSWORD, null).isNullOrEmpty()
+
+    override fun correctPassword(value: String): Boolean {
+        val password = cipherData.decryptPassword(value)
+        return password?.equals(value, false) ?: false
+    }
 }

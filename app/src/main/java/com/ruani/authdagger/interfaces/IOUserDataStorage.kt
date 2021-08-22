@@ -6,4 +6,5 @@ interface IOUserDataStorage {
     fun getEmail(): String?
     fun putEmail(email: String)
     fun existPassword(): Boolean
+    fun correctPassword(value: String): Boolean
 }
