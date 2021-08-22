@@ -23,4 +23,9 @@ class Model: Contract.IModel {
         TODO("Not yet implemented")
     }
 
+    private fun correctPassword(value: String): Boolean {
+        val password = getPassword()
+        return password?.equals(value, false) ?: false
+    }
+
 }

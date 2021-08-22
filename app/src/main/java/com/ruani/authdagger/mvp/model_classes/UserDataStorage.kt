@@ -36,8 +36,4 @@ class UserDataStorage: IOUserDataStorage {
     override fun existPassword() =
         !preferences.getString(KEY_PASSWORD, null).isNullOrEmpty()
 
-    override fun correctPassword(value: String): Boolean {
-        val password = cipherData.decryptPassword(value)
-        return password?.equals(value, false) ?: false
-    }
 }

@@ -41,11 +41,6 @@ class CipherPassword: IOCipherPassword {
         }
     }
 
-    /*override fun correctPassword(value: String): Boolean {
-        val password = decryptPassword(value)
-        return password?.equals(value, false) ?: false
-    }*/
-
     private fun initKeys() =
         !(getPrivateKey() == null || getCertificate() == null)
 
