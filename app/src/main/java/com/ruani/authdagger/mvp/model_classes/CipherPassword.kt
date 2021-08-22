@@ -8,6 +8,7 @@ import com.ruani.authdagger.interfaces.IOCipherPassword
 import java.security.*
 import java.security.cert.Certificate
 import java.security.spec.AlgorithmParameterSpec
+import javax.crypto.Cipher
 
 class CipherPassword: IOCipherPassword {
     private val providerKeyStore: String = "AndroidKeyStore"
@@ -72,4 +73,16 @@ class CipherPassword: IOCipherPassword {
         }
     }
 
+    private fun getDecryptCipher(): Cipher? {
+        return keyStore?.let { keystore_ ->
+            try {
+                val privateKey: PrivateKey = keystore_.getKey(alias, null) as PrivateKey
+                val cipher: Cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding")
+                cipher.init(Cipher.DECRYPT_MODE, privateKey)
+                cipher
+            } catch (ex: java.lang.Exception) {
+                null
+            }
+        }
+    }
 }
