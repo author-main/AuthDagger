@@ -14,7 +14,9 @@ class UserDataStorage: IOUserDataStorage {
         FILE_PREFERENCES, Context.MODE_PRIVATE)
 
     override fun putPassword(password: String) {
-        preferences.edit().putString(KEY_PASSWORD, cipherData.encryptPassword(password)).apply()
+        val value = cipherData.encryptPassword(password)
+        if (!value.isNullOrEmpty())
+            preferences.edit().putString(KEY_PASSWORD, value).apply()
     }
 
     override fun getPassword(): String? {
@@ -22,7 +24,7 @@ class UserDataStorage: IOUserDataStorage {
         return if (!password.isNullOrBlank())
             cipherData.decryptPassword(password)
         else
-            password
+            null
     }
 
     override fun getEmail() = preferences.getString(KEY_MAIL, null)
@@ -33,4 +35,5 @@ class UserDataStorage: IOUserDataStorage {
 
     override fun existPassword() =
         !preferences.getString(KEY_PASSWORD, null).isNullOrEmpty()
+
 }
