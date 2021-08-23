@@ -19,7 +19,7 @@ class Model: Contract.IModel {
         userDataStorage.putEmail(email)
     }
 
-    override fun viewOnClick(v: View): AuthData.AuthValue {
+    override fun viewOnClick(v: View, email: String?, password: String?): AuthData.AuthValue {
         TODO("Not yet implemented")
     }
 

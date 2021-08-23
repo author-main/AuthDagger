@@ -2,6 +2,7 @@ package com.ruani.authdagger
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
 import com.ruani.authdagger.abstract_data.AuthData
 import com.ruani.authdagger.abstract_data.Contract
@@ -38,5 +39,9 @@ class MainActivity : AppCompatActivity(), Contract.IView {
 
     override fun onRestored() {
         TODO("Not yet implemented")
+    }
+
+    fun onClick(v: View) {
+
     }
 }
