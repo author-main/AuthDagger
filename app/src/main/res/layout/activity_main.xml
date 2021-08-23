@@ -17,7 +17,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="21dp"
-        android:fontFamily="sans-serif"
         android:text="@string/authentication"
         android:textAlignment="center"
         android:textSize="18sp" />

@@ -7,7 +7,7 @@ import com.ruani.authdagger.abstract_data.TPresenter
 
 class Presenter<T: Contract.IView>(view: T): TPresenter<T, Model>(view) {
    // private val email: ObservableField<String> = ObservableField()
-    private val password: ObservableField<String> = ObservableField()
+    //private val password: ObservableField<String> = ObservableField()
     init {
         attachModel(Model())
     }
