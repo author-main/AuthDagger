@@ -1,4 +1,4 @@
-package com.ruani.authdagger.abstractData;
+package com.ruani.authdagger.abstract_data;
 
 public final class AuthData {
     public static enum AuthValue {
