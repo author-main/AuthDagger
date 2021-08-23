@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.databinding.DataBindingUtil
 import com.ruani.authdagger.abstract_data.AuthData
 import com.ruani.authdagger.abstract_data.Contract
 import com.ruani.authdagger.mvp.Presenter
 
 class MainActivity : AppCompatActivity(), Contract.IView {
+    private lateinit var dataBinding: com.ruani.authdagger.databinding.ActivityMainBinding
     private lateinit var presenter: Presenter<Contract.IView>
     companion object{
         private fun setNightMode() {
@@ -23,6 +25,11 @@ class MainActivity : AppCompatActivity(), Contract.IView {
         supportActionBar?.hide()
         setNightMode()
         presenter = Presenter(this)
+        dataBinding = DataBindingUtil.setContentView(
+            this,
+            R.layout.activity_main
+        )
+        dataBinding.eventhandler = presenter
     }
 
     override fun onSignin() {
