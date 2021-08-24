@@ -27,13 +27,4 @@ class Presenter<T: Contract.IView>: TPresenter<T, Model>() {
         super.changePassword(symbol)
         viewPasswordHelper?.changeSymbol(symbol)
     }
-
-    /*      password.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback(){
-                  override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                      setPassword(password.get())
-                  }
-              }
-          )
-      }*/
-
 }
