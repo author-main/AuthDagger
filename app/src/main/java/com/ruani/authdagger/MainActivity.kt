@@ -66,12 +66,10 @@ class MainActivity : AppCompatActivity(), Contract.IView {
 
             }
             "delete" -> {
-              //  viewPasswordHelper.changeSymbol(null)
                 presenter.changePassword(null)
             }
             "finger" -> {
             } else -> {
-               // viewPasswordHelper.changeSymbol(tag)
                 presenter.changePassword(tag)
             }
         }
