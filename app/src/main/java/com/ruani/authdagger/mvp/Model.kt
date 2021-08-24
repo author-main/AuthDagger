@@ -1,7 +1,7 @@
 package com.ruani.authdagger.mvp
 
 import android.view.View
-import com.ruani.authdagger.abstract_data.AuthData
+import com.ruani.authdagger.abstract_data.auth_data
 import com.ruani.authdagger.abstract_data.Contract
 import com.ruani.authdagger.mvp.model_classes.UserDataStorage
 
@@ -19,7 +19,7 @@ class Model: Contract.IModel {
         userDataStorage.putEmail(email)
     }
 
-    override fun viewOnClick(v: View, email: String?, password: String?): AuthData.AuthValue {
+    override fun viewOnClick(v: View, email: String?, password: String?): auth_data.AuthValue {
         TODO("Not yet implemented")
     }
 

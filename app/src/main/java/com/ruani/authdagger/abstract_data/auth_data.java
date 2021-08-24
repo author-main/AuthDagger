@@ -1,6 +1,6 @@
 package com.ruani.authdagger.abstract_data;
 
-public final class AuthData {
+public final class auth_data {
     public static enum AuthValue {
         COMPLETE_SIGN,
         COMPLETE_REGISTER,

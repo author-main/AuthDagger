@@ -2,6 +2,7 @@ package com.ruani.authdagger.abstract_data
 
 import android.view.View
 import androidx.databinding.ObservableField
+import com.ruani.authdagger.log
 
 interface MpvView {
     fun onSignin()
@@ -22,26 +23,31 @@ interface Contract {
     interface IView: MpvView {
         fun onRegistered()
         fun onRestored()
-        fun onError(error: AuthData.AuthValue)
+        fun onError(error: auth_data.AuthValue)
     }
 
     interface IModel: MvpModel{
-        fun viewOnClick(v: View, email: String?, password: String?): AuthData.AuthValue
+        fun viewOnClick(v: View, email: String?, password: String?): auth_data.AuthValue
     }
 
     interface IPresenter<T: Contract.IView, M: IModel>: MvpPresenter<T, M>{
         fun signin()
         fun restore()
         fun register()
-        fun error(error: AuthData.AuthValue)
+        fun error(error: auth_data.AuthValue)
+        fun setPassword(value: String)
     }
 }
 
 abstract class TPresenter<T: Contract.IView, M: Contract.IModel>(v: T): Contract.IPresenter<T, M>{
     private var view:       T?  = v
     private var model:      M?  = null
-    private val email:      ObservableField<String> = ObservableField()
-    private val password:   ObservableField<String> = ObservableField()
+    val email:      ObservableField<String> = ObservableField()
+    val password:   ObservableField<String> = ObservableField()
+
+    override fun setPassword(value: String) {
+        password.set(value)
+    }
 
     override fun attachView(v: T) {
         view = v
@@ -60,15 +66,16 @@ abstract class TPresenter<T: Contract.IView, M: Contract.IModel>(v: T): Contract
     fun getModel() = model*/
 
     fun onClick(v: View) {
+        log(email.get())
         model?.let {model_ ->
             when (val result = model_.viewOnClick(v, email.get(), password.get())) {
-                AuthData.AuthValue.COMPLETE_SIGN ->
+                auth_data.AuthValue.COMPLETE_SIGN ->
                     signin()
 
-                AuthData.AuthValue.COMPLETE_REGISTER ->
+                auth_data.AuthValue.COMPLETE_REGISTER ->
                     register()
 
-                AuthData.AuthValue.COMPLETE_RESTORE ->
+                auth_data.AuthValue.COMPLETE_RESTORE ->
                     restore()
 
                 else ->
@@ -89,7 +96,7 @@ abstract class TPresenter<T: Contract.IView, M: Contract.IModel>(v: T): Contract
         view?.onRegistered()
     }
 
-    override fun error(error: AuthData.AuthValue) {
+    override fun error(error: auth_data.AuthValue) {
         view?.onError(error)
     }
 }

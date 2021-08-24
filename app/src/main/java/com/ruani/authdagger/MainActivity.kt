@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
-import com.ruani.authdagger.abstract_data.AuthData
+import com.ruani.authdagger.abstract_data.auth_data
 import com.ruani.authdagger.abstract_data.Contract
 import com.ruani.authdagger.mvp.Presenter
 
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity(), Contract.IView {
         TODO("Not yet implemented")
     }
 
-    override fun onError(error: AuthData.AuthValue) {
+    override fun onError(error: auth_data.AuthValue) {
         TODO("Not yet implemented")
     }
 
