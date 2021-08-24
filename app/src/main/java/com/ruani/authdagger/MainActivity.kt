@@ -39,21 +39,7 @@ class MainActivity : AppCompatActivity(), Contract.IView {
             R.layout.activity_main
         )
         dataBinding.eventhandler = presenter
-     /*   viewPasswordHelper = ViewPasswordHelper(
-            arrayOf(dataBinding.textViewSymbol0,
-                dataBinding.textViewSymbol1,
-                dataBinding.textViewSymbol2,
-                dataBinding.textViewSymbol3,
-                dataBinding.textViewSymbol4)
-        )*/
     }
-
-  /*  fun getSymbolView() =
-        arrayOf(dataBinding.textViewSymbol0,
-            dataBinding.textViewSymbol1,
-            dataBinding.textViewSymbol2,
-            dataBinding.textViewSymbol3,
-            dataBinding.textViewSymbol4)*/
 
     override fun onSignin() {
         TODO("Not yet implemented")
