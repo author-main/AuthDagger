@@ -14,7 +14,6 @@ import com.ruani.authdagger.mvp.presenter_classes.ViewPasswordHelper
 class MainActivity : AppCompatActivity(), Contract.IView {
     private lateinit var dataBinding: com.ruani.authdagger.databinding.ActivityMainBinding
     private lateinit var presenter: Presenter<Contract.IView>
-  // private lateinit var viewPasswordHelper: ViewPasswordHelper
     companion object{
         private fun setNightMode() {
             AppCompatDelegate.setDefaultNightMode(
