@@ -2,6 +2,7 @@ package com.ruani.authdagger.abstract_data
 
 import android.view.View
 import androidx.databinding.ObservableField
+import com.ruani.authdagger.LENGTH_PASSWORD
 import com.ruani.authdagger.log
 
 interface MpvView {
@@ -24,6 +25,7 @@ interface Contract {
         fun onRegistered()
         fun onRestored()
         fun onError(error: auth_data.AuthValue)
+        fun clickView(v: View)
     }
 
     interface IModel: MvpModel{
@@ -36,6 +38,7 @@ interface Contract {
         fun register()
         fun error(error: auth_data.AuthValue)
         fun setPassword(value: String)
+        fun changePassword(symbol: String?)
     }
 }
 
@@ -44,6 +47,12 @@ abstract class TPresenter<T: Contract.IView, M: Contract.IModel>(v: T): Contract
     private var model:      M?  = null
     val email:      ObservableField<String> = ObservableField()
     val password:   ObservableField<String> = ObservableField()
+
+    init{
+        password.set("")
+        email.set("")
+    }
+
 
     override fun setPassword(value: String) {
         password.set(value)
@@ -61,13 +70,14 @@ abstract class TPresenter<T: Contract.IView, M: Contract.IModel>(v: T): Contract
         model = m
     }
 
-    /*fun getView()  = view
+    fun getView()  = view
 
-    fun getModel() = model*/
+   // fun getModel() = model*/
 
     fun onClick(v: View) {
-        log(email.get())
-        model?.let {model_ ->
+       // log(email.get())
+        view?.clickView(v)
+     /*   model?.let {model_ ->
             when (val result = model_.viewOnClick(v, email.get(), password.get())) {
                 auth_data.AuthValue.COMPLETE_SIGN ->
                     signin()
@@ -81,7 +91,7 @@ abstract class TPresenter<T: Contract.IView, M: Contract.IModel>(v: T): Contract
                 else ->
                     error(result)
             }
-        }
+        }*/
     }
 
     override fun signin() {
@@ -98,5 +108,20 @@ abstract class TPresenter<T: Contract.IView, M: Contract.IModel>(v: T): Contract
 
     override fun error(error: auth_data.AuthValue) {
         view?.onError(error)
+    }
+
+    override fun changePassword(symbol: String?) {
+        var mPassword = password.get()
+        if (symbol.isNullOrBlank()) {
+            if (!mPassword.isNullOrBlank())
+                mPassword = mPassword.dropLast(1)
+        }
+        else {
+            val lengthPassword = mPassword?.length ?: 0 // <- удалить строку
+            if (lengthPassword < LENGTH_PASSWORD)       // <- удалить строку
+                mPassword += symbol
+        }
+        //log(mPassword)
+        password.set(mPassword)
     }
 }

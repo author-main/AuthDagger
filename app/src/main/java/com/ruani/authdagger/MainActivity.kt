@@ -8,10 +8,12 @@ import androidx.databinding.DataBindingUtil
 import com.ruani.authdagger.abstract_data.auth_data
 import com.ruani.authdagger.abstract_data.Contract
 import com.ruani.authdagger.mvp.Presenter
+import com.ruani.authdagger.mvp.presenter_classes.ViewPasswordHelper
 
 class MainActivity : AppCompatActivity(), Contract.IView {
     private lateinit var dataBinding: com.ruani.authdagger.databinding.ActivityMainBinding
     private lateinit var presenter: Presenter<Contract.IView>
+    private lateinit var viewPasswordHelper: ViewPasswordHelper
     companion object{
         private fun setNightMode() {
             AppCompatDelegate.setDefaultNightMode(
@@ -19,17 +21,26 @@ class MainActivity : AppCompatActivity(), Contract.IView {
             )
         }
     }
+    init {
+        setNightMode()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
-        setNightMode()
         presenter = Presenter(this)
         dataBinding = DataBindingUtil.setContentView(
-            this,
+           this,
             R.layout.activity_main
         )
         dataBinding.eventhandler = presenter
+        viewPasswordHelper = ViewPasswordHelper(
+                arrayOf(dataBinding.textViewSymbol0,
+                    dataBinding.textViewSymbol1,
+                    dataBinding.textViewSymbol2,
+                    dataBinding.textViewSymbol3,
+                    dataBinding.textViewSymbol4)
+        )
     }
 
     override fun onSignin() {
@@ -48,7 +59,24 @@ class MainActivity : AppCompatActivity(), Contract.IView {
         TODO("Not yet implemented")
     }
 
-    fun onClick(v: View) {
+    override fun clickView(v: View) {
+        when (val tag = v.tag.toString()) {
+            "register" -> {
+
+            }
+            "restore" -> {
+
+            }
+            "delete" -> {
+                viewPasswordHelper.changeSymbol(null)
+                presenter.changePassword(null)
+            }
+            "finger" -> {
+            } else -> {
+                viewPasswordHelper.changeSymbol(tag)
+                presenter.changePassword(tag)
+            }
+        }
 
     }
 }

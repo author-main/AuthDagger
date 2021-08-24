@@ -318,7 +318,7 @@
             android:background="?attr/selectableItemBackground"
             android:fontFamily="sans-serif"
             android:onClick="@{eventhandler::onClick}"
-            android:tag="remember"
+            android:tag="restore"
             android:text="@string/button_remember"
             android:textSize="13sp" />
 
