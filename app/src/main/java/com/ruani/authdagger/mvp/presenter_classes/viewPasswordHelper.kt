@@ -27,8 +27,9 @@ class viewPasswordHelper(private val symbols: Array<TextView>) {
                 colorSymbolActive
             else
                 colorSymbol
-        for (i in 0 until symbols.size)
-            setSymbolColor(i, active)
+        symbols.forEach { symbol->
+            symbol.setTextColor(color)
+        }
     }
 
     fun changeSymbol(index: Int, value: String?){
