@@ -1,12 +1,12 @@
 package com.ruani.authdagger.mvp.presenter_classes
 
 import android.widget.TextView
+import com.ruani.authdagger.AUTHFINGER_COMPLETE
 import com.ruani.authdagger.R
 import com.ruani.authdagger.getAppContext
 import com.ruani.authdagger.getColorFromTheme
 
 class viewPasswordHelper(private val symbols: Array<TextView>) {
-    private val authFinger = "FINGER"
     var onChangePassword: (() -> Unit)? = null
     private val colorSymbol = getColorFromTheme(android.R.attr.textColorSecondary)
     private val colorSymbolActive = getColorFromTheme(R.attr.colorAccent)
@@ -36,7 +36,7 @@ class viewPasswordHelper(private val symbols: Array<TextView>) {
         if (value.isNullOrBlank())
             setSymbolColor(index)
         else {
-            if (value == authFinger) {
+            if (value == AUTHFINGER_COMPLETE) {
                 fillSymbols(true)
                 return
             }

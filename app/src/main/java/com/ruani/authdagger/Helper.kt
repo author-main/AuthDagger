@@ -9,6 +9,7 @@ const val FILE_PREFERENCES = "settings"
 const val KEY_MAIL = "key_mail"
 const val KEY_PASSWORD = "key_password"
 const val DEFAULT_COLOR = Color.LTGRAY
+const val AUTHFINGER_COMPLETE = "authfinger_complete"
 
 fun getAppContext() = AuthApplication.applicationContext()
 fun log(message: String?){
