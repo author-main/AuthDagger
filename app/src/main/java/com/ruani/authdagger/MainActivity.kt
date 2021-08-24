@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(), Contract.IView {
                     dataBinding.textViewSymbol2,
                     dataBinding.textViewSymbol3,
                     dataBinding.textViewSymbol4)
-        )
+                )
     }
 
     override fun onSignin() {
