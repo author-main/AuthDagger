@@ -126,6 +126,4 @@ abstract class TPresenter<T: Contract.IView, M: Contract.IModel>: Contract.IPres
         password.set(mPassword)
     }
 
-   /* fun getSymbolViews() =
-        view?.getSymbolViews()*/
 }

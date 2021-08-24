@@ -10,8 +10,6 @@ import com.ruani.authdagger.abstract_data.auth_data
 import com.ruani.authdagger.mvp.presenter_classes.ViewPasswordHelper
 
 class Presenter<T: Contract.IView>: TPresenter<T, Model>() {
-   // private val email: ObservableField<String> = ObservableField()
-    //private val password: ObservableField<String> = ObservableField()
     private var viewPasswordHelper: ViewPasswordHelper? = null
     init {
         attachModel(Model())
