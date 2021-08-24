@@ -21,13 +21,22 @@ class viewPasswordHelper(private val symbols: Array<TextView>) {
         symbols[index].setTextColor(color)
     }
 
+    fun fillSymbols(active: Boolean = false) {
+        val color =
+            if (active)
+                colorSymbolActive
+            else
+                colorSymbol
+        for (i in 0 until symbols.size)
+            setSymbolColor(i, active)
+    }
+
     fun changeSymbol(index: Int, value: String?){
         if (value.isNullOrBlank())
             setSymbolColor(index)
         else {
             if (value == authFinger) {
-                for (i in 0 until symbols.size)
-                    setSymbolColor(i, true)
+                fillSymbols(true)
                 return
             }
             symbols[index].text = value
