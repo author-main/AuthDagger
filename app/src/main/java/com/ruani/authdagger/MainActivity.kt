@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity(), Contract.IView {
             R.layout.activity_main
         )
         dataBinding.eventhandler = presenter
+        presenter.attachView(this)
     }
 
     override fun onSignin() {
@@ -75,13 +76,18 @@ class MainActivity : AppCompatActivity(), Contract.IView {
 
     }
 
-    override fun onStart() {
+ /*   override fun onStart() {
         super.onStart()
         presenter.attachView(this)
     }
 
     override fun onStop() {
         super.onStop()
+        presenter.detachView()
+    }*/
+
+    override fun onDestroy() {
+        super.onDestroy()
         presenter.detachView()
     }
 
