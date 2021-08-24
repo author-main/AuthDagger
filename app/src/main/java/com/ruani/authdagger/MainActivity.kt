@@ -28,19 +28,23 @@ class MainActivity : AppCompatActivity(), Contract.IView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
+        initData()
+    }
+
+    private fun initData(){
         presenter = Presenter(this)
         dataBinding = DataBindingUtil.setContentView(
-           this,
+            this,
             R.layout.activity_main
         )
         dataBinding.eventhandler = presenter
         viewPasswordHelper = ViewPasswordHelper(
-                arrayOf(dataBinding.textViewSymbol0,
-                    dataBinding.textViewSymbol1,
-                    dataBinding.textViewSymbol2,
-                    dataBinding.textViewSymbol3,
-                    dataBinding.textViewSymbol4)
-                )
+            arrayOf(dataBinding.textViewSymbol0,
+                dataBinding.textViewSymbol1,
+                dataBinding.textViewSymbol2,
+                dataBinding.textViewSymbol3,
+                dataBinding.textViewSymbol4)
+        )
     }
 
     override fun onSignin() {
