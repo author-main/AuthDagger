@@ -3,6 +3,7 @@ package com.ruani.authdagger
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import com.ruani.authdagger.abstract_data.auth_data
@@ -13,7 +14,7 @@ import com.ruani.authdagger.mvp.presenter_classes.ViewPasswordHelper
 class MainActivity : AppCompatActivity(), Contract.IView {
     private lateinit var dataBinding: com.ruani.authdagger.databinding.ActivityMainBinding
     private lateinit var presenter: Presenter<Contract.IView>
-    private lateinit var viewPasswordHelper: ViewPasswordHelper
+  // private lateinit var viewPasswordHelper: ViewPasswordHelper
     companion object{
         private fun setNightMode() {
             AppCompatDelegate.setDefaultNightMode(
@@ -32,19 +33,19 @@ class MainActivity : AppCompatActivity(), Contract.IView {
     }
 
     private fun initData(){
-        presenter = Presenter(this)
+        presenter = Presenter()
         dataBinding = DataBindingUtil.setContentView(
             this,
             R.layout.activity_main
         )
         dataBinding.eventhandler = presenter
-        viewPasswordHelper = ViewPasswordHelper(
+     /*   viewPasswordHelper = ViewPasswordHelper(
             arrayOf(dataBinding.textViewSymbol0,
                 dataBinding.textViewSymbol1,
                 dataBinding.textViewSymbol2,
                 dataBinding.textViewSymbol3,
                 dataBinding.textViewSymbol4)
-        )
+        )*/
     }
 
   /*  fun getSymbolView() =
@@ -79,12 +80,12 @@ class MainActivity : AppCompatActivity(), Contract.IView {
 
             }
             "delete" -> {
-                viewPasswordHelper.changeSymbol(null)
+              //  viewPasswordHelper.changeSymbol(null)
                 presenter.changePassword(null)
             }
             "finger" -> {
             } else -> {
-                viewPasswordHelper.changeSymbol(tag)
+               // viewPasswordHelper.changeSymbol(tag)
                 presenter.changePassword(tag)
             }
         }
@@ -100,4 +101,11 @@ class MainActivity : AppCompatActivity(), Contract.IView {
         super.onStop()
         presenter.detachView()
     }
+
+    override fun getSymbolViews() =
+        arrayOf(dataBinding.textViewSymbol0,
+            dataBinding.textViewSymbol1,
+            dataBinding.textViewSymbol2,
+            dataBinding.textViewSymbol3,
+            dataBinding.textViewSymbol4)
 }

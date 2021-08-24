@@ -1,6 +1,7 @@
 package com.ruani.authdagger.abstract_data
 
 import android.view.View
+import android.widget.TextView
 import androidx.databinding.ObservableField
 import com.ruani.authdagger.LENGTH_PASSWORD
 import com.ruani.authdagger.log
@@ -25,6 +26,7 @@ interface Contract {
         fun onRegistered()
         fun onRestored()
         fun onError(error: auth_data.AuthValue)
+        fun getSymbolViews(): Array<TextView>?
         fun clickView(v: View)
     }
 
@@ -42,8 +44,8 @@ interface Contract {
     }
 }
 
-abstract class TPresenter<T: Contract.IView, M: Contract.IModel>(v: T): Contract.IPresenter<T, M>{
-    private var view:       T?  = v
+abstract class TPresenter<T: Contract.IView, M: Contract.IModel>: Contract.IPresenter<T, M>{
+    private var view:       T?  = null
     private var model:      M?  = null
     val email:      ObservableField<String> = ObservableField()
     val password:   ObservableField<String> = ObservableField()
@@ -123,4 +125,7 @@ abstract class TPresenter<T: Contract.IView, M: Contract.IModel>(v: T): Contract
         }
         password.set(mPassword)
     }
+
+   /* fun getSymbolViews() =
+        view?.getSymbolViews()*/
 }
