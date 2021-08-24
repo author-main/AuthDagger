@@ -32,7 +32,7 @@ interface Contract {
         fun viewOnClick(v: View, email: String?, password: String?): auth_data.AuthValue
     }
 
-    interface IPresenter<T: Contract.IView, M: IModel>: MvpPresenter<T, M>{
+    interface IPresenter<T: IView, M: IModel>: MvpPresenter<T, M>{
         fun signin()
         fun restore()
         fun register()
@@ -121,7 +121,6 @@ abstract class TPresenter<T: Contract.IView, M: Contract.IModel>(v: T): Contract
             if (lengthPassword < LENGTH_PASSWORD)       // <- удалить строку
                 mPassword += symbol
         }
-        //log(mPassword)
         password.set(mPassword)
     }
 }
