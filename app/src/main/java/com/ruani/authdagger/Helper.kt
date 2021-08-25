@@ -5,10 +5,11 @@ import android.util.Log
 import android.util.TypedValue
 import androidx.core.content.ContextCompat
 import android.R
+import android.content.Context
 
 import android.content.res.TypedArray
-
-
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 
 
 const val FILE_PREFERENCES = "settings"
@@ -36,4 +37,13 @@ fun getColorResource(id: Int) =
     }
     else
         DEFAULT_COLOR*/
+
+    private fun connectedInternet(): Boolean{
+        val connectivityManager = getAppContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork = connectivityManager.activeNetwork ?: return false
+        val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork) ?: return false
+        return capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
+                        || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+    }
+
 
