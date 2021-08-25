@@ -5,6 +5,7 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.ruani.authdagger.abstract_data.auth_data
+import com.ruani.authdagger.connectedInternet
 import com.ruani.authdagger.interfaces.AuthServer
 
 class FirebaseServer: AuthServer {
@@ -16,6 +17,10 @@ class FirebaseServer: AuthServer {
         email: String?,
         password: String?
     ) {
+        if (!connectedInternet()) {
+            onAuthServerResult?.invoke(authAction, auth_data.AuthValue.ERROR_CONNECTION)
+            return
+        }
         when (authAction) {
             auth_data.AuthAction.SIGNIN -> {
                 if (!email.isNullOrBlank() && !password.isNullOrBlank())
