@@ -23,9 +23,6 @@ interface MvpModel{
 
 interface Contract {
     interface IView: MpvView {
-       /* fun onRegistered()
-        fun onRestored()
-        fun onError(error: auth_data.AuthValue)*/
         fun getSymbolViews(): Array<TextView>?
         fun clickView(v: auth_data.AuthButton)
     }
@@ -35,10 +32,6 @@ interface Contract {
     }
 
     interface IPresenter<T: IView, M: IModel>: MvpPresenter<T, M>{
-        /*fun signin()
-        fun restore()
-        fun register()
-        fun error(error: auth_data.AuthValue)*/
         fun setPassword(value: String)
         fun changePassword(symbol: String?)
     }
@@ -54,7 +47,6 @@ abstract class TPresenter<T: Contract.IView, M: Contract.IModel>: Contract.IPres
         password.set("")
         email.set("")
     }
-
 
     override fun setPassword(value: String) {
         password.set(value)
@@ -89,43 +81,7 @@ abstract class TPresenter<T: Contract.IView, M: Contract.IModel>: Contract.IPres
             else ->
                 changePassword(tag)
         }
-
-
-
-
-
-     /*   model?.let {model_ ->
-            when (val result = model_.viewOnClick(v, email.get(), password.get())) {
-                auth_data.AuthValue.COMPLETE_SIGN ->
-                    signin()
-
-                auth_data.AuthValue.COMPLETE_REGISTER ->
-                    register()
-
-                auth_data.AuthValue.COMPLETE_RESTORE ->
-                    restore()
-
-                else ->
-                    error(result)
-            }
-        }*/
     }
-
-/*    override fun signin() {
-        view?.onSignin()
-    }
-
-    override fun restore() {
-        view?.onRestored()
-    }
-
-    override fun register() {
-        view?.onRegistered()
-    }
-
-    override fun error(error: auth_data.AuthValue) {
-        view?.onError(error)
-    }*/
 
     override fun changePassword(symbol: String?) {
         var signIn = false
