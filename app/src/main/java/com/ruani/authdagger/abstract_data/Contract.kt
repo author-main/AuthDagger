@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.databinding.ObservableField
 import com.ruani.authdagger.LENGTH_PASSWORD
+import com.ruani.authdagger.interfaces.AuthServer
 import com.ruani.authdagger.log
 
 interface MpvView {
@@ -35,6 +36,11 @@ interface Contract {
         fun setPassword(value: String)
         fun changePassword(symbol: String?)
     }
+}
+
+abstract class TModel<T: AuthServer>: Contract.IModel{
+    private var authServer: T? = null
+
 }
 
 abstract class TPresenter<T: Contract.IView, M: Contract.IModel>: Contract.IPresenter<T, M>{
