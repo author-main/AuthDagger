@@ -31,7 +31,7 @@ interface Contract {
     }
 
     interface IModel: MvpModel{
-        fun viewOnClick(v: View, email: String?, password: String?): auth_data.AuthValue
+        fun checkAuth(type: auth_data.AuthAction, email: String?, password: String?): auth_data.AuthValue
     }
 
     interface IPresenter<T: IView, M: IModel>: MvpPresenter<T, M>{
@@ -77,7 +77,6 @@ abstract class TPresenter<T: Contract.IView, M: Contract.IModel>: Contract.IPres
    // fun getModel() = model*/
 
     fun onClick(v: View) {
-       // log(email.get())
         view?.clickView(v)
      /*   model?.let {model_ ->
             when (val result = model_.viewOnClick(v, email.get(), password.get())) {
@@ -113,6 +112,7 @@ abstract class TPresenter<T: Contract.IView, M: Contract.IModel>: Contract.IPres
     }
 
     override fun changePassword(symbol: String?) {
+        var signIn = false
         var mPassword = password.get()
         if (symbol.isNullOrBlank()) {
             if (!mPassword.isNullOrBlank())
@@ -120,10 +120,20 @@ abstract class TPresenter<T: Contract.IView, M: Contract.IModel>: Contract.IPres
         }
         else {
             val lengthPassword = mPassword?.length ?: 0 // <- удалить строку
-            if (lengthPassword < LENGTH_PASSWORD)       // <- удалить строку
+            if (lengthPassword < LENGTH_PASSWORD) {      // <- удалить строку
                 mPassword += symbol
+                signIn = mPassword?.length == LENGTH_PASSWORD
+            }
         }
         password.set(mPassword)
+        if (signIn)
+          executeAuth(auth_data.AuthAction.SIGNIN)
+    }
+
+    private fun executeAuth(type: auth_data.AuthAction){
+        model?.let { model_ ->
+            val result = model_.checkAuth(type, email.get(), password.get())
+        }
     }
 
 }

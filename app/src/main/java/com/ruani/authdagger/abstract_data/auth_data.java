@@ -11,4 +11,9 @@ public final class auth_data {
         ERROR_AUTH_SERVICE,
         ERROR_RESTORE
     }
+    public static enum AuthAction {
+        SIGNIN,
+        REGISTER,
+        RESTORE
+    }
 }
