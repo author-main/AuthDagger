@@ -24,32 +24,32 @@ class FirebaseServer: AuthServer {
         when (authAction) {
             auth_data.AuthAction.SIGNIN -> {
                 if (!email.isNullOrBlank() && !password.isNullOrBlank())
-                    signIn(email, password)
+                    signin(email, password)
             }
             auth_data.AuthAction.REGISTER -> {
                 if (!email.isNullOrBlank() && !password.isNullOrBlank())
-                    registerUser(email, password)
+                    register(email, password)
             }
             auth_data.AuthAction.RESTORE -> {
                 if (!email.isNullOrBlank())
-                    restoreUser(email)
+                    restore(email)
             }
         }
     }
 
-    private fun signIn(email: String, password: String) {
+    private fun signin(email: String, password: String) {
       /*  instance.signInWithEmailAndPassword(email, password+"0").addOnCompleteListener { task ->
             resultTask(task, AuthAction.SIGNIN)
         }*/
     }
 
-    private fun registerUser(email: String, password: String) {
+    private fun register(email: String, password: String) {
        /* instance.createUserWithEmailAndPassword(email, password+"0").addOnCompleteListener {task ->
             resultTask(task, AuthAction.REGISTER)
         }*/
     }
 
-    private fun restoreUser(email: String) {
+    private fun restore(email: String) {
        /* instance.currentUser?.sendEmailVerification()
         instance.sendPasswordResetEmail(email).addOnCompleteListener {task ->
             if (authResultErrorConnection(AuthAction.RESTORE))
