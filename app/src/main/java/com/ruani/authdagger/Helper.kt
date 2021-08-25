@@ -21,7 +21,7 @@ const val LENGTH_PASSWORD = 5
 fun getAppContext() = AuthApplication.applicationContext()
 fun log(message: String?){
     if (message.isNullOrBlank()) {
-        Log.v("authdagger", "empty")
+        Log.v("authdagger", "Empty message")
         return
     }
     Log.v("authdagger", message)
