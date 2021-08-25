@@ -20,7 +20,7 @@ class Model: Contract.IModel {
     }
 
     override fun checkAuth(type: auth_data.AuthAction, email: String?, password: String?): auth_data.AuthValue {
-        TODO("Not yet implemented")
+        return auth_data.AuthValue.COMPLETE_SIGN
     }
 
     private fun correctPassword(value: String): Boolean {

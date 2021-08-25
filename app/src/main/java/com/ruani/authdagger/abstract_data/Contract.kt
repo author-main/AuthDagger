@@ -7,7 +7,7 @@ import com.ruani.authdagger.LENGTH_PASSWORD
 import com.ruani.authdagger.log
 
 interface MpvView {
-    fun onSignin()
+    fun onResultAuth(authAction: auth_data.AuthAction, authValue: auth_data.AuthValue)
 }
 
 interface MvpPresenter<T: MpvView, M: MvpModel>{
@@ -23,11 +23,11 @@ interface MvpModel{
 
 interface Contract {
     interface IView: MpvView {
-        fun onRegistered()
+       /* fun onRegistered()
         fun onRestored()
-        fun onError(error: auth_data.AuthValue)
+        fun onError(error: auth_data.AuthValue)*/
         fun getSymbolViews(): Array<TextView>?
-        fun clickView(v: View)
+        fun clickView(v: auth_data.AuthButton)
     }
 
     interface IModel: MvpModel{
@@ -35,10 +35,10 @@ interface Contract {
     }
 
     interface IPresenter<T: IView, M: IModel>: MvpPresenter<T, M>{
-        fun signin()
+        /*fun signin()
         fun restore()
         fun register()
-        fun error(error: auth_data.AuthValue)
+        fun error(error: auth_data.AuthValue)*/
         fun setPassword(value: String)
         fun changePassword(symbol: String?)
     }
@@ -77,7 +77,23 @@ abstract class TPresenter<T: Contract.IView, M: Contract.IModel>: Contract.IPres
    // fun getModel() = model*/
 
     fun onClick(v: View) {
-        view?.clickView(v)
+        when (val tag = v.tag.toString()) {
+            "register" ->
+                view?.clickView(auth_data.AuthButton.BUTTON_REGISTER)
+            "restore" ->
+                view?.clickView(auth_data.AuthButton.BUTTON_RESTORE)
+            "finger" ->
+                view?.clickView(auth_data.AuthButton.BUTTON_FINGER)
+            "delete" ->
+                changePassword(null)
+            else ->
+                changePassword(tag)
+        }
+
+
+
+
+
      /*   model?.let {model_ ->
             when (val result = model_.viewOnClick(v, email.get(), password.get())) {
                 auth_data.AuthValue.COMPLETE_SIGN ->
@@ -95,7 +111,7 @@ abstract class TPresenter<T: Contract.IView, M: Contract.IModel>: Contract.IPres
         }*/
     }
 
-    override fun signin() {
+/*    override fun signin() {
         view?.onSignin()
     }
 
@@ -109,7 +125,7 @@ abstract class TPresenter<T: Contract.IView, M: Contract.IModel>: Contract.IPres
 
     override fun error(error: auth_data.AuthValue) {
         view?.onError(error)
-    }
+    }*/
 
     override fun changePassword(symbol: String?) {
         var signIn = false
@@ -133,6 +149,7 @@ abstract class TPresenter<T: Contract.IView, M: Contract.IModel>: Contract.IPres
     private fun executeAuth(type: auth_data.AuthAction){
         model?.let { model_ ->
             val result = model_.checkAuth(type, email.get(), password.get())
+            view?.onResultAuth(type, result)
         }
     }
 

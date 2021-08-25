@@ -41,42 +41,15 @@ class MainActivity : AppCompatActivity(), Contract.IView {
         presenter.attachView(this)
     }
 
-    override fun onSignin() {
-        TODO("Not yet implemented")
-    }
-
-    override fun onError(error: auth_data.AuthValue) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onRegistered() {
-        TODO("Not yet implemented")
-    }
-
-    override fun onRestored() {
-        TODO("Not yet implemented")
-    }
-
-    override fun clickView(v: View) {
-        when (val tag = v.tag.toString()) {
-            "register" -> {
-
-            }
-            "restore" -> {
-
-            }
-            "delete" -> {
-                presenter.changePassword(null)
-            }
-            "finger" -> {
-            } else -> {
-                presenter.changePassword(tag)
-            }
-        }
+    override fun clickView(v: auth_data.AuthButton) {
 
     }
 
- /*   override fun onStart() {
+    override fun onResultAuth(authAction: auth_data.AuthAction, authValue: auth_data.AuthValue) {
+//        TODO("Not yet implemented")
+    }
+
+    /*   override fun onStart() {
         super.onStart()
         presenter.attachView(this)
     }
