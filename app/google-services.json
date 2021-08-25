@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "265433954302",
+    "project_id": "authdagger",
+    "storage_bucket": "authdagger.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:265433954302:android:435606723f281af48d72af",
+        "android_client_info": {
+          "package_name": "com.ruani.authdagger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "265433954302-l56r7npcsrtp3k2s2edk604kfdjdqal7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvDWvxuVp1YcWQoVaPUad9pAN-iixu-28"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "265433954302-l56r7npcsrtp3k2s2edk604kfdjdqal7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

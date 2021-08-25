@@ -16,7 +16,7 @@ interface MvpPresenter<T: MpvView, M: MvpModel>{
     fun detachView()
 }
 
-interface MvpModel{
+interface MvpModel {
     fun putPassword(password: String)
     fun getEmail(): String?
     fun putEmail(email: String)
@@ -29,21 +29,26 @@ interface Contract {
     }
 
     interface IModel: MvpModel{
-        fun checkAuth(type: auth_data.AuthAction, email: String?, password: String?): auth_data.AuthValue
+        //fun checkAuth(type: auth_data.AuthAction, email: String?, password: String?): auth_data.AuthValue
     }
 
     interface IPresenter<T: IView, M: IModel>: MvpPresenter<T, M>{
         fun setPassword(value: String)
         fun changePassword(symbol: String?)
     }
-}
 
-abstract class TModel<T: AuthServer>: Contract.IModel{
-    private var authServer: T? = null
 
 }
 
-abstract class TPresenter<T: Contract.IView, M: Contract.IModel>: Contract.IPresenter<T, M>{
+abstract class TModel<S: AuthServer>: Contract.IModel {
+    var server: S? = null
+    fun attachServer(value: S){
+        server = value
+    }
+}
+
+
+abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>>: Contract.IPresenter<T, M>{
     private var view:       T?  = null
     private var model:      M?  = null
     val email:      ObservableField<String> = ObservableField()
@@ -110,8 +115,8 @@ abstract class TPresenter<T: Contract.IView, M: Contract.IModel>: Contract.IPres
 
     private fun executeAuth(type: auth_data.AuthAction){
         model?.let { model_ ->
-            val result = model_.checkAuth(type, email.get(), password.get())
-            view?.onResultAuth(type, result)
+            model_.server?.executRequest(type, email.get(), password.get()) ?: auth_data.AuthValue.ERROR_AUTH_SERVICE
+            //view?.onResultAuth(type, result)
         }
     }
 
