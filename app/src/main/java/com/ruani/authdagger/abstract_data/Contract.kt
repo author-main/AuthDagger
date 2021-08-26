@@ -74,7 +74,7 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>>: Contract.IP
         model = m
         model?.server?.onAuthServerResult = {action, value ->
             if (value != auth_data.AuthValue.COMPLETE)
-                setPassword("123")
+                setPassword("")
             else
                 password.get()?.let{
                     setPassword(it)
