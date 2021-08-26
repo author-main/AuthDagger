@@ -79,10 +79,10 @@ class FirebaseServer: AuthServer {
         }
     }
 
-    override fun getAuthEmail(): String? =
+    override fun getServerEmail(): String? =
         email
 
-    override fun getAuthPassword(): String? {
+    override fun getServerPassword(): String? {
         val value = password
         password = null
         return value

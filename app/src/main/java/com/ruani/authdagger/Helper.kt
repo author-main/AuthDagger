@@ -29,14 +29,6 @@ fun log(message: String?){
 
 fun getColorResource(id: Int) =
     ContextCompat.getColor(getAppContext(), id)
-    /*val typedValue = TypedValue()
-    return if (getAppContext().theme.resolveAttribute(id, typedValue, true)) {
-        val color = typedValue.data.toString(16)
-        Integer.parseInt(color, 16)
-        //typedValue.data
-    }
-    else
-        DEFAULT_COLOR*/
 
 fun getStringResource(id: Int) =
     try {

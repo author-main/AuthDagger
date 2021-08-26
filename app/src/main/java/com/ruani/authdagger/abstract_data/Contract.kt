@@ -66,7 +66,6 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
         email.set("")
     }
 
-
     override fun attachDialog(dialog: D) {
         authDialog = dialog
         authDialog?.onDialogResult= {action, email, password ->
@@ -91,8 +90,8 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
         model?.server?.onAuthServerResult = {action, value ->
             setPassword("")
             if (value != auth_data.AuthValue.COMPLETE) {
-                val serverMail = model?.server?.getAuthEmail()
-                val serverPassword = model?.server?.getAuthPassword()
+                val serverMail = model?.server?.getServerEmail()
+                val serverPassword = model?.server?.getServerPassword()
 
                 if (action == auth_data.AuthAction.RESTORE) {
                     serverMail?.let {
@@ -112,28 +111,13 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
                 }
 
                 if (action == auth_data.AuthAction.SIGNIN) {
-                    serverPassword?.let {
+                    serverMail?.let {
                         model?.putEmail(it)
                     }
-                    model?.server?.getAuthPassword()?.let {
+                    serverPassword?.let {
                         model?.putPassword(it)
                     }
                 }
-
-                /*  if (value != auth_data.AuthValue.COMPLETE)
-                setPassword("")
-            else {
-                val serverMail = model?.server?.getAuthEmail()
-                if (action == auth_data.AuthAction.REGISTER
-                    || action == auth_data.AuthAction.RESTORE) {
-                    email.set(serverMail)
-                }
-
-                password.get()?.let {
-                    //setPassword(it)
-                }
-            }
-            */
             }
             view?.onResultAuth(action, value)
         }

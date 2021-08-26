@@ -34,9 +34,9 @@ class Model: TModel<AuthServer>() {
     } *//*=
         authServer?.executRequest(type, email, password) ?: auth_data.AuthValue.ERROR_AUTH_SERVICE*/
 
-
+/*
     private fun correctPassword(value: String): Boolean {
        val password = getPassword()
        return password?.equals(value, false) ?: false
-    }
+    }*/
 }
