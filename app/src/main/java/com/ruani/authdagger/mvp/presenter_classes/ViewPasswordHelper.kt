@@ -53,7 +53,7 @@ class ViewPasswordHelper(private val symbols: Array<TextView>) {
 
         if (indexView == LENGTH_PASSWORD - 1) {
             if (value != null && onChangePassword != null){
-                if (onChangePassword?.invoke() == auth_data.AuthValue.ERROR_USER_DATA) {
+                if (onChangePassword?.invoke() == auth_data.AuthValue.ERROR) {
                     fillSymbols()
                 }
             }

@@ -16,10 +16,9 @@
     <string name="dlgreg_error_passwordcheck">Пароли не совпадают</string>
     <string name="dlgreg_success">Пользователь зарегистрирован</string>
     <string name="error_connected_internet">Проверьте подключение Интернет</string>
-    <string name="error_already_email">Такой email уже зарегистрирован</string>
-    <string name="error_restore_password">Ошибка восстановления пароля</string>
-    <string name="error_login_message">Неверный email или пароль</string>
-    <string name="error_auth_service">Ошибка выполнения запроса</string>
+    <string name="error_auth">Ошибка аутентификации</string>
+    <string name="error_register">Ошибка регистрации пользователя</string>
+    <string name="error_restore">Ошибка восстановления пароля</string>
     <string name="dlgrest_title">Восстановление</string>
     <string name="dlgrest_message">На ваш email будет отправлено письмо\nдля восстановления пароля</string>
     <string name="dlgrest_success">Запрос на восстановление отправлен</string>

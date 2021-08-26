@@ -1,9 +1,8 @@
 package com.ruani.authdagger.mvp.model_classes
 
 import com.google.android.gms.tasks.Task
-import com.google.firebase.FirebaseApp
-import com.google.firebase.auth.AuthResult
-import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.FirebaseNetworkException
+import com.google.firebase.auth.*
 import com.ruani.authdagger.abstract_data.auth_data
 import com.ruani.authdagger.connectedInternet
 import com.ruani.authdagger.interfaces.AuthServer
@@ -16,7 +15,7 @@ class FirebaseServer: AuthServer {
         authAction: auth_data.AuthAction,
         email: String?,
         password: String?
-    ) {
+    ){
         if (!connectedInternet()) {
             onAuthServerResult?.invoke(authAction, auth_data.AuthValue.ERROR_CONNECTION)
             return
@@ -38,32 +37,48 @@ class FirebaseServer: AuthServer {
     }
 
     private fun signin(email: String, password: String) {
-      /*  instance.signInWithEmailAndPassword(email, password+"0").addOnCompleteListener { task ->
-            resultTask(task, AuthAction.SIGNIN)
-        }*/
+        instance.signInWithEmailAndPassword(email, password+"0").addOnCompleteListener { task ->
+            finishTask(task, auth_data.AuthAction.SIGNIN)
+        }
     }
 
     private fun register(email: String, password: String) {
-       /* instance.createUserWithEmailAndPassword(email, password+"0").addOnCompleteListener {task ->
-            resultTask(task, AuthAction.REGISTER)
-        }*/
+        instance.createUserWithEmailAndPassword(email, password+"0").addOnCompleteListener {task ->
+            finishTask(task, auth_data.AuthAction.REGISTER)
+        }
     }
 
     private fun restore(email: String) {
-       /* instance.currentUser?.sendEmailVerification()
+        instance.currentUser?.sendEmailVerification()
         instance.sendPasswordResetEmail(email).addOnCompleteListener {task ->
-            if (authResultErrorConnection(AuthAction.RESTORE))
+            finishTask(task, auth_data.AuthAction.RESTORE)
+            /*if (authResultErrorConnection(AuthAction.RESTORE))
                 return@addOnCompleteListener
             if (task.isSuccessful)
                 authResultListener?.onAutentificationComplete(AuthAction.RESTORE, AuthValue.SUCCESSFUL)
             else
-                authResultListener?.onAutentificationComplete(AuthAction.RESTORE, AuthValue.ERROR_RESTORE)
-        }*/
+                authResultListener?.onAutentificationComplete(AuthAction.RESTORE, AuthValue.ERROR_RESTORE)*/
+        }
     }
 
-    private fun finalTask(task: Task<AuthResult>, action: auth_data.AuthAction) {
-
+    private fun finishTask(task: Task<*>, action: auth_data.AuthAction) {
+        if (task.isSuccessful)
+            onAuthServerResult?.invoke(action, auth_data.AuthValue.COMPLETE)
+        else
+            onAuthServerResult?.invoke(action, auth_data.AuthValue.ERROR)
     }
 
+
+  /*  private fun getErrorAuth(ex: Exception?): auth_data.AuthValue {
+        ex?.let { exception ->
+            if (exception is FirebaseNetworkException)
+                return auth_data.AuthValue.ERROR_CONNECTION
+            if (exception is FirebaseAuthUserCollisionException)
+                return auth_data.AuthValue.ERROR_ALREADY_EMAIL
+            if (exception is FirebaseAuthException)
+                return auth_data.AuthValue.ERROR_USER_DATA
+        }
+        return auth_data.AuthValue.ERROR_AUTH_SERVICE
+    }*/
 
 }

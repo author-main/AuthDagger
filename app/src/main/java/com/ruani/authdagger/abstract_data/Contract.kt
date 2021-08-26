@@ -5,6 +5,7 @@ import android.widget.TextView
 import androidx.databinding.ObservableField
 import com.ruani.authdagger.LENGTH_PASSWORD
 import com.ruani.authdagger.interfaces.AuthServer
+import com.ruani.authdagger.isNotNull
 import com.ruani.authdagger.log
 
 interface MpvView {
@@ -115,8 +116,9 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>>: Contract.IP
 
     private fun executeAuth(type: auth_data.AuthAction){
         model?.let { model_ ->
-            model_.server?.executRequest(type, email.get(), password.get()) ?: auth_data.AuthValue.ERROR_AUTH_SERVICE
-            //view?.onResultAuth(type, result)
+            model_.server?.executRequest(type, email.get(), password.get())
+            /*if (isNotNull(resultRequest))
+                view?.onResultAuth(type, resultRequest!!)*/
         }
     }
 

@@ -38,6 +38,14 @@ fun getColorResource(id: Int) =
     else
         DEFAULT_COLOR*/
 
+fun getStringResource(id: Int) =
+    try {
+        getAppContext().getString(id)
+    }
+    catch (e: Exception){
+        null
+    }
+
 fun connectedInternet(): Boolean{
     val connectivityManager = getAppContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     val activeNetwork = connectivityManager.activeNetwork ?: return false
@@ -45,5 +53,8 @@ fun connectedInternet(): Boolean{
     return capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
                     || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
 }
+
+fun<T> isNotNull(value: T) =
+    value != null
 
 
