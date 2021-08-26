@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.databinding.ObservableField
 import com.ruani.authdagger.LENGTH_PASSWORD
+import com.ruani.authdagger.interfaces.AuthDialog
 import com.ruani.authdagger.interfaces.AuthServer
 import com.ruani.authdagger.isNotNull
 
@@ -11,9 +12,10 @@ interface MpvView {
     fun onResultAuth(authAction: auth_data.AuthAction, authValue: auth_data.AuthValue)
 }
 
-interface MvpPresenter<T: MpvView, M: MvpModel>{
+interface MvpPresenter<T: MpvView, M: MvpModel, D: AuthDialog>{
     fun attachView(v: T)
     fun detachView()
+    fun attachDialog(dialog: D)
 }
 
 interface MvpModel {
@@ -34,7 +36,7 @@ interface Contract {
         //fun checkAuth(type: auth_data.AuthAction, email: String?, password: String?): auth_data.AuthValue
     }
 
-    interface IPresenter<T: IView, M: IModel>: MvpPresenter<T, M>{
+    interface IPresenter<T: IView, M: IModel>: MvpPresenter<T, M, AuthDialog>{
         fun setPassword(value: String)
         fun changePassword(symbol: String?)
     }
@@ -53,12 +55,20 @@ abstract class TModel<S: AuthServer>: Contract.IModel {
 abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>>: Contract.IPresenter<T, M>{
     private var view:       T?  = null
     private var model:      M?  = null
+    private var authDialog  :   AuthDialog? = null
+
     val email:      ObservableField<String> = ObservableField()
     val password:   ObservableField<String> = ObservableField()
+
 
     init{
         password.set("")
         email.set("")
+    }
+
+
+    override fun attachDialog(dialog: AuthDialog) {
+        authDialog = dialog
     }
 
     override fun setPassword(value: String) {
@@ -93,9 +103,11 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>>: Contract.IP
     fun onClick(v: View) {
         when (val tag = v.tag.toString()) {
             "register" ->
-                view?.clickView(auth_data.AuthButton.BUTTON_REGISTER)
+                authDialog?.showDialogRegister(email.get())
+                //view?.clickView(auth_data.AuthButton.BUTTON_REGISTER)
             "restore" ->
-                view?.clickView(auth_data.AuthButton.BUTTON_RESTORE)
+                authDialog?.showDialogRestore(email.get())
+                //view?.clickView(auth_data.AuthButton.BUTTON_RESTORE)
             "finger" -> {
                 model?.getPassword()?.let {
                     setPassword(it)
