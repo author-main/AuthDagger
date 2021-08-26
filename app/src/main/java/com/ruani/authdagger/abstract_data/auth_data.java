@@ -10,6 +10,7 @@ public final class auth_data {
         ERROR_ALREADY_EMAIL,
         ERROR_USER_DATA,
         ERROR_AUTH_SERVICE,*/
+        ERROR_USERDATA,
         ERROR_CONNECTION,
         ERROR
     }

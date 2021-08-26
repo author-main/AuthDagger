@@ -19,6 +19,7 @@
     <string name="error_auth">Ошибка аутентификации</string>
     <string name="error_register">Ошибка регистрации пользователя</string>
     <string name="error_restore">Ошибка восстановления пароля</string>
+    <string name="error_userdata">Ошибка данных пользователя</string>
     <string name="dlgrest_title">Восстановление</string>
     <string name="dlgrest_message">На ваш email будет отправлено письмо\nдля восстановления пароля</string>
     <string name="dlgrest_success">Запрос на восстановление отправлен</string>

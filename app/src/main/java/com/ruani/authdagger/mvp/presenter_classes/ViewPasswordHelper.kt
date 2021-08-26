@@ -6,7 +6,7 @@ import com.ruani.authdagger.*
 import com.ruani.authdagger.abstract_data.auth_data
 
 class ViewPasswordHelper(private val symbols: Array<TextView>) {
-    var onChangePassword: (() -> auth_data.AuthValue)? = null
+   // var onChangePassword: (() -> auth_data.AuthValue)? = null
     private val colorSymbol: Int       = getColorResource(R.color.symbol)
     private val colorSymbolActive: Int = getColorResource(R.color.symbolActive)
     val hidenSymbol = "•"
@@ -50,12 +50,17 @@ class ViewPasswordHelper(private val symbols: Array<TextView>) {
             indexView++
             setSymbolColor(indexView, true)
         }
+    }
 
-        if (indexView == LENGTH_PASSWORD - 1) {
-            if (value != null && onChangePassword != null){
-                if (onChangePassword?.invoke() == auth_data.AuthValue.ERROR) {
-                    fillSymbols()
-                }
+    fun changeSymbolsColor(value: String){
+        fillSymbols()
+        if (value.isBlank()) {
+            indexView = -1
+        }
+        else {
+            indexView = value.length - 1
+            value.forEachIndexed { index, _ ->
+                setSymbolColor(index, true)
             }
         }
     }

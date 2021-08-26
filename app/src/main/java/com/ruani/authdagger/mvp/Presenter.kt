@@ -28,4 +28,9 @@ class Presenter<T: Contract.IView>: TPresenter<T, Model>() {
         viewPasswordHelper?.changeSymbol(symbol)
         super.changePassword(symbol)
     }
+
+    override fun setPassword(value: String) {
+        super.setPassword(value)
+        viewPasswordHelper?.changeSymbolsColor(value)
+    }
 }

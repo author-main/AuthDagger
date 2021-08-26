@@ -26,6 +26,8 @@ class MessageHandler {
         fun showAuthError(authAction: auth_data.AuthAction, error: auth_data.AuthValue) {
             val idText = if (error == auth_data.AuthValue.ERROR_CONNECTION)
                     R.string.error_connected_internet
+                else if (error == auth_data.AuthValue.ERROR_USERDATA)
+                    R.string.error_userdata
                 else
                     when (authAction) {
                         auth_data.AuthAction.SIGNIN     ->

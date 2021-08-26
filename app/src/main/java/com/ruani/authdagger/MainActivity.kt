@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import com.ruani.authdagger.abstract_data.auth_data
 import com.ruani.authdagger.abstract_data.Contract
 import com.ruani.authdagger.mvp.Presenter
+import com.ruani.authdagger.mvp.classes.MessageHandler
 import com.ruani.authdagger.mvp.presenter_classes.ViewPasswordHelper
 
 class MainActivity : AppCompatActivity(), Contract.IView {
@@ -47,7 +48,9 @@ class MainActivity : AppCompatActivity(), Contract.IView {
     }
 
     override fun onResultAuth(authAction: auth_data.AuthAction, authValue: auth_data.AuthValue) {
-//        TODO("Not yet implemented")
+        if (authValue != auth_data.AuthValue.COMPLETE) {
+            MessageHandler.showAuthError(authAction, authValue)
+        }
     }
 
     /*   override fun onStart() {
