@@ -38,7 +38,6 @@ interface Contract {
         fun getEmail(): String?
         fun putEmail(email: String)
         fun getPassword(): String?
-        //fun checkAuth(type: auth_data.AuthAction, email: String?, password: String?): auth_data.AuthValue
     }
 
     interface IPresenter<T: IView, M: IModel, D: AuthDialog>{
@@ -48,8 +47,6 @@ interface Contract {
         fun detachView()
         fun attachDialog(dialog: D)
     }
-
-
 }
 
 abstract class TModel<S: AuthServer>: Contract.IModel {
@@ -59,7 +56,6 @@ abstract class TModel<S: AuthServer>: Contract.IModel {
     }
 }
 
-
 abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialog >: Contract.IPresenter<T, M, D>{
     private var view        :       T?  = null
     private var model       :      M?  = null
@@ -67,7 +63,6 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
 
     val email:      ObservableField<String> = ObservableField()
     val password:   ObservableField<String> = ObservableField()
-
 
     init{
         password.set("")
