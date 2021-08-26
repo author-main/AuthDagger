@@ -5,6 +5,7 @@ import android.widget.TextView
 import androidx.databinding.ObservableField
 import com.ruani.authdagger.LENGTH_PASSWORD
 import com.ruani.authdagger.interfaces.AuthServer
+import com.ruani.authdagger.isNotNull
 
 interface MpvView {
     fun onResultAuth(authAction: auth_data.AuthAction, authValue: auth_data.AuthValue)
@@ -19,6 +20,8 @@ interface MvpModel {
     fun putPassword(password: String)
     fun getEmail(): String?
     fun putEmail(email: String)
+    fun getPassword(): String?
+
 }
 
 interface Contract {
@@ -93,8 +96,12 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>>: Contract.IP
                 view?.clickView(auth_data.AuthButton.BUTTON_REGISTER)
             "restore" ->
                 view?.clickView(auth_data.AuthButton.BUTTON_RESTORE)
-            "finger" ->
-                view?.clickView(auth_data.AuthButton.BUTTON_FINGER)
+            "finger" -> {
+                model?.getPassword()?.let {
+                    setPassword(it)
+                    executeAuthRequest(auth_data.AuthAction.SIGNIN)
+                }
+            }
             "delete" ->
                 changePassword(null)
             else ->

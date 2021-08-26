@@ -19,7 +19,9 @@ class Model: TModel<AuthServer>() {
         userDataStorage.putPassword(password)
     }
 
-    private fun getPassword() = userDataStorage.getPassword()
+    override fun getPassword() = userDataStorage.getPassword()
+
+
 
     override fun getEmail() = userDataStorage.getEmail()
 
