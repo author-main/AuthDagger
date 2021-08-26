@@ -9,6 +9,8 @@ import com.ruani.authdagger.interfaces.AuthServer
 class FirebaseServer: AuthServer {
     private val instance = FirebaseAuth.getInstance()
     override var onAuthServerResult: ((action: auth_data.AuthAction, result: auth_data.AuthValue) -> Unit)? = null
+    private var email   : String? = null
+    private var password   : String? = null
 
     override fun executeRequest(
         authAction: auth_data.AuthAction,
@@ -19,6 +21,8 @@ class FirebaseServer: AuthServer {
             onAuthServerResult?.invoke(authAction, auth_data.AuthValue.ERROR_CONNECTION)
             return
         }
+        this.email = email
+        this.password = password
         var errorData = false
         when (authAction) {
             auth_data.AuthAction.SIGNIN -> {
@@ -68,7 +72,19 @@ class FirebaseServer: AuthServer {
     private fun finishTask(task: Task<*>, action: auth_data.AuthAction) {
         if (task.isSuccessful)
             onAuthServerResult?.invoke(action, auth_data.AuthValue.COMPLETE)
-        else
+        else {
+            email = null
+            password = null
             onAuthServerResult?.invoke(action, auth_data.AuthValue.ERROR)
+        }
     }
-}
+
+    override fun getAuthEmail(): String? =
+        email
+
+    override fun getAuthPassword(): String? {
+        val value = password
+        password = null
+        return value
+    }
+ }

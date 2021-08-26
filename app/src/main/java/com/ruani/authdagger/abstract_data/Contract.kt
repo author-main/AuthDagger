@@ -36,7 +36,7 @@ interface Contract {
         //fun checkAuth(type: auth_data.AuthAction, email: String?, password: String?): auth_data.AuthValue
     }
 
-    interface IPresenter<T: IView, M: IModel>: MvpPresenter<T, M, AuthDialog>{
+    interface IPresenter<T: IView, M: IModel, D: AuthDialog>: MvpPresenter<T, M, D>{
         fun setPassword(value: String)
         fun changePassword(symbol: String?)
     }
@@ -52,10 +52,10 @@ abstract class TModel<S: AuthServer>: Contract.IModel {
 }
 
 
-abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>>: Contract.IPresenter<T, M>{
-    private var view:       T?  = null
-    private var model:      M?  = null
-    private var authDialog  :   AuthDialog? = null
+abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialog >: Contract.IPresenter<T, M, D>{
+    private var view        :       T?  = null
+    private var model       :      M?  = null
+    private var authDialog  :   D? = null
 
     val email:      ObservableField<String> = ObservableField()
     val password:   ObservableField<String> = ObservableField()
@@ -67,8 +67,11 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>>: Contract.IP
     }
 
 
-    override fun attachDialog(dialog: AuthDialog) {
+    override fun attachDialog(dialog: D) {
         authDialog = dialog
+        authDialog?.onDialogResult= {action, email, password ->
+            model?.server?.executeRequest(action, email, password)
+        }
     }
 
     override fun setPassword(value: String) {
@@ -86,12 +89,52 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>>: Contract.IP
     fun attachModel(m: M) {
         model = m
         model?.server?.onAuthServerResult = {action, value ->
-            if (value != auth_data.AuthValue.COMPLETE)
-                setPassword("")
-            else
-                password.get()?.let{
-                    setPassword(it)
+            setPassword("")
+            if (value != auth_data.AuthValue.COMPLETE) {
+                val serverMail = model?.server?.getAuthEmail()
+                val serverPassword = model?.server?.getAuthPassword()
+
+                if (action == auth_data.AuthAction.RESTORE) {
+                    serverMail?.let {
+                        model?.putEmail(it)
+                        email.set(it)
+                    }
                 }
+
+                if (action == auth_data.AuthAction.REGISTER) {
+                    serverMail?.let {
+                        model?.putEmail(it)
+                        email.set(it)
+                    }
+                    serverPassword?.let {
+                        model?.putPassword(it)
+                    }
+                }
+
+                if (action == auth_data.AuthAction.SIGNIN) {
+                    serverPassword?.let {
+                        model?.putEmail(it)
+                    }
+                    model?.server?.getAuthPassword()?.let {
+                        model?.putPassword(it)
+                    }
+                }
+
+                /*  if (value != auth_data.AuthValue.COMPLETE)
+                setPassword("")
+            else {
+                val serverMail = model?.server?.getAuthEmail()
+                if (action == auth_data.AuthAction.REGISTER
+                    || action == auth_data.AuthAction.RESTORE) {
+                    email.set(serverMail)
+                }
+
+                password.get()?.let {
+                    //setPassword(it)
+                }
+            }
+            */
+            }
             view?.onResultAuth(action, value)
         }
     }
@@ -102,11 +145,15 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>>: Contract.IP
 
     fun onClick(v: View) {
         when (val tag = v.tag.toString()) {
-            "register" ->
+            "register" -> {
+                setPassword("")
                 authDialog?.showDialogRegister(email.get())
+            }
                 //view?.clickView(auth_data.AuthButton.BUTTON_REGISTER)
-            "restore" ->
+            "restore" -> {
+                setPassword("")
                 authDialog?.showDialogRestore(email.get())
+            }
                 //view?.clickView(auth_data.AuthButton.BUTTON_RESTORE)
             "finger" -> {
                 model?.getPassword()?.let {
