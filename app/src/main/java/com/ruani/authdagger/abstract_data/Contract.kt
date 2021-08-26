@@ -8,37 +8,45 @@ import com.ruani.authdagger.interfaces.AuthDialog
 import com.ruani.authdagger.interfaces.AuthServer
 import com.ruani.authdagger.isNotNull
 
-interface MpvView {
+/*interface MpvView {
     fun onResultAuth(authAction: auth_data.AuthAction, authValue: auth_data.AuthValue)
-}
+}*/
 
-interface MvpPresenter<T: MpvView, M: MvpModel, D: AuthDialog>{
+/*interface MvpPresenter<T: MpvView, M: MvpModel, D: AuthDialog>{
     fun attachView(v: T)
     fun detachView()
     fun attachDialog(dialog: D)
-}
+}*/
 
-interface MvpModel {
+/*interface MvpModel {
     fun putPassword(password: String)
     fun getEmail(): String?
     fun putEmail(email: String)
     fun getPassword(): String?
 
-}
+}*/
 
 interface Contract {
-    interface IView: MpvView {
+    interface IView {
+        fun onResultAuth(authAction: auth_data.AuthAction, authValue: auth_data.AuthValue)
         fun getSymbolViews(): Array<TextView>?
         fun clickView(v: auth_data.AuthButton)
     }
 
-    interface IModel: MvpModel{
+    interface IModel{
+        fun putPassword(password: String)
+        fun getEmail(): String?
+        fun putEmail(email: String)
+        fun getPassword(): String?
         //fun checkAuth(type: auth_data.AuthAction, email: String?, password: String?): auth_data.AuthValue
     }
 
-    interface IPresenter<T: IView, M: IModel, D: AuthDialog>: MvpPresenter<T, M, D>{
+    interface IPresenter<T: IView, M: IModel, D: AuthDialog>{
         fun setPassword(value: String)
         fun changePassword(symbol: String?)
+        fun attachView(v: T)
+        fun detachView()
+        fun attachDialog(dialog: D)
     }
 
 
