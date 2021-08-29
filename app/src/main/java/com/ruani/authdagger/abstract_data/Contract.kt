@@ -6,7 +6,6 @@ import androidx.databinding.ObservableField
 import com.ruani.authdagger.LENGTH_PASSWORD
 import com.ruani.authdagger.interfaces.AuthDialog
 import com.ruani.authdagger.interfaces.AuthServer
-import com.ruani.authdagger.isNotNull
 
 /*interface MpvView {
     fun onResultAuth(authAction: auth_data.AuthAction, authValue: auth_data.AuthValue)
@@ -57,9 +56,10 @@ abstract class TModel<S: AuthServer>: Contract.IModel {
 }
 
 abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialog<T> >: Contract.IPresenter<T, M, D>{
+
     private var view        :      T?  = null
     private var model       :      M?  = null
-    private var authDialog  :   D? = null
+    private var authDialog  :      D? = null
 
     val email:      ObservableField<String> = ObservableField()
     val password:   ObservableField<String> = ObservableField()
