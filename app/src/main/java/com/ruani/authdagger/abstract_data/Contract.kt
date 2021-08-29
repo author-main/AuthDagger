@@ -40,7 +40,7 @@ interface Contract {
         fun getPassword(): String?
     }
 
-    interface IPresenter<T: IView, M: IModel, D: AuthDialog>{
+    interface IPresenter<T: IView, M: IModel, D: AuthDialog<T>>{
         fun setPassword(value: String)
         fun changePassword(symbol: String?)
         fun attachView(v: T)
@@ -56,8 +56,8 @@ abstract class TModel<S: AuthServer>: Contract.IModel {
     }
 }
 
-abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialog >: Contract.IPresenter<T, M, D>{
-    private var view        :       T?  = null
+abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialog<T> >: Contract.IPresenter<T, M, D>{
+    private var view        :      T?  = null
     private var model       :      M?  = null
     private var authDialog  :   D? = null
 
@@ -71,6 +71,7 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
 
     override fun attachDialog(dialog: D) {
         authDialog = dialog
+        authDialog?.setView(view)
         authDialog?.onDialogResult= {action, email, password ->
             model?.server?.executeRequest(action, email, password)
         }

@@ -2,9 +2,6 @@ package com.ruani.authdagger
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import com.ruani.authdagger.abstract_data.auth_data
