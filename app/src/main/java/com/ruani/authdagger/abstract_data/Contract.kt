@@ -8,24 +8,6 @@ import com.ruani.authdagger.interfaces.AuthDialog
 import com.ruani.authdagger.interfaces.AuthServer
 import com.ruani.authdagger.isNotNull
 
-/*interface MpvView {
-    fun onResultAuth(authAction: auth_data.AuthAction, authValue: auth_data.AuthValue)
-}*/
-
-/*interface MvpPresenter<T: MpvView, M: MvpModel, D: AuthDialog>{
-    fun attachView(v: T)
-    fun detachView()
-    fun attachDialog(dialog: D)
-}*/
-
-/*interface MvpModel {
-    fun putPassword(password: String)
-    fun getEmail(): String?
-    fun putEmail(email: String)
-    fun getPassword(): String?
-
-}*/
-
 interface Contract {
     interface IView {
         fun onResultAuth(authAction: auth_data.AuthAction, authValue: auth_data.AuthValue)
