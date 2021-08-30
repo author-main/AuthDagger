@@ -1,14 +1,14 @@
 package com.ruani.authdagger.mvp.presenter_classes
 
-import android.graphics.Color
 import android.widget.TextView
 import com.ruani.authdagger.*
-import com.ruani.authdagger.abstract_data.auth_data
+import kotlinx.coroutines.*
 
 class ViewPasswordHelper(private val symbols: Array<TextView>) {
+    private var job: Job? = null
     private val colorSymbol: Int       = getColorResource(R.color.symbol)
     private val colorSymbolActive: Int = getColorResource(R.color.symbolActive)
-    val hidenSymbol = "•"
+    private val hidenSymbol = "•"
     private var indexView = -1
 
     private fun setSymbolColor(index: Int, active: Boolean = false){
@@ -45,14 +45,25 @@ class ViewPasswordHelper(private val symbols: Array<TextView>) {
             }
 
             if (indexView == LENGTH_PASSWORD - 1) return // <- удалить
-
+            if (indexView > -1) {
+                symbols[indexView].text = hidenSymbol
+                setSymbolColor(indexView, true)
+            }
             indexView++
             setSymbolColor(indexView, true)
+            job?.cancel()
+            val indexActive = indexView
+            job = CoroutineScope(Dispatchers.Main).launch{
+                symbols[indexActive].text = value
+                delay(400)
+                symbols[indexActive].text = hidenSymbol
+            }
+
         }
     }
 
     fun changeSymbolsColor(value: String?){
-        fillSymbols()
+       fillSymbols()
         if (value.isNullOrBlank()) {
             indexView = -1
         }
