@@ -33,7 +33,7 @@ class Presenter<T: Contract.IView>: TPresenter<T, TModel<AuthServer>, AuthDialog
         super.changePassword(symbol)
     }
 
-    override fun setPassword(value: String) {
+    override fun setPassword(value: String?) {
         super.setPassword(value)
         viewPasswordHelper?.changeSymbolsColor(value)
     }

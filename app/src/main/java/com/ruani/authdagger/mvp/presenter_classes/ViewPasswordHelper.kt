@@ -51,9 +51,9 @@ class ViewPasswordHelper(private val symbols: Array<TextView>) {
         }
     }
 
-    fun changeSymbolsColor(value: String){
+    fun changeSymbolsColor(value: String?){
         fillSymbols()
-        if (value.isBlank()) {
+        if (value.isNullOrBlank()) {
             indexView = -1
         }
         else {

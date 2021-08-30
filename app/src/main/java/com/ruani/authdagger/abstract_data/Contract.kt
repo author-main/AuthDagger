@@ -22,7 +22,7 @@ interface Contract {
     }
 
     interface IPresenter<T: IView, M: IModel, D: AuthDialog<T>>{
-        fun setPassword(value: String)
+        fun setPassword(value: String?)
         fun changePassword(symbol: String?)
         fun attachView(v: T)
         fun detachView()
@@ -47,14 +47,17 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
     val password:   ObservableField<String> = ObservableField()
 
     init{
-        password.set("")
+        clearPassword()
         email.set("")
     }
 
     override fun attachDialog(dialog: D) {
         authDialog = dialog
         authDialog?.onDialogResult= {action, email, password ->
-            model?.server?.executeRequest(action, email, password)
+            this.email.set(email)
+            setPassword(password)
+            executeAuthRequest(action)
+            //model?.server?.executeRequest(action, email, password)
         }
         //authDialog?.setView(view)
     }
@@ -63,13 +66,14 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
         authDialog?.showDialogProgress()
     }*/
 
-    override fun setPassword(value: String) {
+    override fun setPassword(value: String?) {
         password.set(value)
     }
 
     override fun attachView(v: T) {
         view = v
         authDialog?.setView(view)
+        email.set(model?.getEmail())
     }
 
     override fun detachView() {
@@ -79,8 +83,9 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
     fun attachModel(m: M) {
         model = m
         model?.server?.onAuthServerResult = {action, value ->
+            authDialog?.hideDialogProgress()
             setPassword("")
-            if (value != auth_data.AuthValue.COMPLETE) {
+            if (value == auth_data.AuthValue.COMPLETE) {
                 val serverMail = model?.server?.getServerEmail()
                 val serverPassword = model?.server?.getServerPassword()
 
@@ -132,10 +137,10 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
             }
                 //view?.clickView(auth_data.AuthButton.BUTTON_RESTORE)
             "finger" -> {
-                model?.getPassword()?.let {
+              /*  model?.getPassword()?.let {
                     setPassword(it)
                     executeAuthRequest(auth_data.AuthAction.SIGNIN)
-                }
+                }*/
             }
             "delete" ->
                 changePassword(null)
@@ -164,7 +169,13 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
     }
 
     private fun executeAuthRequest(type: auth_data.AuthAction){
+        authDialog?.showDialogProgress()
         model?.server?.executeRequest(type, email.get(), password.get())
+        clearPassword()
+    }
+
+    private fun clearPassword(){
+        setPassword("")
     }
 
 }

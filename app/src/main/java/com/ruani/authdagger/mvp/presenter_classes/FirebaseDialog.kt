@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import com.ruani.authdagger.R
 import com.ruani.authdagger.abstract_data.Contract
+import com.ruani.authdagger.abstract_data.auth_data
 import com.ruani.authdagger.getStringResource
 import com.ruani.authdagger.interfaces.AuthDialog
 import com.ruani.authdagger.validateMail
@@ -40,17 +41,17 @@ class FirebaseDialog<T: Contract.IView>: AuthDialog<T>() {
 
     }
 
-    class DialogRegister(context: Context): Dialog(context, R.style.Dialog){
+    inner class DialogRegister(context: Context): Dialog(context, R.style.Dialog){
         private var email: String? = null
         private lateinit var editEmail          : EditText
         private lateinit var editPassword       : EditText
         private lateinit var editConfirmPassword  : EditText
 
-        override fun show() {
+        /*override fun show() {
             super.show()
             window?.setLayout(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-        }
+        }*/
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
@@ -100,18 +101,19 @@ class FirebaseDialog<T: Contract.IView>: AuthDialog<T>() {
             if (!validateEmail() || !validatePassword() || !validateConfirmPassword())
                 return
             dismiss()
+            onDialogResult?.invoke(auth_data.AuthAction.REGISTER, editEmail.text.toString(), editPassword.text.toString())
         }
     }
 
-    class DialogRestore(context: Context): Dialog(context, R.style.Dialog){
+    inner class DialogRestore(context: Context): Dialog(context, R.style.Dialog){
         private var email: String? = null
         private lateinit var editEmail          : EditText
 
-        override fun show() {
+     /*   override fun show() {
             super.show()
             window?.setLayout(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-        }
+        }*/
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
@@ -142,6 +144,7 @@ class FirebaseDialog<T: Contract.IView>: AuthDialog<T>() {
             if (!validateEmail())
                 return
             dismiss()
+            onDialogResult?.invoke(auth_data.AuthAction.RESTORE, editEmail.text.toString(), null)
         }
     }
 

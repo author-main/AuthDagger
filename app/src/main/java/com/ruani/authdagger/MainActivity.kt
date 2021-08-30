@@ -48,8 +48,22 @@ class MainActivity : AppCompatActivity(), Contract.IView {
     }
 
     override fun onResultAuth(authAction: auth_data.AuthAction, authValue: auth_data.AuthValue) {
-        if (authValue != auth_data.AuthValue.COMPLETE) {
+        if (authValue != auth_data.AuthValue.COMPLETE)
             MessageHandler.showAuthError(authAction, authValue)
+        else {
+
+            val value = when (authAction){
+                auth_data.AuthAction.RESTORE ->
+                    getStringResource(R.string.dlgrest_success)
+                auth_data.AuthAction.REGISTER ->
+                    getStringResource(R.string.dlgreg_success)
+                else ->
+                    null
+            }
+
+
+            if (!value.isNullOrBlank())
+                MessageHandler.showMessage(value)
         }
     }
 
