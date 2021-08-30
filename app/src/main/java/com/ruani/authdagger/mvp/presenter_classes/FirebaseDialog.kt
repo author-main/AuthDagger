@@ -40,24 +40,11 @@ class FirebaseDialog<T: Contract.IView>: AuthDialog<T>() {
 
     }
 
-    class DialogRegister(context: Context): Dialog(context){
+    class DialogRegister(context: Context): Dialog(context, R.style.Dialog){
         private var email: String? = null
         private lateinit var editEmail          : EditText
         private lateinit var editPassword       : EditText
         private lateinit var editConfirmPassword  : EditText
-        //private lateinit var dialog             : AlertDialog
-/*        init{
-            val root = LayoutInflater.from(context).inflate(R.layout.dialog_register, null)
-            editEmail           = root.findViewById(R.id.editTextEmail)
-            editPassword        = root.findViewById(R.id.editTextPassword)
-            editConfirmPassword = root.findViewById(R.id.editTextConfirmPassword)
-            val builder: AlertDialog.Builder = AlertDialog.Builder(context)
-            builder.setTitle(R.string.dlgreg_authentication_title)
-                .setView(root)
-                .setNegativeButton(R.string.button_cancel, null)
-                .setPositiveButton(R.string.dlgreg_button, null)
-            dialog = builder.create()
-        }*/
 
         override fun show() {
             super.show()
@@ -81,8 +68,8 @@ class FirebaseDialog<T: Contract.IView>: AuthDialog<T>() {
             }
         }
 
-        fun setEmail(value: String){
-            email = value
+        fun setEmail(value: String?){
+            email = value ?: ""
         }
 
         private fun perform(){
@@ -116,6 +103,48 @@ class FirebaseDialog<T: Contract.IView>: AuthDialog<T>() {
         }
     }
 
+    class DialogRestore(context: Context): Dialog(context, R.style.Dialog){
+        private var email: String? = null
+        private lateinit var editEmail          : EditText
+
+        override fun show() {
+            super.show()
+            window?.setLayout(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        }
+
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            setContentView(R.layout.dialog_restore)
+            setTitle(R.string.dlgrest_title)
+            editEmail           = findViewById(R.id.editTextEmailRestore)
+            editEmail.setText(email)
+            findViewById<Button>(R.id.buttonOkRestore)?.setOnClickListener {
+                perform()
+            }
+            findViewById<Button>(R.id.buttonCancelRestore)?.setOnClickListener {
+                dismiss()
+            }
+        }
+
+        fun setEmail(value: String?){
+            email = value ?: ""
+        }
+
+        private fun perform(){
+            fun validateEmail(): Boolean{
+                val isCorrect = validateMail(editEmail.text.toString())
+                if (!isCorrect)
+                    editEmail.error = getStringResource(R.string.incorrect_email)
+                return isCorrect
+            }
+            editEmail.error = null
+            if (!validateEmail())
+                return
+            dismiss()
+        }
+    }
+
     private var dialogProgress: DialogProgress? = null
 
     override fun showDialogRegister(email: String?) {
@@ -143,18 +172,17 @@ class FirebaseDialog<T: Contract.IView>: AuthDialog<T>() {
             dialogProgress?.show()
             return
         }
-        if (email.isNullOrBlank()) {
-            return
-        }
+
         when (value) {
             DIALOG_REGISTER -> {
-                val context = getContext()
                 val dialogRegister = DialogRegister(getContext()!!)
                 dialogRegister.setEmail(email)
                 dialogRegister.show()
             }
             DIALOG_RESTORE -> {
-
+                val dialogRestore = DialogRestore(getContext()!!)
+                dialogRestore.setEmail(email)
+                dialogRestore.show()
             }
         }
 

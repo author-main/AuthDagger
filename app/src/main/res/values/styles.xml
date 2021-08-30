@@ -1,4 +1,8 @@
 <resources>
+    <style name="Dialog" parent="Theme.AppCompat.DayNight">
+        <item name="android:windowNoTitle">false</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
 
     <style name="AuthButton" parent="@style/Widget.MaterialComponents.Button">
         <item name="android:background">@drawable/ic_ripple</item>
