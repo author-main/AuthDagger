@@ -10,7 +10,7 @@ class ViewPasswordHelper(private val symbols: Array<TextView>) {
     private val colorSymbolActive: Int = getColorResource(R.color.symbolActive)
     private val hidenSymbol = "•"
     private var indexView = -1
-    //var onChangeSymbol:  ((value: String) -> Unit)? = null
+    var onCompleted:  (() -> Unit)? = null
 
     private fun setSymbolColor(index: Int, active: Boolean = false){
         val color =
@@ -59,7 +59,8 @@ class ViewPasswordHelper(private val symbols: Array<TextView>) {
                 symbols[indexActive].text = value
                 delay(400)
                 symbols[indexActive].text = hidenSymbol
-                //onChangeSymbol?.invoke(value)
+                if (indexActive == 4)
+                    onCompleted?.invoke()
             }
 
         }

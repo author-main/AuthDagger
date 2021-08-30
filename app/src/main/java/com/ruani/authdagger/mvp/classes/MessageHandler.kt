@@ -13,7 +13,7 @@ import com.ruani.authdagger.getStringResource
 class MessageHandler {
     companion object {
         fun showMessage(message: String) {
-            val toast: Toast = Toast.makeText(getAppContext(), message, Toast.LENGTH_LONG)
+            val toast: Toast = Toast.makeText(getAppContext(), message, Toast.LENGTH_SHORT)
             val centeredText: Spannable = SpannableString(message)
             centeredText.setSpan(
                 AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
