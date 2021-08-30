@@ -168,7 +168,8 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
         }
         password.set(mPassword)
         if (signIn)
-          executeAuthRequest(auth_data.AuthAction.SIGNIN)
+            executeAuthRequest(auth_data.AuthAction.SIGNIN)
+
     }
 
     private fun executeAuthRequest(type: auth_data.AuthAction){
