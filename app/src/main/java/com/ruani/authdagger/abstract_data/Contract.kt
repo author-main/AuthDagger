@@ -1,10 +1,7 @@
 package com.ruani.authdagger.abstract_data
 
-import android.app.Activity
-import android.content.Context
 import android.view.View
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ObservableField
 import com.ruani.authdagger.LENGTH_PASSWORD
 import com.ruani.authdagger.interfaces.AuthDialog

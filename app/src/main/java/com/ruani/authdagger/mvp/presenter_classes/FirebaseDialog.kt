@@ -3,19 +3,13 @@ package com.ruani.authdagger.mvp.presenter_classes
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import com.ruani.authdagger.R
 import com.ruani.authdagger.abstract_data.Contract
-import com.ruani.authdagger.abstract_data.auth_data
-import com.ruani.authdagger.getAppContext
 import com.ruani.authdagger.getStringResource
 import com.ruani.authdagger.interfaces.AuthDialog
 import com.ruani.authdagger.validateMail
@@ -64,6 +58,12 @@ class FirebaseDialog<T: Contract.IView>: AuthDialog<T>() {
                 .setPositiveButton(R.string.dlgreg_button, null)
             dialog = builder.create()
         }*/
+
+        override fun show() {
+            super.show()
+            window?.setLayout(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        }
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
