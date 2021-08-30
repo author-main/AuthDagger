@@ -8,6 +8,7 @@ import com.ruani.authdagger.abstract_data.auth_data
 import com.ruani.authdagger.abstract_data.Contract
 import com.ruani.authdagger.mvp.Presenter
 import com.ruani.authdagger.mvp.classes.MessageHandler
+import com.ruani.authdagger.mvp.presenter_classes.FirebaseDialog
 import com.ruani.authdagger.mvp.presenter_classes.ViewPasswordHelper
 
 class MainActivity : AppCompatActivity(), Contract.IView {
@@ -41,6 +42,8 @@ class MainActivity : AppCompatActivity(), Contract.IView {
     }
 
     override fun clickView(v: auth_data.AuthButton) {
+     /*   if (v == auth_data.AuthButton.BUTTON_REGISTER)
+            presenter.showDialogProgress()*/
 
     }
 

@@ -1,7 +1,10 @@
 package com.ruani.authdagger.abstract_data
 
+import android.app.Activity
+import android.content.Context
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ObservableField
 import com.ruani.authdagger.LENGTH_PASSWORD
 import com.ruani.authdagger.interfaces.AuthDialog
@@ -53,11 +56,15 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
 
     override fun attachDialog(dialog: D) {
         authDialog = dialog
-        authDialog?.setView(view)
         authDialog?.onDialogResult= {action, email, password ->
             model?.server?.executeRequest(action, email, password)
         }
+        //authDialog?.setView(view)
     }
+
+    /*fun showDialogProgress(){
+        authDialog?.showDialogProgress()
+    }*/
 
     override fun setPassword(value: String) {
         password.set(value)
@@ -65,6 +72,7 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
 
     override fun attachView(v: T) {
         view = v
+        authDialog?.setView(view)
     }
 
     override fun detachView() {
@@ -116,6 +124,7 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
     fun onClick(v: View) {
         when (val tag = v.tag.toString()) {
             "register" -> {
+                //view?.clickView(auth_data.AuthButton.BUTTON_REGISTER)
                 setPassword("")
                 authDialog?.showDialogRegister(email.get())
             }

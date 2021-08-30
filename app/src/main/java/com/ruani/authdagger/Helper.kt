@@ -10,6 +10,7 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.util.Patterns
 
 
 const val FILE_PREFERENCES = "settings"
@@ -48,5 +49,9 @@ fun connectedInternet(): Boolean{
 
 fun<T> isNotNull(value: T) =
     value != null
+
+fun validateMail(email: String): Boolean {
+    return !(email.isBlank() || !Patterns.EMAIL_ADDRESS.matcher(email).matches())
+}
 
 
