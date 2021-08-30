@@ -137,6 +137,7 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
             }
                 //view?.clickView(auth_data.AuthButton.BUTTON_RESTORE)
             "finger" -> {
+                view?.clickView(auth_data.AuthButton.BUTTON_FINGER)
               /*  model?.getPassword()?.let {
                     setPassword(it)
                     executeAuthRequest(auth_data.AuthAction.SIGNIN)
