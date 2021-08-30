@@ -59,7 +59,7 @@ class ViewPasswordHelper(private val symbols: Array<TextView>) {
                 symbols[indexActive].text = value
                 delay(400)
                 symbols[indexActive].text = hidenSymbol
-                if (indexActive == 4)
+                if (indexActive == LENGTH_PASSWORD - 1)
                     onCompleted?.invoke()
             }
 

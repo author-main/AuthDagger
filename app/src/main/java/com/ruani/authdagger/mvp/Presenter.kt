@@ -28,7 +28,6 @@ class Presenter<T: Contract.IView>: TPresenter<T, TModel<AuthServer>, AuthDialog
             viewPasswordHelper = ViewPasswordHelper(it)
             viewPasswordHelper?.onCompleted = {
                 setPassword("")
-                //viewPasswordHelper?.changeSymbolsColor(null)
             }
         }
     }
