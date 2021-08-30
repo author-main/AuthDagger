@@ -114,9 +114,9 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
                         model?.putPassword(it)
                     }
                 }
-            } else {
+            } /*else {
                 clearPassword()
-            }
+            }*/
             view?.onResultAuth(action, value)
         }
     }
