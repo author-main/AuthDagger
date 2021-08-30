@@ -84,7 +84,7 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
         model = m
         model?.server?.onAuthServerResult = {action, value ->
             authDialog?.hideDialogProgress()
-            clearPassword()
+            //clearPassword()
             if (value == auth_data.AuthValue.COMPLETE) {
                 val serverMail = model?.server?.getServerEmail()
                 val serverPassword = model?.server?.getServerPassword()
@@ -114,6 +114,8 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
                         model?.putPassword(it)
                     }
                 }
+            } else {
+                clearPassword()
             }
             view?.onResultAuth(action, value)
         }
@@ -172,7 +174,7 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
     private fun executeAuthRequest(type: auth_data.AuthAction){
         authDialog?.showDialogProgress()
         model?.server?.executeRequest(type, email.get(), password.get())
-        clearPassword()
+       // clearPassword()
     }
 
     private fun clearPassword(){

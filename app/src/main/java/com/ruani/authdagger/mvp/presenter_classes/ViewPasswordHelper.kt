@@ -29,6 +29,7 @@ class ViewPasswordHelper(private val symbols: Array<TextView>) {
                 colorSymbol
         symbols.forEach { symbol->
             symbol.setTextColor(color)
+            symbol.text = hidenSymbol
         }
     }
 
