@@ -3,10 +3,9 @@ package com.ruani.authdagger.abstract_data
 import android.view.View
 import android.widget.TextView
 import androidx.databinding.ObservableField
-import com.ruani.authdagger.LENGTH_PASSWORD
+import com.ruani.authdagger.*
 import com.ruani.authdagger.interfaces.AuthDialog
 import com.ruani.authdagger.interfaces.AuthServer
-import com.ruani.authdagger.log
 import com.ruani.authdagger.mvp.model_classes.FingerPrint
 
 interface Contract {
@@ -14,7 +13,6 @@ interface Contract {
         fun onResultAuth(authAction: auth_data.AuthAction, authValue: auth_data.AuthValue)
         fun getSymbolViews(): Array<TextView>?
         fun enabledFingerPrint(value: Boolean?)
-        //fun clickView(v: auth_data.AuthButton)
     }
 
     interface IModel{
@@ -26,7 +24,6 @@ interface Contract {
 
     interface IPresenter<T: IView, M: IModel, D: AuthDialog<T>, F: FingerPrint<T>>{
         fun setPassword(value: String?, show: Boolean = true)
-//        fun updatePassword(value: String?)
         fun attachView(v: T)
         fun detachView()
         fun attachDialog(dialog: D)
@@ -62,9 +59,7 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
             this.email.set(email)
             setPassword(password)
             executeAuthRequest(action)
-            //model?.server?.executeRequest(action, email, password)
         }
-        //authDialog?.setView(view)
     }
 
     override fun attachFingerPrint(value: F) {
@@ -80,12 +75,6 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
             }
         }
     }
-
-/*fun showDialogProgress(){
-        authDialog?.showDialogProgress()
-    }*/
-
-
 
     override fun setPassword(value: String?, show: Boolean) {
         password.set(value)
@@ -111,14 +100,12 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
             if (value == auth_data.AuthValue.COMPLETE) {
                 val serverMail = model?.server?.getServerEmail()
                 val serverPassword = model?.server?.getServerPassword()
-
                 if (action == auth_data.AuthAction.RESTORE) {
                     serverMail?.let {
                         model?.putEmail(it)
                         email.set(it)
                     }
                 }
-
                 if (action == auth_data.AuthAction.REGISTER) {
                     serverMail?.let {
                         model?.putEmail(it)
@@ -137,41 +124,29 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
                         model?.putPassword(it)
                     }
                 }
-            }/* else
-                clearPassword()*/
+            }
             view?.onResultAuth(action, value)
         }
     }
 
     fun getView()  = view
 
-   // fun getModel() = model*/
-
     fun onClick(v: View) {
         val tag = v.tag.toString()
         when (tag) {
-            "register" -> {
-                //view?.clickView(auth_data.AuthButton.BUTTON_REGISTER)
+            BUTTON_REGISTER -> {
                 clearPassword()
                 authDialog?.showDialogRegister(email.get())
             }
-                //view?.clickView(auth_data.AuthButton.BUTTON_REGISTER)
-            "restore" -> {
+            BUTTON_RESTORE -> {
                 clearPassword()
                 authDialog?.showDialogRestore(email.get())
             }
-                //view?.clickView(auth_data.AuthButton.BUTTON_RESTORE)
-            "finger" -> {
+            BUTTON_FINGER -> {
                 clearPassword()
-                    //val fingerPassword = model?.getPassword()
                 fingerPrint?.authenticate()
-                //view?.clickView(auth_data.AuthButton.BUTTON_FINGER)
-              /*  model?.getPassword()?.let {
-                    setPassword(it)
-                    executeAuthRequest(auth_data.AuthAction.SIGNIN)
-                }*/
             }
-            "delete" ->
+            BUTTON_DELETE ->
                 changePassword(null)
             else ->
                 changePassword(tag)
@@ -201,10 +176,8 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
     abstract fun updatePassword(value: String?)
 
     private fun executeAuthRequest(type: auth_data.AuthAction){
-        log(email.get() + ", " +  password.get())
         authDialog?.showDialogProgress()
         model?.server?.executeRequest(type, email.get(), password.get())
-       // clearPassword()
     }
 
     private fun clearPassword(){

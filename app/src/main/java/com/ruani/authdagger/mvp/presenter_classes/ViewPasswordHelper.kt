@@ -10,8 +10,6 @@ class ViewPasswordHelper(private val symbols: Array<TextView>) {
     private val colorSymbolActive: Int = getColorResource(R.color.symbolActive)
     private val hidenSymbol = "•"
     private var oldLength = 0
-    //var onCompleted:  (() -> Unit)? = null
-
 
     fun setValue(value: String?, show: Boolean = true){
         fun clearSymbols() {
@@ -38,8 +36,6 @@ class ViewPasswordHelper(private val symbols: Array<TextView>) {
                         symbols[index].text = sym.toString()
                         delay(400)
                         symbols[index].text = hidenSymbol
-                      /*  if (index == LENGTH_PASSWORD - 1)
-                            onCompleted?.invoke()*/
                     }
                 }
 
@@ -48,11 +44,6 @@ class ViewPasswordHelper(private val symbols: Array<TextView>) {
                 oldLength = value.length
                 for(i in value.indices)
                     symbols[i].setTextColor(colorSymbolActive)
-              /*  if (value.length == LENGTH_PASSWORD) {
-                    //clearSymbols()
-                    onCompleted?.invoke()
-                }*/
-
             }
         } else
             oldLength = 0

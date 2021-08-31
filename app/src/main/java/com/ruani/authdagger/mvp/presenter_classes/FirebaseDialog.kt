@@ -20,7 +20,7 @@ const val DIALOG_REGISTER = 1
 const val DIALOG_PROGRESS = 2
 
 class FirebaseDialog<T: Contract.IView>: AuthDialog<T>() {
-    class DialogProgress(context: Context): Dialog(context){
+    class DialogProgress(context: Context) : Dialog(context) {
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -41,25 +41,19 @@ class FirebaseDialog<T: Contract.IView>: AuthDialog<T>() {
 
     }
 
-    inner class DialogRegister(context: Context): Dialog(context, R.style.Dialog){
+    inner class DialogRegister(context: Context) : Dialog(context, R.style.Dialog) {
         private var email: String? = null
-        private lateinit var editEmail          : EditText
-        private lateinit var editPassword       : EditText
-        private lateinit var editConfirmPassword  : EditText
-
-        /*override fun show() {
-            super.show()
-            window?.setLayout(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-        }*/
+        private lateinit var editEmail: EditText
+        private lateinit var editPassword: EditText
+        private lateinit var editConfirmPassword: EditText
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             setContentView(R.layout.dialog_register)
             setTitle(R.string.dlgreg_authentication_title)
-            editEmail           = findViewById(R.id.editTextEmail)
+            editEmail = findViewById(R.id.editTextEmail)
             editEmail.setText(email)
-            editPassword        = findViewById(R.id.editTextPassword)
+            editPassword = findViewById(R.id.editTextPassword)
             editConfirmPassword = findViewById(R.id.editTextConfirmPassword)
             findViewById<Button>(R.id.buttonOkReg)?.setOnClickListener {
                 perform()
@@ -69,30 +63,33 @@ class FirebaseDialog<T: Contract.IView>: AuthDialog<T>() {
             }
         }
 
-        fun setEmail(value: String?){
+        fun setEmail(value: String?) {
             email = value ?: ""
         }
 
-        private fun perform(){
-            fun validateEmail(): Boolean{
+        private fun perform() {
+            fun validateEmail(): Boolean {
                 val isCorrect = validateMail(editEmail.text.toString())
                 if (!isCorrect)
                     editEmail.error = getStringResource(R.string.incorrect_email)
                 return isCorrect
             }
-            fun validatePassword(): Boolean{
+
+            fun validatePassword(): Boolean {
                 val password = editPassword.text.toString()
                 val isCorrect = !(password.isBlank() || password.length < 5)
                 if (!isCorrect)
                     editPassword.error = getStringResource(R.string.dlgreg_error_password)
                 return isCorrect
             }
-            fun validateConfirmPassword(): Boolean{
+
+            fun validateConfirmPassword(): Boolean {
                 val password = editPassword.text.toString()
                 val passwordConfirm = editConfirmPassword.text.toString()
                 val isCorrect = !(passwordConfirm.isBlank() || password != passwordConfirm)
                 if (!isCorrect)
-                    editConfirmPassword.error = getStringResource(R.string.dlgreg_error_passwordcheck)
+                    editConfirmPassword.error =
+                        getStringResource(R.string.dlgreg_error_passwordcheck)
                 return isCorrect
             }
             editEmail.error = null
@@ -101,25 +98,23 @@ class FirebaseDialog<T: Contract.IView>: AuthDialog<T>() {
             if (!validateEmail() || !validatePassword() || !validateConfirmPassword())
                 return
             dismiss()
-            onDialogResult?.invoke(auth_data.AuthAction.REGISTER, editEmail.text.toString(), editPassword.text.toString())
+            onDialogResult?.invoke(
+                auth_data.AuthAction.REGISTER,
+                editEmail.text.toString(),
+                editPassword.text.toString()
+            )
         }
     }
 
-    inner class DialogRestore(context: Context): Dialog(context, R.style.Dialog){
+    inner class DialogRestore(context: Context) : Dialog(context, R.style.Dialog) {
         private var email: String? = null
-        private lateinit var editEmail          : EditText
-
-     /*   override fun show() {
-            super.show()
-            window?.setLayout(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-        }*/
+        private lateinit var editEmail: EditText
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             setContentView(R.layout.dialog_restore)
             setTitle(R.string.dlgrest_title)
-            editEmail           = findViewById(R.id.editTextEmailRestore)
+            editEmail = findViewById(R.id.editTextEmailRestore)
             editEmail.setText(email)
             findViewById<Button>(R.id.buttonOkRestore)?.setOnClickListener {
                 perform()
@@ -129,12 +124,12 @@ class FirebaseDialog<T: Contract.IView>: AuthDialog<T>() {
             }
         }
 
-        fun setEmail(value: String?){
+        fun setEmail(value: String?) {
             email = value ?: ""
         }
 
-        private fun perform(){
-            fun validateEmail(): Boolean{
+        private fun perform() {
+            fun validateEmail(): Boolean {
                 val isCorrect = validateMail(editEmail.text.toString())
                 if (!isCorrect)
                     editEmail.error = getStringResource(R.string.incorrect_email)
@@ -169,7 +164,7 @@ class FirebaseDialog<T: Contract.IView>: AuthDialog<T>() {
         }
     }
 
-    private fun show(value: Int, email: String? = null){
+    private fun show(value: Int, email: String? = null) {
         if (value == DIALOG_PROGRESS) {
             dialogProgress = DialogProgress(getContext()!!)
             dialogProgress?.show()
@@ -190,17 +185,10 @@ class FirebaseDialog<T: Contract.IView>: AuthDialog<T>() {
         }
 
     }
-
-
-
-  /*  private fun getContext() =
-        onGetContext?.invoke()*/
-
-  /*  override var onDialogResult: ((action: auth_data.AuthAction, email: String, password: String) -> Unit)?
-        get() {}
-        set(value) {}
-
-    override var onGetContext: (() -> AppCompatActivity)?
-        get()  {}
-        set(value) {}*/
 }
+
+/*override fun show() {
+            super.show()
+            window?.setLayout(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        }*/

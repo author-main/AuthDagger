@@ -44,12 +44,6 @@ class MainActivity : AppCompatActivity(), Contract.IView {
         presenter.attachView(this)
     }
 
-    /*override fun clickView(v: auth_data.AuthButton) {
-     /*   if (v == auth_data.AuthButton.BUTTON_REGISTER)
-            presenter.showDialogProgress()*/
-
-    }*/
-
     override fun onResultAuth(authAction: auth_data.AuthAction, authValue: auth_data.AuthValue) {
         if (authValue != auth_data.AuthValue.COMPLETE)
             MessageHandler.showAuthError(authAction, authValue)

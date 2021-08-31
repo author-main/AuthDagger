@@ -8,7 +8,6 @@ import com.ruani.authdagger.abstract_data.auth_data
 abstract class AuthDialog<T:Contract.IView> {
     private var activity: Context? = null
     var onDialogResult:((action: auth_data.AuthAction, email: String, password: String?) -> Unit)? = null
-    //var onGetContext:(() -> AppCompatActivity)?
     @JvmName("setContext1")
     fun setView(v: T?){
         if (v != null)

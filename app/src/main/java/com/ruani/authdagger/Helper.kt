@@ -16,16 +16,18 @@ import android.util.Patterns
 const val FILE_PREFERENCES = "settings"
 const val KEY_MAIL = "key_mail"
 const val KEY_PASSWORD = "key_password"
-const val AUTHFINGER_COMPLETE = "authfinger_complete"
 const val LENGTH_PASSWORD = 5
+
+const val BUTTON_DELETE   = "delete"
+const val BUTTON_FINGER   = "finger"
+const val BUTTON_REGISTER = "register"
+const val BUTTON_RESTORE  = "restore"
 
 fun getAppContext() = AuthApplication.applicationContext()
 fun log(message: String?){
     if (message.isNullOrBlank()) {
-        Log.v("authdagger", "Empty message")
         return
     }
-    Log.v("authdagger", message)
 }
 
 fun getColorResource(id: Int) =
@@ -46,9 +48,6 @@ fun connectedInternet(): Boolean{
     return capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
                     || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
 }
-
-fun<T> isNotNull(value: T) =
-    value != null
 
 fun validateMail(email: String): Boolean {
     return !(email.isBlank() || !Patterns.EMAIL_ADDRESS.matcher(email).matches())
