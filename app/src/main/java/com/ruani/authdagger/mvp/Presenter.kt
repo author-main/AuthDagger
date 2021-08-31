@@ -23,19 +23,23 @@ class Presenter<T: Contract.IView>: TPresenter<T, TModel<AuthServer>, AuthDialog
         val symbols = getView()?.getSymbolViews()
         symbols?.let {
             viewPasswordHelper = ViewPasswordHelper(it)
-            viewPasswordHelper?.onCompleted = {
+            /*viewPasswordHelper?.onCompleted = {
                 setPassword("")
-            }
+            }*/
         }
     }
 
-    override fun changePassword(symbol: String?) {
-        viewPasswordHelper?.changeSymbol(symbol)
+  /*  override fun changePassword(symbol: String?) {
+        viewPasswordHelper?.setValue()
         super.changePassword(symbol)
+    }*/
+
+    override fun updatePassword(value: String?) {
+        viewPasswordHelper?.setValue(value)
     }
 
-    override fun setPassword(value: String?) {
-        super.setPassword(value)
-        viewPasswordHelper?.changeSymbolsColor(value)
+    override fun setPassword(value: String?, show: Boolean) {
+        super.setPassword(value, show)
+        viewPasswordHelper?.setValue(value, show)
     }
 }

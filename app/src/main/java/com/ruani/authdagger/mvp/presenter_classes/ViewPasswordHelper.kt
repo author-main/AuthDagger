@@ -9,73 +9,52 @@ class ViewPasswordHelper(private val symbols: Array<TextView>) {
     private val colorSymbol: Int       = getColorResource(R.color.symbol)
     private val colorSymbolActive: Int = getColorResource(R.color.symbolActive)
     private val hidenSymbol = "•"
-    private var indexView = -1
-    var onCompleted:  (() -> Unit)? = null
+    private var oldLength = 0
+    //var onCompleted:  (() -> Unit)? = null
 
-    private fun setSymbolColor(index: Int, active: Boolean = false){
-        val color =
-            if (active)
-                colorSymbolActive
-            else
-                colorSymbol
-        symbols[index].setTextColor(color)
-    }
 
-    private fun fillSymbols(active: Boolean = false) {
-        val color =
-            if (active)
-                colorSymbolActive
-            else
-                colorSymbol
-        symbols.forEach { symbol->
-            symbol.setTextColor(color)
-            symbol.text = hidenSymbol
-        }
-    }
-
-    fun changeSymbol(value: String?){
-        if (value.isNullOrBlank()) {
-            if (indexView > -1) {
-                setSymbolColor(indexView)
-                indexView--
+    fun setValue(value: String?, show: Boolean = true){
+        fun clearSymbols() {
+            symbols.forEach { symbol ->
+                symbol.text = hidenSymbol
+                symbol.setTextColor(colorSymbol)
             }
         }
-        else {
-            if (value == AUTHFINGER_COMPLETE) {
-                fillSymbols(true)
-                return
-            }
+        clearSymbols()
 
-            if (indexView == LENGTH_PASSWORD - 1) return // <- удалить
-            if (indexView > -1) {
-                symbols[indexView].text = hidenSymbol
-                setSymbolColor(indexView, true)
-            }
-            indexView++
-            setSymbolColor(indexView, true)
-            job?.cancel()
-            val indexActive = indexView
-            job = CoroutineScope(Dispatchers.Main).launch{
-                symbols[indexActive].text = value
-                delay(400)
-                symbols[indexActive].text = hidenSymbol
-                if (indexActive == LENGTH_PASSWORD - 1)
+        if (!value.isNullOrBlank()) {
+            if (show) {
+                val deleteSym = oldLength > value.length
+                oldLength = value.length
+                val sym   = value.last()
+                val index = value.length - 1
+                for (i in value.indices) {
+                    symbols[i].text = hidenSymbol
+                    symbols[i].setTextColor(colorSymbolActive)
+                }
+                job?.cancel()
+                if (!deleteSym) {
+                    job = CoroutineScope(Dispatchers.Main).launch {
+                        symbols[index].text = sym.toString()
+                        delay(400)
+                        symbols[index].text = hidenSymbol
+                      /*  if (index == LENGTH_PASSWORD - 1)
+                            onCompleted?.invoke()*/
+                    }
+                }
+
+
+            } else {
+                oldLength = value.length
+                for(i in value.indices)
+                    symbols[i].setTextColor(colorSymbolActive)
+              /*  if (value.length == LENGTH_PASSWORD) {
+                    //clearSymbols()
                     onCompleted?.invoke()
-            }
+                }*/
 
-        }
-    }
-
-    fun changeSymbolsColor(value: String?){
-       fillSymbols()
-        if (value.isNullOrBlank()) {
-            indexView = -1
-        }
-        else {
-            indexView = value.length - 1
-            value.forEachIndexed { index, _ ->
-                setSymbolColor(index, true)
             }
-        }
+        } else
+            oldLength = 0
     }
 }

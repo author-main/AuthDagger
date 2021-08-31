@@ -1,7 +1,10 @@
 package com.ruani.authdagger
 
+import android.graphics.Rect
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import com.ruani.authdagger.abstract_data.auth_data
@@ -81,5 +84,25 @@ class MainActivity : AppCompatActivity(), Contract.IView {
 
     override fun enabledFingerPrint(value: Boolean?) {
         dataBinding.buttonFinger.isEnabled = value ?: false
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        val editTextRect = Rect()
+        dataBinding.editTextEmail.getGlobalVisibleRect(editTextRect)
+        ev?.let { event ->
+            if (!editTextRect.contains(event.x.toInt(), event.y.toInt()))
+                hideFocusEmail()
+        }
+        return super.dispatchTouchEvent(ev)
+    }
+
+    private fun hideFocusEmail(){
+        if (dataBinding.editTextEmail.isFocused) {
+            val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(dataBinding.editTextEmail.windowToken, 0)
+            dataBinding.editTextEmail.isFocusableInTouchMode = false
+            dataBinding.editTextEmail.clearFocus()
+            dataBinding.editTextEmail.isFocusableInTouchMode = true
+        }
     }
 }
