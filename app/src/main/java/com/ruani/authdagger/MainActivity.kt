@@ -11,8 +11,7 @@ import com.ruani.authdagger.abstract_data.auth_data
 import com.ruani.authdagger.abstract_data.Contract
 import com.ruani.authdagger.mvp.Presenter
 import com.ruani.authdagger.mvp.classes.MessageHandler
-import com.ruani.authdagger.mvp.presenter_classes.FirebaseDialog
-import com.ruani.authdagger.mvp.presenter_classes.ViewPasswordHelper
+import com.ruani.authdagger.mvp.classes.getStringResource
 
 class MainActivity : AppCompatActivity(), Contract.IView {
     private lateinit var dataBinding: com.ruani.authdagger.databinding.ActivityMainBinding
@@ -51,7 +50,7 @@ class MainActivity : AppCompatActivity(), Contract.IView {
 
             val value = when (authAction){
                 auth_data.AuthAction.RESTORE ->
-                    getStringResource(R.string.dlgrest_success)
+                   getStringResource(R.string.dlgrest_success)
                 auth_data.AuthAction.REGISTER ->
                     getStringResource(R.string.dlgreg_success)
                 else ->

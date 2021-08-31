@@ -1,16 +1,10 @@
-package com.ruani.authdagger
+package com.ruani.authdagger.mvp.classes
 
-import android.graphics.Color
-import android.util.Log
-import android.util.TypedValue
-import androidx.core.content.ContextCompat
-import android.R
 import android.content.Context
-
-import android.content.res.TypedArray
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.util.Patterns
+import androidx.core.content.ContextCompat
 
 
 const val FILE_PREFERENCES = "settings"
@@ -18,13 +12,13 @@ const val KEY_MAIL = "key_mail"
 const val KEY_PASSWORD = "key_password"
 const val LENGTH_PASSWORD = 5
 
-const val BUTTON_DELETE   = "delete"
-const val BUTTON_FINGER   = "finger"
+const val BUTTON_DELETE = "delete"
+const val BUTTON_FINGER = "finger"
 const val BUTTON_REGISTER = "register"
-const val BUTTON_RESTORE  = "restore"
+const val BUTTON_RESTORE = "restore"
 
 fun getAppContext() = AuthApplication.applicationContext()
-fun log(message: String?){
+fun log(message: String?) {
     if (message.isNullOrBlank()) {
         return
     }
@@ -36,17 +30,17 @@ fun getColorResource(id: Int) =
 fun getStringResource(id: Int) =
     try {
         getAppContext().getString(id)
-    }
-    catch (e: Exception){
+    } catch (e: Exception) {
         null
     }
 
-fun connectedInternet(): Boolean{
-    val connectivityManager = getAppContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+fun connectedInternet(): Boolean {
+    val connectivityManager =
+        getAppContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     val activeNetwork = connectivityManager.activeNetwork ?: return false
     val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork) ?: return false
     return capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
-                    || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+            || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
 }
 
 fun validateMail(email: String): Boolean {
