@@ -3,8 +3,6 @@ package com.ruani.authdagger.abstract_data
 import android.view.View
 import android.widget.TextView
 import androidx.databinding.ObservableField
-import androidx.interpolator.view.animation.FastOutSlowInInterpolator
-import com.ruani.authdagger.AUTHFINGER_COMPLETE
 import com.ruani.authdagger.LENGTH_PASSWORD
 import com.ruani.authdagger.interfaces.AuthDialog
 import com.ruani.authdagger.interfaces.AuthServer
