@@ -3,15 +3,19 @@ package com.ruani.authdagger.abstract_data
 import android.view.View
 import android.widget.TextView
 import androidx.databinding.ObservableField
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
+import com.ruani.authdagger.AUTHFINGER_COMPLETE
 import com.ruani.authdagger.LENGTH_PASSWORD
 import com.ruani.authdagger.interfaces.AuthDialog
 import com.ruani.authdagger.interfaces.AuthServer
+import com.ruani.authdagger.mvp.model_classes.FingerPrint
 
 interface Contract {
     interface IView {
         fun onResultAuth(authAction: auth_data.AuthAction, authValue: auth_data.AuthValue)
         fun getSymbolViews(): Array<TextView>?
-        fun clickView(v: auth_data.AuthButton)
+        fun enabledFingerPrint(value: Boolean?)
+        //fun clickView(v: auth_data.AuthButton)
     }
 
     interface IModel{
@@ -21,12 +25,13 @@ interface Contract {
         fun getPassword(): String?
     }
 
-    interface IPresenter<T: IView, M: IModel, D: AuthDialog<T>>{
+    interface IPresenter<T: IView, M: IModel, D: AuthDialog<T>, F: FingerPrint<T>>{
         fun setPassword(value: String?)
         fun changePassword(symbol: String?)
         fun attachView(v: T)
         fun detachView()
         fun attachDialog(dialog: D)
+        fun attachFingerPrint(value: F)
     }
 }
 
@@ -37,11 +42,12 @@ abstract class TModel<S: AuthServer>: Contract.IModel {
     }
 }
 
-abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialog<T> >: Contract.IPresenter<T, M, D>{
+abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialog<T>, F: FingerPrint<T> >: Contract.IPresenter<T, M, D, F>{
 
     private var view        :      T?  = null
     private var model       :      M?  = null
     private var authDialog  :      D? = null
+    private var fingerPrint :      F? = null
 
     val email:      ObservableField<String> = ObservableField()
     val password:   ObservableField<String> = ObservableField()
@@ -62,7 +68,17 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
         //authDialog?.setView(view)
     }
 
-    /*fun showDialogProgress(){
+    override fun attachFingerPrint(value: F) {
+        fingerPrint = value
+        view?.enabledFingerPrint(fingerPrint?.getAvailable())
+        fingerPrint?.onAuthBiometricComplete = {fingerValue ->
+            if (fingerValue == auth_data.FingerValue.FINGER_COMPLETE) {
+                val fingerPassword = model?.getPassword()
+            }
+        }
+    }
+
+/*fun showDialogProgress(){
         authDialog?.showDialogProgress()
     }*/
 
@@ -73,6 +89,7 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
     override fun attachView(v: T) {
         view = v
         authDialog?.setView(view)
+        fingerPrint?.setView(view)
         email.set(model?.getEmail())
     }
 
@@ -126,7 +143,8 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
    // fun getModel() = model*/
 
     fun onClick(v: View) {
-        when (val tag = v.tag.toString()) {
+        val tag = v.tag.toString()
+        when (tag) {
             "register" -> {
                 //view?.clickView(auth_data.AuthButton.BUTTON_REGISTER)
                 clearPassword()
@@ -139,7 +157,10 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
             }
                 //view?.clickView(auth_data.AuthButton.BUTTON_RESTORE)
             "finger" -> {
-                view?.clickView(auth_data.AuthButton.BUTTON_FINGER)
+                clearPassword()
+                    //val fingerPassword = model?.getPassword()
+                fingerPrint?.authenticate()
+                //view?.clickView(auth_data.AuthButton.BUTTON_FINGER)
               /*  model?.getPassword()?.let {
                     setPassword(it)
                     executeAuthRequest(auth_data.AuthAction.SIGNIN)

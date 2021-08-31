@@ -12,9 +12,8 @@ public final class auth_data {
         REGISTER,
         RESTORE
     }
-    public static enum AuthButton {
-        BUTTON_REGISTER,
-        BUTTON_RESTORE,
-        BUTTON_FINGER
+    public static enum FingerValue {
+        FINGER_ERROR,
+        FINGER_COMPLETE
     }
 }

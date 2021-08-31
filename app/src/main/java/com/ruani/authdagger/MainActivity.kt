@@ -41,11 +41,11 @@ class MainActivity : AppCompatActivity(), Contract.IView {
         presenter.attachView(this)
     }
 
-    override fun clickView(v: auth_data.AuthButton) {
+    /*override fun clickView(v: auth_data.AuthButton) {
      /*   if (v == auth_data.AuthButton.BUTTON_REGISTER)
             presenter.showDialogProgress()*/
 
-    }
+    }*/
 
     override fun onResultAuth(authAction: auth_data.AuthAction, authValue: auth_data.AuthValue) {
         if (authValue != auth_data.AuthValue.COMPLETE)
@@ -78,4 +78,8 @@ class MainActivity : AppCompatActivity(), Contract.IView {
             dataBinding.textViewSymbol2,
             dataBinding.textViewSymbol3,
             dataBinding.textViewSymbol4)
+
+    override fun enabledFingerPrint(value: Boolean?) {
+        dataBinding.buttonFinger.isEnabled = value ?: false
+    }
 }
