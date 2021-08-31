@@ -23,5 +23,5 @@
     <string name="dlgrest_title">Восстановление</string>
     <string name="dlgrest_message">На ваш email будет отправлено письмо\nдля восстановления пароля</string>
     <string name="dlgrest_success">Запрос на восстановление отправлен</string>
-    <string name="biometric_title">Вход в AuthApplication</string>
+    <string name="biometric_title">Вход в AuthDagger</string>
 </resources>
