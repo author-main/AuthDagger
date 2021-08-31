@@ -11,7 +11,6 @@ import com.ruani.authdagger.abstract_data.auth_data
 import com.ruani.authdagger.abstract_data.Contract
 import com.ruani.authdagger.mvp.Presenter
 import com.ruani.authdagger.mvp.classes.MessageHandler
-import com.ruani.authdagger.mvp.classes.getStringResource
 
 class MainActivity : AppCompatActivity(), Contract.IView {
     private lateinit var dataBinding: com.ruani.authdagger.databinding.ActivityMainBinding
