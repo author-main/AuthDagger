@@ -96,7 +96,9 @@ class MainActivity : AppCompatActivity(), Contract.IView {
         }
     }
 
-    // *** Доступ получен ***
+    /*
+    * onAccessed() - доступ получен
+    */
     override fun onAccessed() {
 
     }
