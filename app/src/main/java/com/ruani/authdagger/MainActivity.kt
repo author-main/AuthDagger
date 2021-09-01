@@ -46,7 +46,6 @@ class MainActivity : AppCompatActivity(), Contract.IView {
         if (authValue != auth_data.AuthValue.COMPLETE)
             MessageHandler.showAuthError(authAction, authValue)
         else {
-
             val value = when (authAction){
                 auth_data.AuthAction.RESTORE ->
                    getStringResource(R.string.dlgrest_success)
@@ -96,5 +95,9 @@ class MainActivity : AppCompatActivity(), Contract.IView {
             dataBinding.editTextEmail.clearFocus()
             dataBinding.editTextEmail.isFocusableInTouchMode = true
         }
+    }
+    // *** Доступ получен ***
+    override fun onAccessed() {
+
     }
 }

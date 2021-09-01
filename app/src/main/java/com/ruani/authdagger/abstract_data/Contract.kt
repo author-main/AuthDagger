@@ -14,6 +14,7 @@ interface Contract {
         fun onResultAuth(authAction: auth_data.AuthAction, authValue: auth_data.AuthValue)
         fun getSymbolViews(): Array<TextView>?
         fun enabledFingerPrint(value: Boolean?)
+        fun onAccessed()
     }
 
     interface IModel{
@@ -94,10 +95,10 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
     }
 
     fun attachModel(m: M) {
+        var signIn = false
         model = m
         model?.server?.onAuthServerResult = {action, value ->
             authDialog?.hideDialogProgress()
-            clearPassword()
             if (value == auth_data.AuthValue.COMPLETE) {
                 val serverMail = model?.server?.getServerEmail()
                 val serverPassword = model?.server?.getServerPassword()
@@ -124,9 +125,13 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
                     serverPassword?.let {
                         model?.putPassword(it)
                     }
+                    signIn = true
                 }
             }
-            view?.onResultAuth(action, value)
+            if (signIn)
+                view?.onAccessed()
+            else
+                view?.onResultAuth(action, value)
         }
     }
 

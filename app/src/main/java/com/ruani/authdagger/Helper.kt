@@ -3,6 +3,7 @@ package com.ruani.authdagger
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.util.Log
 import android.util.Patterns
 import androidx.core.content.ContextCompat
 
@@ -19,9 +20,9 @@ const val BUTTON_RESTORE = "restore"
 
 fun getAppContext() = AuthApplication.applicationContext()
 fun log(message: String?) {
-    if (message.isNullOrBlank()) {
+    if (message.isNullOrBlank())
         return
-    }
+    Log.v("authdagger", message)
 }
 
 fun getColorResource(id: Int) =
