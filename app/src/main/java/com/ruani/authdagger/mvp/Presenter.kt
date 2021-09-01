@@ -10,12 +10,11 @@ import com.ruani.authdagger.mvp.presenter_classes.AuthFingerPrint
 import com.ruani.authdagger.mvp.presenter_classes.FirebaseDialog
 import com.ruani.authdagger.mvp.presenter_classes.ViewPasswordHelper
 
-class Presenter<T: Contract.IView>: TPresenter<T, TModel<AuthServer>, AuthDialog<T>, FingerPrint<T>>() {
+class Presenter<T: Contract.IView>: TPresenter<T, TModel<AuthServer, FingerPrint<Contract.IView>>, AuthDialog<T>>() {
     private var viewPasswordHelper: ViewPasswordHelper? = null
     init {
         attachModel(Model())
         attachDialog(FirebaseDialog())
-        attachFingerPrint(AuthFingerPrint())
     }
 
     override fun attachView(v: T) {

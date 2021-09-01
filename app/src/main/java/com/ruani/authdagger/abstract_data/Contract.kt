@@ -24,28 +24,32 @@ interface Contract {
         fun getPassword(): String?
     }
 
-    interface IPresenter<T: IView, M: IModel, D: AuthDialog<T>, F: FingerPrint<T>>{
+    interface IPresenter<T: IView, M: IModel, D: AuthDialog<T>>{
         fun setPassword(value: String?, show: Boolean = true)
         fun attachView(v: T)
         fun detachView()
         fun attachDialog(dialog: D)
-        fun attachFingerPrint(value: F)
+        //fun attachFingerPrint(value: F)
     }
 }
 
-abstract class TModel<S: AuthServer>: Contract.IModel {
+abstract class TModel<S: AuthServer, F: FingerPrint<Contract.IView>>: Contract.IModel {
     var server: S? = null
+    var fingerPrint :      F? = null
     fun attachServer(value: S){
         server = value
     }
+    fun attachFingerPrint(value: F){
+        fingerPrint = value
+    }
 }
 
-abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialog<T>, F: FingerPrint<T> >: Contract.IPresenter<T, M, D, F>{
+abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer, FingerPrint<Contract.IView>>, D: AuthDialog<T>>: Contract.IPresenter<T, M, D>{
 
     private var view        :      T?  = null
     private var model       :      M?  = null
     private var authDialog  :      D? = null
-    private var fingerPrint :      F? = null
+    //private var fingerPrint :      F? = null
 
     val email:      ObservableField<String> = ObservableField()
     val password:   ObservableField<String> = ObservableField()
@@ -64,7 +68,7 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
         }
     }
 
-    override fun attachFingerPrint(value: F) {
+   /* override fun attachFingerPrint(value: F) {
         fingerPrint = value
         fingerPrint?.onAuthBiometricComplete = {fingerValue ->
             if (fingerValue == auth_data.FingerValue.FINGER_COMPLETE) {
@@ -76,7 +80,7 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
 
             }
         }
-    }
+    }*/
 
     override fun setPassword(value: String?, show: Boolean) {
         password.set(value)
@@ -85,8 +89,17 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
     override fun attachView(v: T) {
         view = v
         authDialog?.setView(view)
-        fingerPrint?.setView(view)
-        view?.enabledFingerPrint(fingerPrint?.getAvailable())
+        model?.fingerPrint?.setView(view)
+        model?.fingerPrint?.onAuthBiometricComplete = {fingerValue ->
+            if (fingerValue == auth_data.FingerValue.FINGER_COMPLETE) {
+                val fingerPassword = model?.getPassword()
+                fingerPassword?.let{
+                    setPassword(it, false)
+                    executeAuthRequest(auth_data.AuthAction.SIGNIN)
+                }
+            }
+        }
+        view?.enabledFingerPrint(model?.fingerPrint?.getAvailable())
         email.set(model?.getEmail())
     }
 
@@ -149,7 +162,7 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
             }
             BUTTON_FINGER -> {
                 clearPassword()
-                fingerPrint?.authenticate()
+                model?.fingerPrint?.authenticate()
             }
             BUTTON_DELETE ->
                 changePassword(null)
