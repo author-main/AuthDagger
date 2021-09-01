@@ -6,7 +6,6 @@ import androidx.databinding.ObservableField
 import com.ruani.authdagger.*
 import com.ruani.authdagger.interfaces.AuthDialog
 import com.ruani.authdagger.interfaces.AuthServer
-import com.ruani.authdagger.mvp.classes.*
 import com.ruani.authdagger.mvp.model_classes.FingerPrint
 
 interface Contract {
