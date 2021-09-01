@@ -25,7 +25,7 @@ import com.ruani.authdagger.mvp.Contract
         fun decryptPassword(value: String): String? - получаем закодированный пароль
         fun encryptPassword(value: String): String? - получаем декодируемый пароль
 
-*   FirebaseServer  - класс для работы с сервером аутентификацииЖ
+*   FirebaseServer  - класс для работы с сервером аутентификации:
         var onAuthServerResult: ((action: auth_data.AuthAction, result: auth_data.AuthValue) -> Unit)? - callback,
         результат выполнения запроса на сервере аутентификации,
         action - тип выполняемого запроса, значения SIGNIN - аутентификая, RESTORE - восстановление, REGISTER - регистрация
