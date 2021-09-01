@@ -18,7 +18,7 @@ import com.ruani.authdagger.mvp.Contract
     вам необходимо переопределить классы пакета model_classes:
 *   AuthFingerPrint - класс для работы со сканером отпечатка пальцев:
         var onAuthBiometricComplete: ((value: auth_data.FingerValue?) -> Unit)? = null - callback,
-        возвращает реудьтат сканирования отпечатка пальцев
+        возвращает результат сканирования отпечатка пальцев
         value - результат сканирования, FINGER_COMPLETE - успешно, FINGER_ERROR - ошибка
 
 *   CipherPassword  - класс кодирования/декодирования пароля пользователя:
