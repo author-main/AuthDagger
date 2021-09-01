@@ -5,7 +5,7 @@ import com.ruani.authdagger.abstract_data.TModel
 import com.ruani.authdagger.abstract_data.TPresenter
 import com.ruani.authdagger.interfaces.AuthDialog
 import com.ruani.authdagger.interfaces.AuthServer
-import com.ruani.authdagger.mvp.model_classes.FingerPrint
+import com.ruani.authdagger.interfaces.FingerPrint
 import com.ruani.authdagger.mvp.presenter_classes.FirebaseDialog
 import com.ruani.authdagger.mvp.presenter_classes.ViewPasswordHelper
 

@@ -1,4 +1,4 @@
-package com.ruani.authdagger.mvp.model_classes
+package com.ruani.authdagger.interfaces
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
