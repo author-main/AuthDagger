@@ -1,12 +1,10 @@
 package com.ruani.authdagger.mvp
 
-import com.ruani.authdagger.mvp.interfaces.AuthDialog
-import com.ruani.authdagger.mvp.interfaces.AuthServer
-import com.ruani.authdagger.mvp.interfaces.FingerPrint
+import com.ruani.authdagger.mvp.interfaces.*
 import com.ruani.authdagger.mvp.presenter_classes.FirebaseDialog
 import com.ruani.authdagger.mvp.presenter_classes.Dyer
 
-class Presenter<T: Contract.IView>: TPresenter<T, TModel<AuthServer, FingerPrint<Contract.IView>>, AuthDialog<T>>() {
+class Presenter<T: Contract.IView>: TPresenter<T, TModel<AuthServer, FingerPrint<Contract.IView>, IOUserDataStorage>, AuthDialog<T>>() {
     private var dyer: Dyer? = null
     init {
         attachModel(Model())

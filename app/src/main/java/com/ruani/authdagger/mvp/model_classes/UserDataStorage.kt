@@ -6,6 +6,7 @@ import com.ruani.authdagger.helpers.FILE_PREFERENCES
 import com.ruani.authdagger.helpers.KEY_MAIL
 import com.ruani.authdagger.helpers.KEY_PASSWORD
 import com.ruani.authdagger.helpers.getAppContext
+import com.ruani.authdagger.mvp.interfaces.IOCipherPassword
 import com.ruani.authdagger.mvp.interfaces.IOUserDataStorage
 
 class UserDataStorage: IOUserDataStorage {
@@ -35,5 +36,4 @@ class UserDataStorage: IOUserDataStorage {
 
     override fun existPassword() =
         !preferences.getString(KEY_PASSWORD, null).isNullOrEmpty()
-
 }

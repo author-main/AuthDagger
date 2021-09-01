@@ -4,10 +4,8 @@ import android.view.View
 import android.widget.TextView
 import androidx.databinding.ObservableField
 import com.ruani.authdagger.abstract_data.auth_data
-import com.ruani.authdagger.mvp.interfaces.AuthDialog
-import com.ruani.authdagger.mvp.interfaces.AuthServer
 import com.ruani.authdagger.helpers.*
-import com.ruani.authdagger.mvp.interfaces.FingerPrint
+import com.ruani.authdagger.mvp.interfaces.*
 
 interface Contract {
     interface IView {
@@ -32,18 +30,35 @@ interface Contract {
     }
 }
 
-abstract class TModel<S: AuthServer, F: FingerPrint<Contract.IView>>: Contract.IModel {
+abstract class TModel<S: AuthServer, F: FingerPrint<Contract.IView>, T: IOUserDataStorage>: Contract.IModel {
     var server: S? = null
     var fingerPrint :      F? = null
+    var storage: T? = null
     fun attachServer(value: S){
         server = value
     }
     fun attachFingerPrint(value: F){
         fingerPrint = value
     }
+    fun attachStorage(value: T){
+        storage = value
+    }
+
+    override fun putPassword(password: String) {
+        storage?.putPassword(password)
+    }
+
+    override fun getPassword() = storage?.getPassword()
+
+    override fun getEmail() = storage?.getEmail()
+
+    override fun putEmail(email: String) {
+        storage?.putEmail(email)
+    }
+
 }
 
-abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer, FingerPrint<Contract.IView>>, D: AuthDialog<T>>: Contract.IPresenter<T, M, D>{
+abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer, FingerPrint<Contract.IView>, IOUserDataStorage>, D: AuthDialog<T>>: Contract.IPresenter<T, M, D>{
     private var view        :      T?  = null
     private var model       :      M?  = null
     private var authDialog  :      D? = null
