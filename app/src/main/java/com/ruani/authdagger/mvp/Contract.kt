@@ -33,7 +33,7 @@ interface Contract {
 abstract class TModel<S: AuthServer, F: FingerPrint<Contract.IView>, T: IOUserDataStorage>: Contract.IModel {
     var server:         S? = null
     var fingerPrint :   F? = null
-    var storage:        T? = null
+    private var storage:        T? = null
     fun attachServer(value: S){
         server = value
     }
