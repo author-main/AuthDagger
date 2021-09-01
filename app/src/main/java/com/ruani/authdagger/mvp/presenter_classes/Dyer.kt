@@ -6,7 +6,7 @@ import com.ruani.authdagger.mvp.helpers.LENGTH_PASSWORD
 import com.ruani.authdagger.mvp.helpers.getColorResource
 import kotlinx.coroutines.*
 
-class ViewSymbols(private val symbols: Array<TextView>) {
+class Dyer(private val symbols: Array<TextView>) {
     private var job: Job? = null
     private val colorSymbol: Int       = getColorResource(R.color.symbol)
     private val colorSymbolActive: Int = getColorResource(R.color.symbolActive)

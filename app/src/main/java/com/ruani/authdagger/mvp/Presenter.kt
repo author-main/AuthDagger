@@ -7,10 +7,10 @@ import com.ruani.authdagger.interfaces.AuthDialog
 import com.ruani.authdagger.interfaces.AuthServer
 import com.ruani.authdagger.interfaces.FingerPrint
 import com.ruani.authdagger.mvp.presenter_classes.FirebaseDialog
-import com.ruani.authdagger.mvp.presenter_classes.ViewSymbols
+import com.ruani.authdagger.mvp.presenter_classes.Dyer
 
 class Presenter<T: Contract.IView>: TPresenter<T, TModel<AuthServer, FingerPrint<Contract.IView>>, AuthDialog<T>>() {
-    private var viewSymbols: ViewSymbols? = null
+    private var dyer: Dyer? = null
     init {
         attachModel(Model())
         attachDialog(FirebaseDialog())
@@ -20,19 +20,19 @@ class Presenter<T: Contract.IView>: TPresenter<T, TModel<AuthServer, FingerPrint
         super.attachView(v)
         val symbols = getView()?.getSymbolViews()
         symbols?.let {
-            viewSymbols = ViewSymbols(it)
-            viewSymbols?.onFinish = {
+            dyer = Dyer(it)
+            dyer?.onFinish = {
                 setPassword("")
             }
         }
     }
 
     override fun updatePassword(value: String?) {
-        viewSymbols?.setValue(value)
+        dyer?.setValue(value)
     }
 
     override fun setPassword(value: String?, show: Boolean) {
         super.setPassword(value, show)
-        viewSymbols?.setValue(value, show)
+        dyer?.setValue(value, show)
     }
 }
