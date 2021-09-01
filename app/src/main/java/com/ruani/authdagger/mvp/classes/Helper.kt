@@ -20,11 +20,6 @@ const val BUTTON_REGISTER = "register"
 const val BUTTON_RESTORE = "restore"
 
 fun getAppContext() = AuthApplication.applicationContext()
-fun log(message: String?) {
-    if (message.isNullOrBlank())
-        return
-    Log.v("authdagger", message)
-}
 
 fun getColorResource(id: Int) =
     ContextCompat.getColor(getAppContext(), id)
@@ -49,4 +44,11 @@ fun validateMail(email: String): Boolean {
     return !(email.isBlank() || !Patterns.EMAIL_ADDRESS.matcher(email).matches())
 }
 
-
+/*
+    fun log() можно удалить (только для отладки)
+*/
+fun log(message: String?) {
+    if (message.isNullOrBlank())
+        return
+    Log.v("authdagger", message)
+}

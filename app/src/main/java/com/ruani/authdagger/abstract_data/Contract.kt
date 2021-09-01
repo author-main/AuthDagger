@@ -28,7 +28,6 @@ interface Contract {
         fun attachView(v: T)
         fun detachView()
         fun attachDialog(dialog: D)
-        //fun attachFingerPrint(value: F)
     }
 }
 
@@ -44,11 +43,9 @@ abstract class TModel<S: AuthServer, F: FingerPrint<Contract.IView>>: Contract.I
 }
 
 abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer, FingerPrint<Contract.IView>>, D: AuthDialog<T>>: Contract.IPresenter<T, M, D>{
-
     private var view        :      T?  = null
     private var model       :      M?  = null
     private var authDialog  :      D? = null
-
     val email:      ObservableField<String> = ObservableField()
     val password:   ObservableField<String> = ObservableField()
 
@@ -185,5 +182,4 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer, FingerPrint<C
     private fun clearPassword(){
         setPassword("")
     }
-
 }
