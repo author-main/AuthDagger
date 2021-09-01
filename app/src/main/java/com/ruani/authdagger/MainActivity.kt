@@ -13,6 +13,33 @@ import com.ruani.authdagger.helpers.MessageHandler
 import com.ruani.authdagger.helpers.getStringResource
 import com.ruani.authdagger.mvp.Contract
 
+/*
+    Для собственной реализации формы аутентификации,
+    вам необходимо переопределить классы пакета model_classes:
+*   AuthFingerPrint - класс для работы со сканером отпечатка пальцев
+        var onAuthBiometricComplete: ((value: auth_data.FingerValue?) -> Unit)? = null - callback,
+        обрабатывается в случае успешной операции сканирования отпечатка пальцев
+        value - результат сканирования, значения FINGER_COMPLETE - успешно, FINGER_ERROR - ошибка
+
+*   CipherPassword  - класс кодирования/декодирования пароля пользователя
+        fun decryptPassword(value: String): String? - получаем закодированный пароль
+        fun encryptPassword(value: String): String? - получаем декодируемый пароль
+
+*   FirebaseServer  - класс для работы с сервером аутентификацииЖ
+        var onAuthServerResult: ((action: auth_data.AuthAction, result: auth_data.AuthValue) -> Unit)? - callback,
+        результат выполнения запроса на сервере аутентификации,
+        action - тип выполняемого запроса, значения SIGNIN - аутентификая, RESTORE - восстановление, REGISTER - регистрация
+        result - результат запроса, COMPLETE - успешно, ERROR - ошибка выполнения запроса,
+                 ERROR_CONNECTION -отсутсвует сеть, ERROR_USERDATA - не заполнены данные пользователя
+
+*   UserDataStorage - класс, реализующий сохранение/чтение данных пользователя (почта и пароль):
+        fun putPassword(password: String)   - сохранить пароль пользователя
+        fun getPassword(): String?          - получить пароль пользователя
+        fun getEmail(): String?             - получить почту пользователя
+        fun putEmail(email: String)         - сохранить почту пользователя
+        fun existPassword(): Boolean        - проверить, сохранен ли пароль
+*/
+
 class MainActivity : AppCompatActivity(), Contract.IView {
     private lateinit var dataBinding: com.ruani.authdagger.databinding.ActivityMainBinding
     private lateinit var presenter: Presenter<Contract.IView>
