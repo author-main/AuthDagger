@@ -2,9 +2,11 @@ package com.ruani.authdagger.mvp.presenter_classes
 
 import android.widget.TextView
 import com.ruani.authdagger.*
+import com.ruani.authdagger.helpers.LENGTH_PASSWORD
+import com.ruani.authdagger.helpers.getColorResource
 import kotlinx.coroutines.*
 
-class ViewPasswordHelper(private val symbols: Array<TextView>) {
+class Dyer(private val symbols: Array<TextView>) {
     private var job: Job? = null
     private val colorSymbol: Int       = getColorResource(R.color.symbol)
     private val colorSymbolActive: Int = getColorResource(R.color.symbolActive)
@@ -13,17 +15,16 @@ class ViewPasswordHelper(private val symbols: Array<TextView>) {
     var onFinish: (() -> Unit)? = null
 
     fun setValue(value: String?, show: Boolean = true){
+        fun isFinish() =
+            value?.length == LENGTH_PASSWORD
+
         fun clearSymbols() {
             symbols.forEach { symbol ->
                 symbol.text = hidenSymbol
                 symbol.setTextColor(colorSymbol)
             }
         }
-        fun finish(){
-            onFinish?.invoke()
-        }
         clearSymbols()
-
         if (!value.isNullOrBlank()) {
             if (show) {
                 val deleteSym = oldLength > value.length
@@ -40,24 +41,19 @@ class ViewPasswordHelper(private val symbols: Array<TextView>) {
                         symbols[index].text = sym.toString()
                         delay(400)
                         symbols[index].text = hidenSymbol
-                        if (value.length == LENGTH_PASSWORD) {
-                            finish()
-                        }
+                        if (isFinish())
+                            onFinish?.invoke()
                     }
-
                 }
-
-
             } else {
                 oldLength = value.length
                 for(i in value.indices)
                     symbols[i].setTextColor(colorSymbolActive)
-
-                if (value.length == LENGTH_PASSWORD) {
+                if (isFinish()) {
                     job?.cancel()
                     job = CoroutineScope(Dispatchers.Main).launch {
                         delay(400)
-                        finish()
+                        onFinish?.invoke()
                     }
                 }
             }

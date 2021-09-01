@@ -1,13 +1,13 @@
-package com.ruani.authdagger.mvp.presenter_classes
+package com.ruani.authdagger.mvp.model_classes
 
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import com.ruani.authdagger.R
-import com.ruani.authdagger.abstract_data.Contract
+import com.ruani.authdagger.mvp.Contract
 import com.ruani.authdagger.abstract_data.auth_data
-import com.ruani.authdagger.getAppContext
-import com.ruani.authdagger.getStringResource
-import com.ruani.authdagger.mvp.model_classes.FingerPrint
+import com.ruani.authdagger.mvp.interfaces.FingerPrint
+import com.ruani.authdagger.helpers.getAppContext
+import com.ruani.authdagger.helpers.getStringResource
 
 class AuthFingerPrint<T:Contract.IView>: FingerPrint<T>(){
     override fun authenticate() {

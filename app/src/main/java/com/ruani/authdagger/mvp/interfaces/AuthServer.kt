@@ -1,4 +1,4 @@
-package com.ruani.authdagger.interfaces
+package com.ruani.authdagger.mvp.interfaces
 
 import com.ruani.authdagger.abstract_data.auth_data
 

@@ -1,4 +1,4 @@
-package com.ruani.authdagger.interfaces
+package com.ruani.authdagger.mvp.interfaces
 
 interface IOCipherPassword {
     fun decryptPassword(value: String): String?

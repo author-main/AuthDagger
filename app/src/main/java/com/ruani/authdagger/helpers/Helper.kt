@@ -1,28 +1,23 @@
-package com.ruani.authdagger
+package com.ruani.authdagger.helpers
 
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.util.Log
 import android.util.Patterns
 import androidx.core.content.ContextCompat
-
+import com.ruani.authdagger.AuthApplication
 
 const val FILE_PREFERENCES = "settings"
 const val KEY_MAIL = "key_mail"
 const val KEY_PASSWORD = "key_password"
 const val LENGTH_PASSWORD = 5
-
 const val BUTTON_DELETE = "delete"
 const val BUTTON_FINGER = "finger"
 const val BUTTON_REGISTER = "register"
 const val BUTTON_RESTORE = "restore"
 
 fun getAppContext() = AuthApplication.applicationContext()
-fun log(message: String?) {
-    if (message.isNullOrBlank()) {
-        return
-    }
-}
 
 fun getColorResource(id: Int) =
     ContextCompat.getColor(getAppContext(), id)
@@ -47,4 +42,11 @@ fun validateMail(email: String): Boolean {
     return !(email.isBlank() || !Patterns.EMAIL_ADDRESS.matcher(email).matches())
 }
 
-
+/*
+    fun log() можно удалить (только для отладки)
+*/
+fun log(message: String?) {
+    if (message.isNullOrBlank())
+        return
+    Log.v("authdagger", message)
+}

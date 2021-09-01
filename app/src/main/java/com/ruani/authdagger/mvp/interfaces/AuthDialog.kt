@@ -1,8 +1,8 @@
-package com.ruani.authdagger.interfaces
+package com.ruani.authdagger.mvp.interfaces
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
-import com.ruani.authdagger.abstract_data.Contract
+import com.ruani.authdagger.mvp.Contract
 import com.ruani.authdagger.abstract_data.auth_data
 
 abstract class AuthDialog<T:Contract.IView> {

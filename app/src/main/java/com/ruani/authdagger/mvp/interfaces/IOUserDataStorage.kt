@@ -1,4 +1,4 @@
-package com.ruani.authdagger.interfaces
+package com.ruani.authdagger.mvp.interfaces
 
 interface IOUserDataStorage {
     fun putPassword(password: String)

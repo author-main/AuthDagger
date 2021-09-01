@@ -2,11 +2,12 @@ package com.ruani.authdagger.mvp.model_classes
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.ruani.authdagger.FILE_PREFERENCES
-import com.ruani.authdagger.KEY_MAIL
-import com.ruani.authdagger.KEY_PASSWORD
-import com.ruani.authdagger.getAppContext
-import com.ruani.authdagger.interfaces.IOUserDataStorage
+import com.ruani.authdagger.helpers.FILE_PREFERENCES
+import com.ruani.authdagger.helpers.KEY_MAIL
+import com.ruani.authdagger.helpers.KEY_PASSWORD
+import com.ruani.authdagger.helpers.getAppContext
+import com.ruani.authdagger.mvp.interfaces.IOCipherPassword
+import com.ruani.authdagger.mvp.interfaces.IOUserDataStorage
 
 class UserDataStorage: IOUserDataStorage {
     private val cipherData: CipherPassword  = CipherPassword()
@@ -35,5 +36,4 @@ class UserDataStorage: IOUserDataStorage {
 
     override fun existPassword() =
         !preferences.getString(KEY_PASSWORD, null).isNullOrEmpty()
-
 }
