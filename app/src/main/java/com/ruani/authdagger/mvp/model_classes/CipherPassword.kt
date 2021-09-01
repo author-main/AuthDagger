@@ -5,9 +5,8 @@ import android.security.keystore.KeyProperties
 import android.security.keystore.KeyProperties.KEY_ALGORITHM_RSA
 import android.util.Base64
 import com.ruani.authdagger.interfaces.IOCipherPassword
-import com.ruani.authdagger.mvp.classes.getAppContext
+import com.ruani.authdagger.mvp.helpers.getAppContext
 import java.security.*
-import java.security.cert.Certificate
 import java.security.spec.AlgorithmParameterSpec
 import javax.crypto.Cipher
 

@@ -2,10 +2,10 @@ package com.ruani.authdagger.mvp.model_classes
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.ruani.authdagger.mvp.classes.FILE_PREFERENCES
-import com.ruani.authdagger.mvp.classes.KEY_MAIL
-import com.ruani.authdagger.mvp.classes.KEY_PASSWORD
-import com.ruani.authdagger.mvp.classes.getAppContext
+import com.ruani.authdagger.mvp.helpers.FILE_PREFERENCES
+import com.ruani.authdagger.mvp.helpers.KEY_MAIL
+import com.ruani.authdagger.mvp.helpers.KEY_PASSWORD
+import com.ruani.authdagger.mvp.helpers.getAppContext
 import com.ruani.authdagger.interfaces.IOUserDataStorage
 
 class UserDataStorage: IOUserDataStorage {

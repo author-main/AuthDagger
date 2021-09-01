@@ -2,11 +2,11 @@ package com.ruani.authdagger.mvp.presenter_classes
 
 import android.widget.TextView
 import com.ruani.authdagger.*
-import com.ruani.authdagger.mvp.classes.LENGTH_PASSWORD
-import com.ruani.authdagger.mvp.classes.getColorResource
+import com.ruani.authdagger.mvp.helpers.LENGTH_PASSWORD
+import com.ruani.authdagger.mvp.helpers.getColorResource
 import kotlinx.coroutines.*
 
-class ViewPasswordHelper(private val symbols: Array<TextView>) {
+class ViewSymbols(private val symbols: Array<TextView>) {
     private var job: Job? = null
     private val colorSymbol: Int       = getColorResource(R.color.symbol)
     private val colorSymbolActive: Int = getColorResource(R.color.symbolActive)

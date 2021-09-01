@@ -4,7 +4,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.*
 import com.ruani.authdagger.abstract_data.auth_data
 import com.ruani.authdagger.interfaces.AuthServer
-import com.ruani.authdagger.mvp.classes.connectedInternet
+import com.ruani.authdagger.mvp.helpers.connectedInternet
 
 class FirebaseServer: AuthServer {
     private val instance = FirebaseAuth.getInstance()

@@ -11,9 +11,9 @@ import android.widget.LinearLayout
 import com.ruani.authdagger.R
 import com.ruani.authdagger.abstract_data.Contract
 import com.ruani.authdagger.abstract_data.auth_data
-import com.ruani.authdagger.mvp.classes.getStringResource
+import com.ruani.authdagger.mvp.helpers.getStringResource
 import com.ruani.authdagger.interfaces.AuthDialog
-import com.ruani.authdagger.mvp.classes.validateMail
+import com.ruani.authdagger.mvp.helpers.validateMail
 
 const val DIALOG_RESTORE  = 0
 const val DIALOG_REGISTER = 1

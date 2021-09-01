@@ -1,4 +1,4 @@
-package com.ruani.authdagger.mvp.classes
+package com.ruani.authdagger.mvp.helpers
 
 import android.content.Context
 import android.net.ConnectivityManager

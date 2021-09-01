@@ -6,8 +6,8 @@ import com.ruani.authdagger.R
 import com.ruani.authdagger.abstract_data.Contract
 import com.ruani.authdagger.abstract_data.auth_data
 import com.ruani.authdagger.interfaces.FingerPrint
-import com.ruani.authdagger.mvp.classes.getAppContext
-import com.ruani.authdagger.mvp.classes.getStringResource
+import com.ruani.authdagger.mvp.helpers.getAppContext
+import com.ruani.authdagger.mvp.helpers.getStringResource
 
 class AuthFingerPrint<T:Contract.IView>: FingerPrint<T>(){
     override fun authenticate() {
