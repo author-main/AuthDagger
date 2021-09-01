@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity(), Contract.IView {
     }
 
     private fun initData(){
-        presenter = Presenter()
+      //  presenter = Presenter()
         dataBinding = DataBindingUtil.setContentView(
             this,
             R.layout.activity_main
