@@ -1,4 +1,4 @@
-package com.ruani.authdagger
+package com.ruani.authdagger.mvp.classes
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -6,6 +6,7 @@ import android.net.NetworkCapabilities
 import android.util.Log
 import android.util.Patterns
 import androidx.core.content.ContextCompat
+import com.ruani.authdagger.AuthApplication
 
 
 const val FILE_PREFERENCES = "settings"

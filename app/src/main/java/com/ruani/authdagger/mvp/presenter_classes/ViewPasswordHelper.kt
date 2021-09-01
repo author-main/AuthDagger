@@ -2,6 +2,8 @@ package com.ruani.authdagger.mvp.presenter_classes
 
 import android.widget.TextView
 import com.ruani.authdagger.*
+import com.ruani.authdagger.mvp.classes.LENGTH_PASSWORD
+import com.ruani.authdagger.mvp.classes.getColorResource
 import kotlinx.coroutines.*
 
 class ViewPasswordHelper(private val symbols: Array<TextView>) {
@@ -13,8 +15,9 @@ class ViewPasswordHelper(private val symbols: Array<TextView>) {
     var onFinish: (() -> Unit)? = null
 
     fun setValue(value: String?, show: Boolean = true){
-        fun isFinish(): Boolean =
-            value?.length == LENGTH_PASSWORD ?: false
+        fun isFinish() =
+            value?.length == LENGTH_PASSWORD
+
         fun clearSymbols() {
             symbols.forEach { symbol ->
                 symbol.text = hidenSymbol

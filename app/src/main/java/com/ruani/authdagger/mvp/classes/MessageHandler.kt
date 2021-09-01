@@ -7,8 +7,6 @@ import android.text.style.AlignmentSpan
 import android.widget.Toast
 import com.ruani.authdagger.R
 import com.ruani.authdagger.abstract_data.auth_data
-import com.ruani.authdagger.getAppContext
-import com.ruani.authdagger.getStringResource
 
 class MessageHandler {
     companion object {
