@@ -28,7 +28,7 @@ import com.ruani.authdagger.mvp.Contract
 *   FirebaseServer  - класс для работы с сервером аутентификации:
         var onAuthServerResult: ((action: auth_data.AuthAction, result: auth_data.AuthValue) -> Unit)? - callback,
         результат выполнения запроса на сервере аутентификации,
-        action - тип выполняемого запроса, значения SIGNIN - аутентификая, RESTORE - восстановление, REGISTER - регистрация
+        action - тип выполняемого запроса, значения SIGNIN - аутентификация, RESTORE - восстановление, REGISTER - регистрация
         result - результат запроса, COMPLETE - успешно, ERROR - ошибка выполнения запроса,
                  ERROR_CONNECTION -отсутсвует сеть, ERROR_USERDATA - не заполнены данные пользователя
 
