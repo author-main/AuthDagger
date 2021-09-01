@@ -14,8 +14,8 @@ import com.ruani.authdagger.helpers.getStringResource
 import com.ruani.authdagger.mvp.Contract
 
 /*
-    Для собственной реализации формы аутентификации,
-    вам необходимо переопределить классы пакета model_classes:
+    Для собственной реализации формы аутентификации необходимо переопределить
+    классы пакета model_classes:
 *   AuthFingerPrint - класс для работы со сканером отпечатка пальцев:
         var onAuthBiometricComplete: ((value: auth_data.FingerValue?) -> Unit)? = null - callback,
         возвращает результат сканирования отпечатка пальцев
