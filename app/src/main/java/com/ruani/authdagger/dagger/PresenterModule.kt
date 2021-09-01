@@ -7,11 +7,8 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-@Singleton
 class PresenterModule {
     @Provides
-    fun providePresenter(): Presenter<Contract.IView> {
-        return Presenter()
-    }
-
+    @Singleton
+    fun providePresenter() = Presenter<Contract.IView>()
 }
