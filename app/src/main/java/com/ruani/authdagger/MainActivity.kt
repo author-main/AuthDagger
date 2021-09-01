@@ -107,6 +107,15 @@ class MainActivity : AppCompatActivity(), Contract.IView {
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        fun hideFocusEmail(){
+            if (dataBinding.editTextEmail.isFocused) {
+                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(dataBinding.editTextEmail.windowToken, 0)
+                dataBinding.editTextEmail.isFocusableInTouchMode = false
+                dataBinding.editTextEmail.clearFocus()
+                dataBinding.editTextEmail.isFocusableInTouchMode = true
+            }
+        }
         val editTextRect = Rect()
         dataBinding.editTextEmail.getGlobalVisibleRect(editTextRect)
         ev?.let { event ->
@@ -114,16 +123,6 @@ class MainActivity : AppCompatActivity(), Contract.IView {
                 hideFocusEmail()
         }
         return super.dispatchTouchEvent(ev)
-    }
-
-    private fun hideFocusEmail(){
-        if (dataBinding.editTextEmail.isFocused) {
-            val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(dataBinding.editTextEmail.windowToken, 0)
-            dataBinding.editTextEmail.isFocusableInTouchMode = false
-            dataBinding.editTextEmail.clearFocus()
-            dataBinding.editTextEmail.isFocusableInTouchMode = true
-        }
     }
 
     /*
