@@ -138,8 +138,7 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
     fun getView()  = view
 
     fun onClick(v: View) {
-        val tag = v.tag.toString()
-        when (tag) {
+        when (val tag = v.tag.toString()) {
             BUTTON_REGISTER -> {
                 clearPassword()
                 authDialog?.showDialogRegister(email.get())
