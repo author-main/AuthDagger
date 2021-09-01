@@ -3,7 +3,7 @@ package com.ruani.authdagger
 import android.app.Application
 import android.content.Context
 import com.ruani.authdagger.dagger.AppComponent
-
+import com.ruani.authdagger.dagger.DaggerAppComponent
 
 
 class AuthApplication: Application() {
