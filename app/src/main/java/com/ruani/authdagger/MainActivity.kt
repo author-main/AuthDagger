@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity(), Contract.IView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        AuthApplication.getAppComponent().injectsMainActivity(this)
+        AuthApplication.getComponent().injectsMainActivity(this)
         supportActionBar?.hide()
         initData()
     }

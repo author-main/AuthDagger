@@ -6,7 +6,6 @@ import com.ruani.authdagger.dagger.AppComponent
 
 
 
-
 class AuthApplication: Application() {
     init {
         instance = this
@@ -18,11 +17,10 @@ class AuthApplication: Application() {
         fun applicationContext() : Context {
             return instance!!.applicationContext
         }
-        fun getAppComponent(): AppComponent {
+        fun getComponent(): AppComponent {
             return component
         }
     }
-
 
     override fun onCreate() {
         super.onCreate()
