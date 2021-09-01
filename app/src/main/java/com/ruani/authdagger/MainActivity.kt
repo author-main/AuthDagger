@@ -12,6 +12,7 @@ import com.ruani.authdagger.mvp.Presenter
 import com.ruani.authdagger.helpers.MessageHandler
 import com.ruani.authdagger.helpers.getStringResource
 import com.ruani.authdagger.mvp.Contract
+import javax.inject.Inject
 
 /*
     Для собственной реализации формы аутентификации необходимо переопределить
@@ -45,7 +46,9 @@ import com.ruani.authdagger.mvp.Contract
 
 class MainActivity : AppCompatActivity(), Contract.IView {
     private lateinit var dataBinding: com.ruani.authdagger.databinding.ActivityMainBinding
-    private lateinit var presenter: Presenter<Contract.IView>
+    @Inject
+    lateinit var presenter: Presenter<Contract.IView>
+//    private lateinit var presenter: Presenter<Contract.IView>
     companion object{
         private fun setNightMode() {
             AppCompatDelegate.setDefaultNightMode(
@@ -59,6 +62,7 @@ class MainActivity : AppCompatActivity(), Contract.IView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        AuthApplication.getAppComponent().injectsMainActivity(this)
         supportActionBar?.hide()
         initData()
     }
