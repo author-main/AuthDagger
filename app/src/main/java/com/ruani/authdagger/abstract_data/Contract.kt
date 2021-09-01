@@ -3,7 +3,6 @@ package com.ruani.authdagger.abstract_data
 import android.view.View
 import android.widget.TextView
 import androidx.databinding.ObservableField
-import com.ruani.authdagger.*
 import com.ruani.authdagger.interfaces.AuthDialog
 import com.ruani.authdagger.interfaces.AuthServer
 import com.ruani.authdagger.mvp.classes.*
@@ -49,7 +48,6 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer, FingerPrint<C
     private var view        :      T?  = null
     private var model       :      M?  = null
     private var authDialog  :      D? = null
-    //private var fingerPrint :      F? = null
 
     val email:      ObservableField<String> = ObservableField()
     val password:   ObservableField<String> = ObservableField()
@@ -67,20 +65,6 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer, FingerPrint<C
             executeAuthRequest(action)
         }
     }
-
-   /* override fun attachFingerPrint(value: F) {
-        fingerPrint = value
-        fingerPrint?.onAuthBiometricComplete = {fingerValue ->
-            if (fingerValue == auth_data.FingerValue.FINGER_COMPLETE) {
-                val fingerPassword = model?.getPassword()
-                fingerPassword?.let{
-                    setPassword(it, false)
-                    executeAuthRequest(auth_data.AuthAction.SIGNIN)
-                }
-
-            }
-        }
-    }*/
 
     override fun setPassword(value: String?, show: Boolean) {
         password.set(value)
