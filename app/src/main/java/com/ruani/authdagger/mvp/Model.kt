@@ -28,15 +28,4 @@ class Model: TModel<AuthServer>() {
     override fun putEmail(email: String) {
         userDataStorage.putEmail(email)
     }
-
- /*   override fun checkAuth(type: auth_data.AuthAction, email: String?, password: String?): auth_data.AuthValue{
-        return auth_data.AuthValue.ERROR_AUTH_SERVICE
-    } *//*=
-        authServer?.executRequest(type, email, password) ?: auth_data.AuthValue.ERROR_AUTH_SERVICE*/
-
-/*
-    private fun correctPassword(value: String): Boolean {
-       val password = getPassword()
-       return password?.equals(value, false) ?: false
-    }*/
 }

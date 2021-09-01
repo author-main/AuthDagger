@@ -23,7 +23,9 @@ class Presenter<T: Contract.IView>: TPresenter<T, TModel<AuthServer>, AuthDialog
         val symbols = getView()?.getSymbolViews()
         symbols?.let {
             viewPasswordHelper = ViewPasswordHelper(it)
-
+            viewPasswordHelper?.onFinish = {
+                updatePassword("")
+            }
         }
     }
 

@@ -97,7 +97,7 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer>, D: AuthDialo
         model = m
         model?.server?.onAuthServerResult = {action, value ->
             authDialog?.hideDialogProgress()
-            clearPassword()
+            //clearPassword()
             if (value == auth_data.AuthValue.COMPLETE) {
                 val serverMail = model?.server?.getServerEmail()
                 val serverPassword = model?.server?.getServerPassword()
