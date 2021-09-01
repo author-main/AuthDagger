@@ -8,12 +8,10 @@ import android.util.Patterns
 import androidx.core.content.ContextCompat
 import com.ruani.authdagger.AuthApplication
 
-
 const val FILE_PREFERENCES = "settings"
 const val KEY_MAIL = "key_mail"
 const val KEY_PASSWORD = "key_password"
 const val LENGTH_PASSWORD = 5
-
 const val BUTTON_DELETE = "delete"
 const val BUTTON_FINGER = "finger"
 const val BUTTON_REGISTER = "register"
