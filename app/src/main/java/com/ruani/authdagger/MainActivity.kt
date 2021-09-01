@@ -39,7 +39,7 @@ import com.ruani.authdagger.mvp.Contract
         fun putEmail(email: String)         - сохранить почту пользователя
         fun existPassword(): Boolean        - проверить, сохранен ли пароль
 
-     Класс CipherPassword и методы класса UserDataStorage putPassword(), getPassword() и existPassword()
+*    Класс CipherPassword и методы класса UserDataStorage putPassword(), getPassword() и existPassword()
      используются для реализации аутентификации по отпечатку.
 */
 
