@@ -55,8 +55,6 @@ class MainActivity : AppCompatActivity(), Contract.IView {
                 else ->
                     null
             }
-
-
             if (!value.isNullOrBlank())
                 MessageHandler.showMessage(value)
         }
@@ -97,6 +95,7 @@ class MainActivity : AppCompatActivity(), Contract.IView {
             dataBinding.editTextEmail.isFocusableInTouchMode = true
         }
     }
+
     // *** Доступ получен ***
     override fun onAccessed() {
 
