@@ -2,8 +2,8 @@ package com.ruani.authdagger.mvp.presenter_classes
 
 import android.widget.TextView
 import com.ruani.authdagger.*
-import com.ruani.authdagger.mvp.helpers.LENGTH_PASSWORD
-import com.ruani.authdagger.mvp.helpers.getColorResource
+import com.ruani.authdagger.helpers.LENGTH_PASSWORD
+import com.ruani.authdagger.helpers.getColorResource
 import kotlinx.coroutines.*
 
 class Dyer(private val symbols: Array<TextView>) {

@@ -1,12 +1,12 @@
-package com.ruani.authdagger.interfaces
+package com.ruani.authdagger.mvp.interfaces
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
 import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
-import com.ruani.authdagger.abstract_data.Contract
+import com.ruani.authdagger.mvp.Contract
 import com.ruani.authdagger.abstract_data.auth_data
-import com.ruani.authdagger.mvp.helpers.getAppContext
+import com.ruani.authdagger.helpers.getAppContext
 
 abstract class FingerPrint<T: Contract.IView> {
     var onAuthBiometricComplete: ((value: auth_data.FingerValue?) -> Unit)? = null

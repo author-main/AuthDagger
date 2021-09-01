@@ -1,12 +1,13 @@
-package com.ruani.authdagger.abstract_data
+package com.ruani.authdagger.mvp
 
 import android.view.View
 import android.widget.TextView
 import androidx.databinding.ObservableField
-import com.ruani.authdagger.interfaces.AuthDialog
-import com.ruani.authdagger.interfaces.AuthServer
-import com.ruani.authdagger.mvp.helpers.*
-import com.ruani.authdagger.interfaces.FingerPrint
+import com.ruani.authdagger.abstract_data.auth_data
+import com.ruani.authdagger.mvp.interfaces.AuthDialog
+import com.ruani.authdagger.mvp.interfaces.AuthServer
+import com.ruani.authdagger.helpers.*
+import com.ruani.authdagger.mvp.interfaces.FingerPrint
 
 interface Contract {
     interface IView {

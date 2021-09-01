@@ -9,11 +9,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import com.ruani.authdagger.R
-import com.ruani.authdagger.abstract_data.Contract
+import com.ruani.authdagger.mvp.Contract
 import com.ruani.authdagger.abstract_data.auth_data
-import com.ruani.authdagger.mvp.helpers.getStringResource
-import com.ruani.authdagger.interfaces.AuthDialog
-import com.ruani.authdagger.mvp.helpers.validateMail
+import com.ruani.authdagger.helpers.getStringResource
+import com.ruani.authdagger.mvp.interfaces.AuthDialog
+import com.ruani.authdagger.helpers.validateMail
 
 const val DIALOG_RESTORE  = 0
 const val DIALOG_REGISTER = 1

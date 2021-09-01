@@ -8,10 +8,10 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import com.ruani.authdagger.abstract_data.auth_data
-import com.ruani.authdagger.abstract_data.Contract
 import com.ruani.authdagger.mvp.Presenter
-import com.ruani.authdagger.mvp.helpers.MessageHandler
-import com.ruani.authdagger.mvp.helpers.getStringResource
+import com.ruani.authdagger.helpers.MessageHandler
+import com.ruani.authdagger.helpers.getStringResource
+import com.ruani.authdagger.mvp.Contract
 
 class MainActivity : AppCompatActivity(), Contract.IView {
     private lateinit var dataBinding: com.ruani.authdagger.databinding.ActivityMainBinding

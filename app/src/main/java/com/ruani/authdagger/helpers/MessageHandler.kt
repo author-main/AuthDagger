@@ -1,4 +1,4 @@
-package com.ruani.authdagger.mvp.helpers
+package com.ruani.authdagger.helpers
 
 import android.text.Layout
 import android.text.Spannable
