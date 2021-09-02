@@ -42,6 +42,9 @@ import javax.inject.Inject
 
 *    Класс CipherPassword и методы класса UserDataStorage putPassword(), getPassword() и existPassword()
      используются для реализации аутентификации по отпечатку.
+
+*    Dagger2 используется для созданий классов: Presenter, Model, FirebaseServer, UserDataStorage, AuthFingerPrint,
+     FirebaseDialog. Presenter и FirebaseServer являются Singleton в контексте приложения.
 */
 
 class MainActivity : AppCompatActivity(), Contract.IView {
