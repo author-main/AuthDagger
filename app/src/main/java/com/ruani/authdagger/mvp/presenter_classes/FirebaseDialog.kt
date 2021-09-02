@@ -158,10 +158,7 @@ class FirebaseDialog<T: Contract.IView>: AuthDialog<T>() {
     }
 
     override fun hideDialogProgress() {
-        if (dialogProgress != null) {
             dialogProgress?.dismiss()
-            dialogProgress = null
-        }
     }
 
     private fun show(value: Int, email: String? = null) {
