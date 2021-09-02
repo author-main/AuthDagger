@@ -6,13 +6,10 @@ import com.ruani.authdagger.mvp.presenter_classes.FirebaseDialog
 import com.ruani.authdagger.mvp.presenter_classes.Dyer
 import javax.inject.Inject
 
-//class Presenter<T: Contract.IView>: TPresenter<T, TModel<AuthServer, FingerPrint<Contract.IView>, IOUserDataStorage>, AuthDialog<T>>() {
 class Presenter: TPresenter<Contract.IView, TModel<AuthServer, FingerPrint<Contract.IView>, IOUserDataStorage>, AuthDialog<Contract.IView>>() {
     private var dyer: Dyer? = null
-
     @Inject
     lateinit var model: Model
-
     @Inject
     lateinit var dialogs: FirebaseDialog<Contract.IView>
 
