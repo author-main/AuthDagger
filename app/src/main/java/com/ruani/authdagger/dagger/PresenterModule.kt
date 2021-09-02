@@ -20,6 +20,7 @@ class PresenterModule {
     fun providePresenter() = Presenter()
 
     @Provides
+    @Singleton
     fun provideModule() = Model()
 
     @Provides
