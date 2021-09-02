@@ -24,6 +24,4 @@ class PresenterModule {
 
     @Provides
     fun provideDialogs() = FirebaseDialog<Contract.IView>()
-
-
 }

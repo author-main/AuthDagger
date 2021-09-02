@@ -96,7 +96,6 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer, FingerPrint<C
 
     override fun attachView(v: T) {
         view = v
-        //email.set(model?.getEmail())
         authDialog?.setView(view)
         model?.fingerPrint?.setView(view)
         model?.fingerPrint?.onAuthBiometricComplete = {fingerValue ->
@@ -109,7 +108,6 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer, FingerPrint<C
             }
         }
         view?.enabledFingerPrint(model?.fingerPrint?.getAvailable())
-      //  email.set(model?.getEmail())
     }
 
     override fun detachView() {
