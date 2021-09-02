@@ -14,9 +14,9 @@ class AuthApplication: Application() {
 
     companion object {
         private lateinit var component: AppComponent
-        private var instance: AuthApplication? = null
+        private lateinit var instance: AuthApplication
         fun applicationContext() : Context {
-            return instance!!.applicationContext
+            return instance.applicationContext
         }
         fun getComponent(): AppComponent {
             return component
