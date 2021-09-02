@@ -51,7 +51,6 @@ class MainActivity : AppCompatActivity(), Contract.IView {
     private lateinit var dataBinding: com.ruani.authdagger.databinding.ActivityMainBinding
     @Inject
     lateinit var presenter: Presenter
-//    private lateinit var presenter: Presenter<Contract.IView>
     companion object{
         private fun setNightMode() {
             AppCompatDelegate.setDefaultNightMode(
@@ -71,7 +70,6 @@ class MainActivity : AppCompatActivity(), Contract.IView {
     }
 
     private fun initData(){
-      //  presenter = Presenter()
         dataBinding = DataBindingUtil.setContentView(
             this,
             R.layout.activity_main
@@ -131,10 +129,6 @@ class MainActivity : AppCompatActivity(), Contract.IView {
         }
         return super.dispatchTouchEvent(ev)
     }
-
-    /*override fun setEmailValue(value: String?) {
-        dataBinding.editTextEmail.setText(value)
-    }*/
 
     override fun getSymbolsValue() =
         dataBinding.tvPassword.text.toString()
