@@ -47,7 +47,7 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity(), Contract.IView {
     private lateinit var dataBinding: com.ruani.authdagger.databinding.ActivityMainBinding
     @Inject
-    lateinit var presenter: Presenter<Contract.IView>
+    lateinit var presenter: Presenter
 //    private lateinit var presenter: Presenter<Contract.IView>
     companion object{
         private fun setNightMode() {
@@ -128,6 +128,13 @@ class MainActivity : AppCompatActivity(), Contract.IView {
         }
         return super.dispatchTouchEvent(ev)
     }
+
+    /*override fun setEmailValue(value: String?) {
+        dataBinding.editTextEmail.setText(value)
+    }*/
+
+    override fun getSymbolsValue() =
+        dataBinding.tvPassword.text.toString()
 
     /*
     * onAccessed() - доступ получен

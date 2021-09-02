@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import com.ruani.authdagger.dagger.AppComponent
 import com.ruani.authdagger.dagger.DaggerAppComponent
+import com.ruani.authdagger.dagger.PresenterModule
 
 
 class AuthApplication: Application() {
@@ -24,7 +25,9 @@ class AuthApplication: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        component = DaggerAppComponent.create()
+        component = DaggerAppComponent.builder()
+            .presenterModule(PresenterModule())
+            .build()
     }
 
 

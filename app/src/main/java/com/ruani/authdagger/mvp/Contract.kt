@@ -3,9 +3,11 @@ package com.ruani.authdagger.mvp
 import android.view.View
 import android.widget.TextView
 import androidx.databinding.ObservableField
+import com.ruani.authdagger.AuthApplication
 import com.ruani.authdagger.abstract_data.auth_data
 import com.ruani.authdagger.helpers.*
 import com.ruani.authdagger.mvp.interfaces.*
+import javax.inject.Inject
 
 interface Contract {
     interface IView {
@@ -13,6 +15,8 @@ interface Contract {
         fun getSymbolViews(): Array<TextView>?
         fun enabledFingerPrint(value: Boolean?)
         fun onAccessed()
+        fun getSymbolsValue(): String
+//        fun setEmailValue(value: String?)
     }
 
     interface IModel{
@@ -34,12 +38,15 @@ abstract class TModel<S: AuthServer, F: FingerPrint<Contract.IView>, T: IOUserDa
     var server:         S? = null
     var fingerPrint :   F? = null
     private var storage:        T? = null
+
     fun attachServer(value: S){
         server = value
     }
+
     fun attachFingerPrint(value: F){
         fingerPrint = value
     }
+
     fun attachStorage(value: T){
         storage = value
     }
@@ -59,6 +66,7 @@ abstract class TModel<S: AuthServer, F: FingerPrint<Contract.IView>, T: IOUserDa
 }
 
 abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer, FingerPrint<Contract.IView>, IOUserDataStorage>, D: AuthDialog<T>>: Contract.IPresenter<T, M, D>{
+    private var isCreated = false
     private var view        :      T?  = null
     private var model       :      M?  = null
     private var authDialog  :      D? = null
@@ -67,7 +75,7 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer, FingerPrint<C
 
     init{
         clearPassword()
-        email.set("")
+        //email.set("")
     }
 
     override fun attachDialog(dialog: D) {
@@ -83,8 +91,12 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer, FingerPrint<C
         password.set(value)
     }
 
+    fun getSymbolsValue() =
+        password.get()
+
     override fun attachView(v: T) {
         view = v
+        //email.set(model?.getEmail())
         authDialog?.setView(view)
         model?.fingerPrint?.setView(view)
         model?.fingerPrint?.onAuthBiometricComplete = {fingerValue ->
@@ -97,7 +109,7 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer, FingerPrint<C
             }
         }
         view?.enabledFingerPrint(model?.fingerPrint?.getAvailable())
-        email.set(model?.getEmail())
+      //  email.set(model?.getEmail())
     }
 
     override fun detachView() {
@@ -107,6 +119,7 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer, FingerPrint<C
     fun attachModel(m: M) {
         var signIn = false
         model = m
+        email.set(model?.getEmail())
         model?.server?.onAuthServerResult = {action, value ->
             authDialog?.hideDialogProgress()
             if (value == auth_data.AuthValue.COMPLETE) {
