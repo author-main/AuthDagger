@@ -16,7 +16,6 @@ interface Contract {
         fun enabledFingerPrint(value: Boolean?)
         fun onAccessed()
         fun getSymbolsValue(): String
-//        fun setEmailValue(value: String?)
     }
 
     interface IModel{
@@ -75,7 +74,6 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer, FingerPrint<C
 
     init{
         clearPassword()
-        //email.set("")
     }
 
     override fun attachDialog(dialog: D) {

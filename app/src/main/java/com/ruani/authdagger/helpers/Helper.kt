@@ -43,10 +43,11 @@ fun validateMail(email: String): Boolean {
 }
 
 /*
-    fun log() можно удалить (только для отладки)
-*/
+fun log() можно удалить (только для отладки)
+
 fun log(message: String?) {
     if (message.isNullOrBlank())
         return
     Log.v("authdagger", message)
 }
+*/
