@@ -59,6 +59,7 @@ class FirebaseServer: AuthServer {
     private fun register(email: String, password: String) {
         instance.createUserWithEmailAndPassword(email, password+"0").addOnCompleteListener {task ->
             finishTask(task, auth_data.AuthAction.REGISTER)
+            instance.signOut()
         }
     }
 
