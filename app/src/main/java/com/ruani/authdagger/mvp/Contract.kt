@@ -113,11 +113,11 @@ abstract class TPresenter<T: Contract.IView, M: TModel<AuthServer, FingerPrint<C
     }
 
     fun attachModel(m: M) {
-        var signIn = false
         model = m
         email.set(model?.getEmail())
         model?.server?.onAuthServerResult = {action, value ->
             authDialog?.hideDialogProgress()
+            var signIn = false
             if (value == auth_data.AuthValue.COMPLETE) {
                 val serverMail = model?.server?.getServerEmail()
                 val serverPassword = model?.server?.getServerPassword()
