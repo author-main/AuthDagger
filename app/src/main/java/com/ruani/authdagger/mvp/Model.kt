@@ -7,7 +7,6 @@ import com.ruani.authdagger.mvp.interfaces.IOUserDataStorage
 import com.ruani.authdagger.mvp.model_classes.FirebaseServer
 import com.ruani.authdagger.mvp.model_classes.UserDataStorage
 import com.ruani.authdagger.mvp.model_classes.AuthFingerPrint
-import java.nio.file.FileVisitResult
 import javax.inject.Inject
 
 class Model: TModel<AuthServer, FingerPrint<Contract.IView>, IOUserDataStorage>() {
