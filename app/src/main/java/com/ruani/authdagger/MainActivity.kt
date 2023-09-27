@@ -68,7 +68,6 @@ class MainActivity : AppCompatActivity(), Contract.IView {
         supportActionBar?.hide()
         initData()
     }
-
     private fun initData(){
         dataBinding = DataBindingUtil.setContentView(
             this,
@@ -77,6 +76,7 @@ class MainActivity : AppCompatActivity(), Contract.IView {
         dataBinding.eventhandler = presenter
         presenter.attachView(this)
     }
+
 
     override fun onResultAuth(authAction: auth_data.AuthAction, authValue: auth_data.AuthValue) {
         if (authValue != auth_data.AuthValue.COMPLETE)

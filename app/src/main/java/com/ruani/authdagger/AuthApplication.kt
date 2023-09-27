@@ -25,9 +25,10 @@ class AuthApplication: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        component = DaggerAppComponent.builder()
+        component = DaggerAppComponent.create();
+    /*DaggerAppComponent.builder()
             .presenterModule(PresenterModule())
-            .build()
+            .build()*/
     }
 
 
